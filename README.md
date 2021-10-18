@@ -1,1 +1,1 @@
-# GANs_in_Action
+[https://github.com/GANs-in-Action/gans-in-action](https://github.com/GANs-in-Action/gans-in-action)
