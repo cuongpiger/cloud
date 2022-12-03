@@ -13,3 +13,17 @@
 * `docker container --help` (to list the commands of docker container)
 * `docker container rm <container id|container name>` (to remove the container)
 * `docker container rm -f <container id|container name>` (to remove the container forcefully without stopping it)
+
+# 2. Run **MongoDB** inside docker container
+```bash
+docker run --name mongo -d mongo
+```
+* Then run the below command to list the process
+```bash
+docker top mongo
+```
+
+* Use the command below to see all the process running on your host.
+```bash
+ps aux
+```
