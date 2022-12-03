@@ -5,3 +5,15 @@
 |Command|Description|
 |-|-|
 |`docker version`|Get the information of installed docker on your machine|
+
+# 3. Install docker on your Linux system quickly, run this command
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+```
+
+# 4. Login to docker
+* Firstly need to login in the website [https://hub.docker.com](https://hub.docker.com/)
+* Then run this command to login
+```bash
+docker login
+```
