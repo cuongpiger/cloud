@@ -27,3 +27,8 @@ docker top mongo
 ```bash
 ps aux
 ```
+
+* Ise the command below to list process which match with filter
+```bash
+ps aux | grep mongo
+```
