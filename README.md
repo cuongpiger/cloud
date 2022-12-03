@@ -10,6 +10,10 @@
 ```bash
 curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 ```
+* Use this command to grant permission when run command `docker ps` failure
+```bash
+sudo chmod 666 /var/run/docker.sock
+```
 
 # 4. Login to docker
 * Firstly need to login in the website [https://hub.docker.com](https://hub.docker.com/)
