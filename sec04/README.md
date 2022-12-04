@@ -32,3 +32,77 @@ ps aux
 ```bash
 ps aux | grep mongo
 ```
+
+* The command is used to check logs
+```bash
+docker logs <container id|name> 
+```
+
+* The command used to remove the container
+```bash
+docker rm <container id|name>
+```
+
+# 3. Run MySQL container
+```bash
+docker container run -d -p 3306:3306 -- name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
+```
+* Use the command to get the password of the container:
+```bash
+docker logs db
+```
+* Then find the key word `GENERATED ROOT PASSWORD` and copy the password. At here, my password is `zv53STso+dwz+V4vQISGhZrVAm4y/OV3`
+
+* Run the web server
+```bash
+docker container run -d --name webserver -p 8080:80 httpd
+```
+
+* Run Nginx container
+```bash
+docker container run -d --name proxy -p 80:80 nginx
+```
+
+* Process list in one container
+```bash
+docker container top <container id|name>
+```
+
+* Details of one container config
+```bash
+docker container inspect <container id|name>
+```
+
+* Performance stats of one container
+```bash
+docker container stats <container id|name>
+```
+
+<hr>
+
+* Run nginx container
+```bash
+docker container run -d --name nginx nginx
+```
+
+* Run MySQL container
+```bash
+docker container run -d --name mysql -e MYSQL_RANDOM_ROOT_PASSWORD=true mysql
+```
+
+* Go inside the terminal of container ubuntu
+```bash
+docker container run --name ubuntu -it ubuntu
+```
+
+* Run the container again within terminal
+```bash
+docker container start -ai ubuntu
+```
+
+* See the shell of running container
+```bash
+docker container exec -it mysql bash
+```
+```
+
