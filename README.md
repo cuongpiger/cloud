@@ -22,4 +22,3 @@ sudo usermod -a -G docker $USER
 ```bash
 docker login
 ```
-
