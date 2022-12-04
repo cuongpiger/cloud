@@ -130,3 +130,16 @@ docker container exec -it mysql bash
 
 * The details of `none` network.<br>
 ![](./img/08.png)
+
+* Create your own network `my_app_net`.<br>
+![](./img/09.png)
+
+* Create new **Nginx container** using `my_app_net` network.<br>
+![](./img/10.png)
+
+* Create the connection between virtual network `my_app_net` and `webhost` container.<br>
+![](./img/11.png)<br>
+![](./img/12.png)
+
+* Disconnect the `webhost` container from `my_app_net` network.<br>
+![](./img/13.png)
