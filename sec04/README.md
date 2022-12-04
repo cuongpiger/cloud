@@ -107,9 +107,7 @@ docker container exec -it mysql bash
 
 # 4. Docker networking
 * Run the **Nginx** container at port **80** and then name it **webhost**
-```bash
-docker container run -p 80:80 --name webhost -d nginx
-```
+![](./img/04.png)
 
 * Check the port of the `webhost` container<br>
 ![](./img/01.png)
@@ -120,3 +118,5 @@ docker container run -p 80:80 --name webhost -d nginx
 
 * Get the IP-Address of the **host machine**<br>
 ![](./img/03.png)
+
+
