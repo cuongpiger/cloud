@@ -119,4 +119,14 @@ docker container exec -it mysql bash
 * Get the IP-Address of the **host machine**<br>
 ![](./img/03.png)
 
+* List all the **docker virtual networks**.<br>
+![](./img/05.png)
 
+* List the all containers currently using the **bridge network**.<br>
+![](./img/06.png)
+
+* The details of `host` network.<br>
+![](./img/07.png)
+
+* The details of `none` network.<br>
+![](./img/08.png)
