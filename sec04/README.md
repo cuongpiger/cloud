@@ -143,3 +143,22 @@ docker container exec -it mysql bash
 
 * Disconnect the `webhost` container from `my_app_net` network.<br>
 ![](./img/13.png)
+
+* Create new container `my_nginx` using network `my_app_net`.<br>
+![](./img/14.png)
+
+* Check the `my_app_net`.<br>
+![](./img/15.png)
+
+* Ping to `new_nginx` container from `my_nginx` container.<br>
+![](./img/16.png)
+
+<hr>
+
+* Run CentOS 7 container
+```bash
+docker run --rm -it centos:7 bash
+```
+
+* Run Ubuntu server<br>
+![](./img/17.png)
