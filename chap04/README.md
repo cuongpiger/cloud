@@ -24,5 +24,6 @@
 * Be aware of docker will remove the volume when the (temporary) container is removed *[page 52]*.
 ## 5.1. Sharing data
 * Using `--volumes-from` to share data between containers *[page 53]*.
+
 ## 5.2. Data containers
 # 6. Common Docker commands
