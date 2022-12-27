@@ -1,5 +1,4 @@
 
-
 # Section 4. Creating and Using Containers like a Boss
 ## 1. Check Our Docker Install and Config
 |Commands|Description|
@@ -18,3 +17,12 @@
 * There is two style to run commands in docker:
   * [old style] `docker <command> (options)`
   * [new style] `docker <command> <subcommand> (options)`
+
+## 2. Starting a Nginx Web Server
+### 2.1. Brief
+* **Images** vs **Container**
+* `run`/`stop`/`remove` containers.
+* Check container logs and processes.
+
+### 2.2. Notes
+* **Important**: if using **Docker Toolbox**, type the IP Address `http://192.168.99.100`.
