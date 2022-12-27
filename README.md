@@ -1,24 +1,15 @@
-# 1. Quickly to run Docker
-* Go to this page to run Docker.
-  * [https://labs.play-with-docker.com](https://labs.play-with-docker.com/)
-# 2. Some popular commands
-|Command|Description|
+
+
+# Section 4. Creating and Using Containers like a Boss
+
+|Commands|Description|
 |-|-|
-|`docker version`|Get the information of installed docker on your machine|
+|`docker version`|Check your versions and that docker is working.|
 
-# 3. Install docker on your Linux system quickly, run this command
-```bash
-curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
-```
-* Use this command to grant permission when run command `docker ps` failure
-```bash
-sudo usermod -a -G docker $USER
-# sudo chmod 666 /var/run/docker.sock
-```
+* Check version of our docker CLI and engine.
+* Create an **Nginx** (web server) container.
+* Learn common container management commands.
+* Learn Docker networking basics.
 
-# 4. Login to docker
-* Firstly need to login in the website [https://hub.docker.com](https://hub.docker.com/)
-* Then run this command to login
-```bash
-docker login
-```
+## 1. Check Our Docker Install and Config
+* 
