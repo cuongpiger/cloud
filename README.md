@@ -14,4 +14,6 @@
 * Learn Docker networking basics.
 
 ## 1. Check Our Docker Install and Config
-* 
+* There is two style to run commands in docker:
+  * [old style] `docker <command> (options)`
+  * [new style] `docker <command> <subcommand> (options)`
