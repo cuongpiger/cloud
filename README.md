@@ -33,7 +33,7 @@
 |`docker container top webhost`|List all processes that are running inside container `webhost`.|
 |`docker container --help`|Get all the **sub-commands** that docker support for the `command`, such as: `kill`, `logs`, etc...|
 |`docker container rm <container-id 1> <container-id 2>`|Remove `<container-id 1>` and `<container-id 2>` out of the docker on host machine. **Note**: _you can not remove running containers_.|
-|`docker container rm -f <container-id 1> <container-id 2>`|Remove `<container-id 1>` and `<container-id 2>` neither **running** nor **stopped**, **exited** out of the docker on host machine|
+|`docker container rm -f <container-id 1> <container-id 2>`|Remove `<container-id 1>` and `<container-id 2>` without regards to their status _(**running**, **stopped**, or **exited**)_ out of the docker on host machine|
 ### 2.1. Brief
 * **Images** vs **Container**
 * `run`/`stop`/`remove` containers.
