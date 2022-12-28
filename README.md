@@ -55,3 +55,34 @@
   * Step 5: Gives it a virtual IP on a private network inside docker engine.
   * Step 6: Opens up port 80 on host and forwards to port 80 in container.
   * Step 7: Starts container by using the `CMD` in the image Dockerfile.
+
+<hr>
+
+## 4. Container VS. VM: It's just a process
+|Commands|Description|
+|-|-|
+|`docker run --name mongo -d mongo`|Run mongo db in container and then named it `mongo` in docker.|
+|`docker top mongo`|Get all the running processes inside container `mongo`.|
+|`ps aux`|Get all the running processes on your host machine.|
+
+### 4.1. Notes
+* Containers are not **Mini VMs**.
+  * They are just processes running on your host OS.
+  * Limited to what resources they can access.
+  * Exit when process stops.
+
+* For example for these above concepts:
+  * Run mongoDB inside docker container.
+    ```bash
+    docker run --name mongo -d mongo
+    ```
+  * Run `top` command to check processes that are running in container `mongo`.
+    ```bash
+    docker top mongo
+    ```
+    * We will see the column `PID`, `PID` is just the process ID of the specific process that is running inside container `mongo`.
+      ![](./img/sec04/01.png)
+
+    * Run `ps aux` command to check processes that are running on your host machine.
+      ![](./img/sec04/02.png)
+      
