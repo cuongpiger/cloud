@@ -63,7 +63,9 @@
 |-|-|
 |`docker run --name mongo -d mongo`|Run mongo db in container and then named it `mongo` in docker.|
 |`docker top mongo`|Get all the running processes inside container `mongo`.|
+|`docker stop mongo`|Stop the container `mongo`|
 |`ps aux`|Get all the running processes on your host machine.|
+|`ps aux | grep mongo`|Get all the running processes that contain keyword **mongo** in their name.|
 
 ### 4.1. Notes
 * Containers are not **Mini VMs**.
@@ -83,6 +85,21 @@
     * We will see the column `PID`, `PID` is just the process ID of the specific process that is running inside container `mongo`.
       ![](./img/sec04/01.png)
 
-    * Run `ps aux` command to check processes that are running on your host machine.
-      ![](./img/sec04/02.png)
+  * To stop the running container `mongo`, use the command:
+    ```bash
+    docker stop mongo
+    ```
+  * Run `ps aux` command to check processes that are running on your host machine.
+    ![](./img/sec04/02.png)
       
+  * Use `ps aux | grep mongo` to get the process that contains `mongo` in its name.
+    ![](./img/sec04/03.png)
+
+  * To start the stopped container `mongo`, use the command:
+    ```bash
+    docker start mongo
+    ```
+
+<hr>
+
+## 5. Assignment: Manage Multiple Containers
