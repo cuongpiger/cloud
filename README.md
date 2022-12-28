@@ -103,3 +103,16 @@
 <hr>
 
 ## 5. Assignment: Manage Multiple Containers
+### 5.1. Notes:
+* Run a **Nginx** server on port **80:80**.
+* Run a **MySQL** on port **3306:3306**.
+* Run a **HTTPD** server on port **8080:80**.
+* Run all of them with the **detached** mode.
+* Run all of them with the **name** mode.
+* When running mysql, use `--env` option (or `-e`) to pass `MYSQL_RANDOM_ROOT_PASSWORD=yes` to the container.
+
+### 5.2. Answers:
+* Run mysql container:
+  ```bash
+  docker container run -d -p 3306:3306 --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
+  ```
