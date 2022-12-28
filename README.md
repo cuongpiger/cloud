@@ -24,7 +24,7 @@
 |Commands|Description|
 |-|-|
 |`docker container run --publish 80:80 nginx`|Run **Nginx** server on port **80** of host machine.|
-|`docker container run --publish 80:80 --detach nginx`|Run **Nginx** server on port **80** of host machine in the background.|
+|`docker container run --publish 8080:80 --detach nginx`|Run **Nginx** server on port **8080** of host machine in the background.|
 |`docker container ls`|List all the running containers.|
 |`docker container stop <container-id>`|Stop contaner which have ID `<container-id>`.|
 |`docker container ls -a`|Get all the containers in host machine *(include of **running**, **stopped**, or **exited**)*.|
@@ -42,3 +42,16 @@
 ### 2.2. Notes
 * **Important**: if using **Docker Toolbox**, type the IP Address `http://192.168.99.100`.
 * Docker's default image **registry** is **Docker Hub** _[https://hub.docker.com](https://hub.docker.com)_.
+
+<hr>
+
+## 3. Debrief: What happens when we run a container
+### 3.1. Notes:
+* These steps will show you how a container is created and run.
+  * Step 1: Looks for that image locally in image cache, does not find anything.
+  * Step 2: Then looks in remote image repository _(Default to Docker Hub)_.
+  * Step 3: Downloads the latest version of the image _(`nginx:latest vby defualt`)_.
+  * Step 4: Creates new container based on that image and prepares to start.
+  * Step 5: Gives it a virtual IP on a private network inside docker engine.
+  * Step 6: Opens up port 80 on host and forwards to port 80 in container.
+  * Step 7: Starts container by using the `CMD` in the image Dockerfile.
