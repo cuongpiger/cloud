@@ -1,4 +1,5 @@
-
+* Course: [https://www.udemy.com/course/docker-mastery/](https://www.udemy.com/course/docker-mastery/)
+![](./img/cover.png)
 # Section 4. Creating and Using Containers like a Boss
 ## 1. Check Our Docker Install and Config
 |Commands|Description|
