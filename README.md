@@ -66,7 +66,7 @@
 |`docker top mongo`|Get all the running processes inside container `mongo`.|
 |`docker stop mongo`|Stop the container `mongo`|
 |`ps aux`|Get all the running processes on your host machine.|
-|`ps aux | grep mongo`|Get all the running processes that contain keyword **mongo** in their name.|
+|`ps aux \| grep mongo`|Get all the running processes that contain keyword **mongo** in their name.|
 
 ### 4.1. Notes
 * Containers are not **Mini VMs**.
