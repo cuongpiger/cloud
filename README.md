@@ -167,3 +167,69 @@
   docker container rm db webserver proxy
   ```
   ![](./img/sec04/09.png)
+
+## 6. What's Going On in Containers: CLI process monitoring
+|Commands|Description|
+|-|-|
+|`docker container top <container>`|Get all the process list in one container|
+|`docker container inspect <container>`|Get details of one container configuration|
+|`docker container stats [<container>]`|Get real-time performance stats of all/specific container(s)|
+
+### 6.1. Notes:
+* Run **Nginx** as container.
+  ```bash
+  docker container run -d --name nginx nginx
+  ```
+
+* Run **MySQL** as container.
+  ```bash
+  docker container run -d --name mysql -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
+  ```
+
+* Get all the process list in container `mysql`.
+  ```bash
+  docker container top mysql
+  ```
+  ![](./img/sec04/10.png)
+
+* Get details of container `mysql`.
+  ```bash
+  docker container inspect mysql
+  ```
+  ![](./img/sec04/11.png)
+
+* Monitor the all containers.
+  ```bash
+  docker container stats
+  ```
+  ![](./img/sec04/12.png)
+
+## 7. Getting a shell inside containers: No Need for SSH
+|Commands|Description|
+|-|-|
+|`docker container run -it`|Start new container **interactively**|
+|`docker container exec -it`|Run additional command in existing container|
+|`docker container start -ai proxy`|Start again a stopped container and then open bash shell|
+
+### 7.1. Notes:
+* Run **Nginx** as container and then open **bash shell**.
+  ```bash
+  docker container run -it --name proxy nginx bash
+  ```
+  ![](./img/sec04/13.png)
+
+* To start again a stopped container and then open **bash shell**.
+  ```bash
+  docker container start -ai proxy
+  ```
+  ![](./img/sec04/14.png)
+
+* To interact with shell of a running container, for example `mysql` container.
+  ```bash
+  docker container exec -it mysql bash
+  ```
+  ![](./img/sec04/15.png)
+
+* Distribution of linux:
+  * Alpine: very small, less than 5MB.
+  
