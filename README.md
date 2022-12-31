@@ -107,6 +107,9 @@
 |Commands|Description|
 |-|-|
 |`docker container run -d -p 3306:3306 --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql`|Run **MySQL** service inside docker container|
+|`docker container logs db 2>&1 | grep GENERATED`|Get generated password of container `db`.|
+|`docker container run -d --name webserver -p 8080:80 httpd`|Run `httpd` as docker container.|
+|`docker container run -d --name proxy -p 80:80 nginx`|Run `nginx` as container.|
 ### 5.1. Notes:
 * Run a **Nginx** server on port **80:80**.
 * Run a **MySQL** on port **3306:3306**.
@@ -124,4 +127,42 @@
   ```bash
   docker container logs db 2>&1 | grep GENERATED
   ```
-    ![](./img/sec04/04.png)
+  ![](./img/sec04/04.png)
+* Run `httpd` container as container.
+  ```bash
+  docker container run -d --name webserver -p 8080:80 httpd
+  ```
+
+* Run `nginx` as container.
+  ```bash
+  docker container run -d --name proxy -p 80:80 nginx
+  ```
+
+* Check all the above containers are running.
+  ```bash
+  docker container ls
+  ```
+  ![](./img/sec04/05.png)
+
+* Using `curl localhost` to check `nginx` is running.
+  ```bash
+  curl localhost
+  ```
+  ![](./img/sec04/06.png)
+  
+  ```bash
+  curl localhost:8080
+  ```
+  ![](./img/sec04/07.png)
+
+* Stop the all above running containers.
+  ```bash
+  docker container stop db webserver proxy
+  ```
+  ![](./img/sec04/08.png)
+
+* And then remove them
+  ```bash
+  docker container rm db webserver proxy
+  ```
+  ![](./img/sec04/09.png)
