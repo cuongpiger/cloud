@@ -103,6 +103,10 @@
 <hr>
 
 ## 5. Assignment: Manage Multiple Containers
+
+|Commands|Description|
+|-|-|
+|`docker container run -d -p 3306:3306 --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql`|Run **MySQL** service inside docker container|
 ### 5.1. Notes:
 * Run a **Nginx** server on port **80:80**.
 * Run a **MySQL** on port **3306:3306**.
@@ -116,3 +120,8 @@
   ```bash
   docker container run -d -p 3306:3306 --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
   ```
+* Use this command below to see the password of mysql:
+  ```bash
+  docker container logs db 2>&1 | grep GENERATED
+  ```
+    ![](./img/sec04/04.png)
