@@ -232,4 +232,45 @@
 
 * Distribution of linux:
   * Alpine: very small, less than 5MB.
-  
+
+## 8. Docker Networks: Concepts for Privte and Public Comms in Containers
+|Commands|Description|
+|-|-|
+|`docker container port webhost`|Get port of the container `webhost`|
+|`docker container inspect --format '{{ .NetworkSettings.IPAddress }}' webhost`|Get the IPAddress of container `webhost`.|
+
+### 8.1. Notes:
+* Docker networks defaults:
+  * Each container connected to a private virtual network **bridge**.
+  * Each virtual network routes through NAT firewall on host IP.
+  * All containers on a virtual network can talk to each other without `-p`.
+  * Best practice is to create a new virtual network for each app:
+    * Network `my_web_app` for **MySQL** and **PHP/Apache** containers.
+    * Network `my_api` for **Mongo** and **NodeJS** containers.
+  * "Batteries included, but removable"
+    * Defaults work well in many, but easy to swap out parts to customize it.
+  * Make new virtual networks.
+  * Attach containers to more then one virtual network (or none).
+  * Skip virtual networks and use **host IP** (--net=host).
+  * Use different Docker networks driver to gain new abilities.
+  * For local dev/testing, networks usually **"just work"**.
+
+* Run `nginx` container.
+  ```bash
+  docker container run -p 80:80 --name webhost -d nginx
+  ```
+
+* Get the port of `nginx` container.
+  ```bash
+  docker container port webhost
+  ```
+  ![](./img/sec04/16.png)
+
+* Get the IP Address con container **webhost**.
+  ```bash
+  docker container inspect --format '{{ .NetworkSettings.IPAddress }}' webhost
+  ```
+  ![](./img/sec04/17.png)
+
+* How virtual networks work in containers
+  ![](./img/sec04/18.png)
