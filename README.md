@@ -274,3 +274,71 @@
 
 * How virtual networks work in containers
   ![](./img/sec04/18.png)
+
+## 9. Docker Networks: CLI Management of Virtual Networks
+|Commands|Description|
+|-|-|
+|`docker network ls`|List all the virtual networks|
+|`docker network inspect <network>`|Get details of one virtual network|
+|`docker network create --driver <driver> <network>`|Create a new virtual network depending on speficic `--driver`|
+|`docker network connect <network> <container>`|Connect a container to a virtual network|
+|`docker network disconnect <network> <container>`|Disconnect a container from a virtual network|
+
+### 9.1. Notes:
+* List all the virtual networks.
+  ```bash
+  docker network ls
+  ```
+  ![](./img/sec04/19.png)
+
+  * Kinds of virtual networks:
+    * `bridge`: default virtual network which is **NAT**'ed behind the Host IP.
+    * `host`: it gains performance by skipping virtual networks and attaching the container to the host interface but sacrifices security of container model.
+    * `none`: it removes eth0 and only leaves you with localhost interface in the container.
+* **Network driver** is built in or 3rd party extensions that give you virtual network features.
+* Create your apps so fronend/backend sit on **same Docker network** because they inter-communication never leaves the host.
+* All externally exposed ports closed by default.
+* You must manually expose via `-p`, which is better default security.
+* Later on, we will discuss about Swarm and Overlay networks.
+* Get details of virtual network `bridge`.
+  ```bash
+  docker network inspect bridge
+  ```
+  ![](./img/sec04/20.png)
+
+* Create a new virtual network `my_app_net` depending on `bridge` driver.
+  ```bash
+  docker network create my_app_net
+  ```
+  ![](./img/sec04/21.png)
+
+* Create a new `nginx:alphine` container using the `my_app_net` virtual network.
+  ```bash
+  docker container run -d --name new_nginx --network my_app_net nginx:alpine
+  ```
+  * Inspect the virtual network `my_app_net`.
+    ```bash
+    docker network inspect my_app_net
+    ```
+    ![](./img/sec04/22.png)
+
+* Run `webhost` container and then connect it to the virtual network `my_app_net` as a **NIC**.
+  ```bash
+  docker container run -d --name webhost --network my_app_net nginx
+  docker network connect my_app_net webhost
+  docker network inspect my_app_net
+  ```
+  ![](./img/sec04/23.png)
+
+* Inspect network config in container `webhost`
+  ```bash
+  docker container inspect webhost
+  ```
+  ![](./img/sec04/24.png)
+
+* Disconnect container `webhost` from virtual network `my_app_net`.
+  ```bash
+  docker network disconnect my_app_net webhost
+  docker network inspect my_app_net
+  ```
+  ![](./img/sec04/25.png)
