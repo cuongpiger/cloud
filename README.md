@@ -400,3 +400,30 @@ docker login
   ![](./img/sec04/29.png)
 
 * **Note**: There is a big disadvantage of network `bridge` is that it does not support DNS by default. So, we need to use `--link` to enable DNS on default `bridge` network if you want to communicate between containers.
+
+## 11. Assignment: Using containers for CLI testing
+### 11.1. Assignment 1 - requirements:
+* Use different Linux distro containers to check `curl` cli tool version.
+* Use two different terminal windows to start bash in both `centos:7` and `ubuntu:14.04` using `-it`.
+* Learn the `docker container --rm` option so you can save cleanup.
+* Ensure `curl` is installed and on latest version for that distro:
+  * `ubuntu`: `apt-get update && apt-get install curl`
+  * `centos`: `yum update curl`
+* Check `curl --version`.
+
+### 11.2. Assignment 1 - solution:
+* Run `centos:7` container and then start bash in it.
+  ```bash
+  docker container run -it --rm centos:7 bash
+  # inside container
+  yum update curl
+  curl --version
+  ```
+
+* Run `ubuntu:14.04` container and then start bash in it.
+  ```bash
+  docker container run -it --rm ubuntu:14.04 bash
+  # inside container
+  apt-get update && apt-get install curl
+  curl --version
+  ```
