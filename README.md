@@ -369,3 +369,34 @@ docker login
   ![](./img/sec04/25.png)
 
 ## 10. Docket Networks: DNS and how containers find each other
+### 10.1. Brief:
+* Understand how DNS is the key to easy inter container comms.
+* See how it works by default with custom networks.
+* Learn how to use `--link` to enable DNS on default `bridge` network.
+
+### 10.2. Notes:
+* **Forget IP's**: static IP's and using IP's for talking to containers is an anti-pattern. You need to use **DNS** to avoit it.
+* **Docker DNS** - docker daemon has a built-in DNS server that containers use by default.
+* Docker defaults the **hostname** to the container's name, but you can also set aliases.
+* For example. We have 2 running `nginx` containers `new_nginx` and `webhost` in virtual network `my_app_net`.
+  ![](./img/sec04/26.png)
+
+* Now, let create a new `nginx` container and then attach it to the virtual network `my_app_net`.
+  ```bash
+  docker container run -d --name my_nginx --network my_app_net nginx:alpine
+  ```
+
+* Inspect the virtual network `my_app_net`. We have 2 running `nginx` containers that are `new_nginx` and `my_nginx`.
+  ```bash
+  docker network inspect my_app_net
+  ```
+  ![](./img/sec04/27.png)
+
+* Now, we can `ping` signal from container `my_nginx` to container `new_nginx` by using the container's name.
+  ```bash
+  docker container exec -it my_nginx ping new_nginx
+  ```
+  ![](./img/sec04/28.png)
+  ![](./img/sec04/29.png)
+
+* **Note**: There is a big disadvantage of network `bridge` is that it does not support DNS by default. So, we need to use `--link` to enable DNS on default `bridge` network if you want to communicate between containers.
