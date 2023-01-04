@@ -442,7 +442,36 @@ docker login
   docker network create dude
   ```
 
-* Run `elasticsearch` in container with alias
+* Run 2 `elasticsearch` containers with the same alias.
   ```bash
-  docker container run -d --net-alias search elasticsearch:2
+  docker container run -d --net dude --net-alias search elasticsearch:2
+  docker container run -d --net dude --net-alias search elasticsearch:2
   ```
+
+* Run `nslookup` with `--net dude` to see the two containers list for the same DNS name. If the result is like the picture below, your action is correct until now
+  ```bash
+  docker container run --rm --net dude alpine /bin/sh
+
+  # inside the above container
+  apk update
+  apk add bind-tools
+  nslookup search
+  ```
+  ![](./img/sec04/30.png)
+
+* Then, using `curl` to get initial data from elasticsearch, like this:
+  ```bash
+  docker container run --rm --net dude alpine /bin/sh
+
+  # inside the above container
+  apk update
+  apk add curl
+  curl -s search:9200
+  curl -s search:9200
+  ```
+  ![](./img/sec04/31.png)
+
+* Because of running 2 `elasticsearch` containers on the same network `dude`, so every you run `curl -s search:9200` you will get the result like this:
+  ![](./img/sec04/32.png)
+  * The field `cluster_uuid` is generated for each container, so it is different. So if you have $n$ `elasticsearch` container, you will get $n$ different `cluster_uuid` field.
+  * Depending on the `cluster_uuid` field, you can know which container providing the specific responses.
