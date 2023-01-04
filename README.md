@@ -475,3 +475,24 @@ docker login
   ![](./img/sec04/32.png)
   * The field `cluster_uuid` is generated for each container, so it is different. So if you have $n$ `elasticsearch` container, you will get $n$ different `cluster_uuid` field.
   * Depending on the `cluster_uuid` field, you can know which container providing the specific responses.
+
+# Section 5. Containers Images, Where to find them and how to build them
+**Brief**:
+* All about images, the building blocks of containers.
+* What is in an image (and what isn;'t)
+* Using Docker hub registry.
+* Managing our local image cache.
+* Building our own images.
+## 1. What's In an image (and What isn't)
+* App binaries and dependencies.
+* Metadata about the image data and how to run the image.
+* Official definition: "An image is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime."
+* Not a complete OS. No kernel, kernel modules (e.g drivers)
+* Small as one file (your app binary) like a golang static binary.
+* Big as a Ubuntu distro with apt, and Apache, PHP, and more installed.
+
+## 2. The Mighty Hub: using Docker Hub registry images
+### 2.1. Brief:
+* Basics of docker hub
+* Find official and other good public images
+* Donwload images and basics of images tags
