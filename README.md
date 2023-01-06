@@ -496,3 +496,35 @@ docker login
 * Basics of docker hub
 * Find official and other good public images
 * Donwload images and basics of images tags
+
+## 3. Images and Their layers: Discover the Image Cache
+### 3.1. Brief:
+* Image layers
+* Union file system
+* `history` and `inspect` commands.
+* Copy on write concept.
+
+### 3.2. Notes
+* Get all the downloaded images.
+  ```bash
+  docker image ls
+  ```
+
+* Get the history of image `nginx`. This command wil show layers of changes made in image.
+  ```bash
+  docker image history nginx
+  ```
+  ![](./img/sec05/01.png)
+
+
+* To get detailed information about an image, use inspect command.
+  ```bash
+  docker image inspect nginx
+  ``` 
+
+* Finally, **images**:
+  * Are made up of file system changes and metadata.
+  * Each layer is uniquely identified and only stored once on a host.
+  * This saves storage space on host and transfer time on push/pull.
+  * A container is just a single read/write layer on top of image.
+  * `docker image history` and `insect` commands can teach us how the image was built.
