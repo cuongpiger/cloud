@@ -528,3 +528,39 @@ docker login
   * This saves storage space on host and transfer time on push/pull.
   * A container is just a single read/write layer on top of image.
   * `docker image history` and `insect` commands can teach us how the image was built.
+
+## 4. Image Tagging and Pushing to Docker Hub
+### 4.1. Brief:
+* Know what container and images are in docker.
+* Understand image layer basics.
+* Understand Docker Hub basics.
+* All anout image tags.
+* How to upload to Docker Hub.
+* Image ID vs. Tag.
+
+### 4.2. Notes
+* Login to your Docker Hub account.
+  ```bash
+  docker login
+  ```
+* **More info**: using `docker logout` to log out current account.
+* Retag the official `nginx` image into your own image.
+  ```bash
+  docker image tag nginx manhcuong8499/nginx
+  ```
+
+* Upload image to docker hub with tag `latest`.
+  ```bash
+  docker image push manhcuong8499/nginx
+  ```
+* **More info**: the docker config file is at this path `~/.docker/config.json`
+  ![](./img/sec05/02.png)
+
+* Customize your image tag and then push it to Docker hub
+  ![](./img/sec05/03.png)
+
+* Go to Docker Hub to see your image with its variants.
+  ![](./img/sec05/04.png)
+
+* You also change the visibility of the image inside the tab **Settings** like the way of Github.
+  ![](./img/sec05/05.png)
