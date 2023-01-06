@@ -564,3 +564,27 @@ docker login
 
 * You also change the visibility of the image inside the tab **Settings** like the way of Github.
   ![](./img/sec05/05.png)
+
+## 5. Building images: The Dockerfiles Basics
+* To build an image from docker file, use the command.
+  ```bash
+  docker build -f <docker file>
+  ```
+  * The `-f` flag is used to specify the path to the docker file.
+
+* The instructions:
+  * `FROM`: the base image.
+  * `ENV`: set environment variables. For example:
+    ```dockerfile
+    ENV token 1234456
+    ```
+  * `RUN`: run shell script
+  * `EXPOSE`: expose port
+  * `CMD`: run specific commands when the container is started.
+
+## 6. Building images: Running Docker Builds
+* Build image from this [Dockerfile](./resources/udemy-docker-mastery-main/dockerfile-sample-1/Dockerfile)
+  ```bash
+  cd resources/udemy-docker-mastery-main/dockerfile-sample-1/
+  docker image build -t customnginx .
+  ```
