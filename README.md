@@ -656,3 +656,100 @@ docker login
 * `docker image prune` to clean up just **dangling** images.
 * `docker system prune` to clean up everything.
 * The big one is usually `docker image prune -a` which will remove all images you**'re not using**. Use `docker system df` to see space usage.
+
+<hr>
+
+# Section 6. Container lifetime & Persistent data: Volumes, Volumes, Volumes
+## 1. Container Lifetime & Persistent Data
+### 1.1. Section Overview:
+* Defining the problem of persistent data.
+* Key concepts with containers: immutable, ephemeral.
+* Learning and using Data Volumes.
+* Learning and using Bind Mounts.
+
+### 1.2. Notes
+* Container Lifetime & Persistent Data
+  * Containers are usually immutable and ephemeral.
+  * **Immutable infrastructure**: only re-deploy containers, never change.
+  * This is the ideal scenario, but what about databases, or unique data?
+  * Docker give us features to ensure these "**seperation of concerns**".
+  * This is known as "**persistent data**".
+  * Two ways: **Volumes** and **Bind Mounts**.
+    * **Volumnes**: make special location outside of container UFS.
+    * **Bind Mounts**: link container path to host path.
+
+## 2. Persisten data: Data volumes
+### 2.1. Notes:
+* `VOLUME` command in Dockerfile.
+* Firstly, let pull `MySQL` image from Docker Hub.
+  ```bash
+  docker image pull mysql
+  ```
+* Then, inspect the `mysql` image.
+  ```bash
+  docker image inspect mysql
+  ```
+  ![](./img/sec06/01.png)
+  * At here, we can see that the `mysql` image has a `VOLUME` instruction. It is currentlt binding to `/var/lib/mysql` directory of the container.
+
+* Run `mysql` container.
+  ```bash
+  docker container run --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -d mysql
+  ```
+
+* To check if the container is using the volume, use the command.
+  ```bash
+  docker container inspect mysql
+  ```
+  ![](./img/sec06/03.png)
+  * We can see the container `mysql` is referencing to the volume directory on the host (it means `d9839...`). And it also referencing to the directory `/var/lib/mysql` in the container.
+
+* To list all volumes on the host machine, use the command.
+  ```bash
+  docker volume ls
+  ```
+  ![](./img/sec06/02.png)
+  * Use the above command to list all the available volumes on the host machine. We can see the volume (it means directory `d9839...`) that the `mysql` container is referencing.
+
+* We also inspect a volume. Let inspect the volume `d9839...`.
+  ```bash
+  docker volume inspect d9839
+  ```
+  ![](./img/sec06/04.png)
+  * We can see the volume `d9839...` is referencing to the directory `/var/lib/docker/volumes/d9839.../_data` on the host machine.
+
+* **Note**:
+  * If you are using Windows or Linux to run Docker, you can not access the above directories on the host machine. Because these directories are created by Docker Engine and are not accessible by the host machine.
+  * Remember in the case of Windows, or macOS machines, the Docker Engine is running inside a VM, so you can not access the directories on the host machine.
+
+* When you remove a container, docker will **only remove the container, not the volume**.
+* Whatever you run a new container, Docker will create a new volume for it. But the volume name is too hard to remember. So we also specify name for the volume when we run a new container with flag `-v`, like this:
+  ```bash
+  docker container run --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -d -v mysql-db:/var/lib/mysql
+  ```
+
+* Now when we inspect the `mysql` container, we can see the volume name is `mysql-db`.
+  ```bash
+  docker container inspect mysql
+  ```
+  ![](./img/sec06/05.png)
+  * and the volume of `mysql` container has been not changed.
+  ![](./img/sec06/06.png)
+
+* Get the list of all volumes to check
+  ```bash
+  docker volume ls
+  ```
+  ![](./img/sec06/07.png)
+
+* But when we create a new instance of `mysql` container, we can also use the volume `mysql-db` that we created before.
+  ```bash
+  docker container run --name mysql2 -e MYSQL_ALLOW_EMPTY_PASSWORD=True -d -v mysql-db:/var/lib/mysql mysql
+  ```
+
+* Now we can see the volume `mysql-db` is used by two containers. And docker will not create a new volume for `mysql2` container.
+
+* We also create a volume before you run a container. Let create a volume `mysql-db2`.
+  ```bash
+  docker volume create mysql-db2
+  ```
