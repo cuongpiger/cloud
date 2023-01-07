@@ -588,3 +588,71 @@ docker login
   cd resources/udemy-docker-mastery-main/dockerfile-sample-1/
   docker image build -t customnginx .
   ```
+
+## 7. Building Images: Extending Official Images
+* In this section, we will be given 2 files, including a dockerfile and an index.html file. Let use the docker to build your own image.
+* The source code for this section was stored in directory [dockerfile-sample-2](./resources/udemy-docker-mastery-main/dockerfile-sample-2/)
+* **Note**: In this dockerfile, we do not specify the `CMD` instruction, because of is in the base image (it means `FROM` instruction), it included a `CMD` instruction before, so we need not specify it again.
+  ```bash
+  cd ./resources/udemy-docker-mastery-main/dockerfile-sample-2/
+  docker image build -t nginx-with-html .
+  ```
+* Tagging the above-generated image with a new tag.
+
+## 8. Assignment: Build your own Dockerfile and Run Containers From it
+* Dockerfiles are part process workflow and part art
+* Take existing Node.js app and Dockerize it.
+* Make dockerfile built it, test it and then push it to Docker Hub, finnaly run it.
+* Expect this to be iterative, rarely do I get it right the first time.
+* Details in [this directory](./resources/udemy-docker-mastery-main/dockerfile-assignment-1/).
+* Use the Alpine version of the official `node` 6.x image.
+* Expected result is web site at `http://localhost`
+* Tag and push to your docker hub account free.
+* Remove your image from local cache, run again from hub.
+
+### 8.1. Solution
+* Firstly, I need to build this Dockerfile into my own image.
+  ```bash
+  docker image build -t testnode .
+  ```
+
+* After the above phase is done successfully, I run the below commands to run it as a container.
+  ```bash
+  docker container run --rm -p 80:3000 testnode
+  ```
+  ![](./img/sec05/06.png)
+
+* This is your result when visiting [http://localhost](http://localhost).
+  ![](./img/sec05/07.gif)
+
+* Now tag for the `testnode` image.
+  ```bash
+  docker image tag testnode manhcuong8499/testing-node
+  ```
+
+* Finally, push it to Docker Hub.
+  ```bash
+  docker image push manhcuong8499/testing-node
+  ```
+
+* Check if this image exists on Docker Hub.
+  ![](./img/sec05/08.png)
+
+* Now remove this image from local cache.
+  ```bash
+  docker image rm manhcuong8499/testing-node
+  ```
+
+* Now run the `manhcuong8499/testing-node` again which pulls this image from Docker Hub.
+  ```
+  docker container run --rm -p 80:3000 manhcuong8499/testing-node
+  ```
+  ![](./img/sec05/09.png)
+
+* Check if everything is working well on your browser.
+  ![](./img/sec05/10.png)
+
+## 9. Using `prune` to keep your Docker system clean
+* `docker image prune` to clean up just **dangling** images.
+* `docker system prune` to clean up everything.
+* The big one is usually `docker image prune -a` which will remove all images you**'re not using**. Use `docker system df` to see space usage.
