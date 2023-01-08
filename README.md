@@ -753,3 +753,134 @@ docker login
   ```bash
   docker volume create mysql-db2
   ```
+
+## 3. Shell differences for Path Expansion
+* Each shell may do this differently.
+  * PowerShell: `${pwd}`
+  * cmd.exe (aka **Command Prompt**): `%cd%`
+  * Linux, macOS, bash, sh, zsh, and Window Docker Toolbox: `$(pwd)`
+
+## 4. Persistent Data: Bind Mounting
+* Maps a host file or directory to a container file or directory.
+* Basically just two locations pointing to the same file(s).
+* Again, skip UFS, and host files overwrote andy in container.
+* **Can not use in Dockerfile**, **must be at `container run` command**, for example:
+  * macOS/Linux:
+    ```bash
+    docker container run -v /usr/cuongdm/stuff:/path/container ...
+    ```
+  * Windows:
+    ```bash
+    docker container run -v //c/users/cuongdm/stuff:/path/container ...
+    ```
+
+* Now, let's practice the above guidelines:
+  * Let change directory to `dockerile-sample-2`.
+    ```bash
+    cd resources/udemy-docker-mastery-main/dockerfile-sample-2
+    cat Dockerfile
+    ```
+  * Here, I have an `index.html` file and I want to bind and mount it to the container when I run Nginx container.
+    ```bash
+    docker container run -d -p 80:80 --name nginx -v $(pwd):/usr/share/nginx/html nginx
+    ```
+  * And this is the result, we can see the `index.html` file is bind and mount to the container.
+    ![](./img/sec06/08.png)
+
+* Now let's go inside the inside `nginx` container.
+  ```bash
+  docker container exec -it nginx bash
+  # inside the container
+  cd /usr/share/nginx/html
+  ls -a
+  ```
+* Inside the `nginx` container, we can see the Dockerfile of us, nginx default image will not have this file.
+  ![](./img/sec06/09.png)
+
+* Now let's open a new terminal and create a new file inside the directory `dockerfile-sample-2` and write some text to it.
+  ```bash
+  touch testme.txt
+  echo "It is me CuongDM" > testme.txt
+  ```
+
+* Now let's go back to the browser, and visit this URL [http://localhost/testme.txt](http://localhost/testme.txt).
+  ![](./img/sec06/10.png)
+
+  * You can see, I do not have any modification on the `nginx` container, but I can access the file `testme.txt` that I created on the host machine.
+
+## 5. Assignment: Database Upgrades with Named Volumes
+* Database upgrade with containers.
+* Create `postgres` container with named volume **psql-data** using versiopn **9.6.1**
+* Use Docker Hub to learn `VOLUME` path and versions needed to run it.
+* Check logs, stop container.
+* Create a new `postgres` container with same named volume using **6.2.2**.
+* Check logs to validate.
+
+### 5.1. Solution
+* Run the `postgres:9.6.1` container which names it `psql`.
+  ```bash
+  docker container run -d --name psql -v psql:/var/lib/postgresql/data postgres:9.6.1
+  docker container logs -f psql  # the -f flag means use to keep watching
+  ```
+
+* And then we can stop `psql` container.
+  ```bash
+  docker container stop psql
+  ```
+
+* Check if `psql` volume is still there.
+  ```bash
+  docker volume ls
+  ```
+  ![](./img/sec06/11.png)
+
+* Now run the `postgres:9.6.2` container which names it `psql2` on the same volume of `psql` container.
+  ```bash
+  docker container run -d --name psql2 -v psql:/var/lib/postgresql/data postgres:9.6.2
+  docker container logs -f psql2
+  ```
+  ![](./img/sec06/12.png)
+
+* Now we can stop the `psql2` container.
+  ```bash
+  docker container stop psql2
+  ```
+
+* And check the volume `psql` is still there and there is nothing any volume is created.
+  ```bash
+  docker volume ls`
+  ```
+  ![](./img/sec06/13.png)
+
+## 6. Assignment: Edit code running in containers with bind mounts
+* Use a JekyII "Static site generator" to start a local web server.
+* Do not have to be web developer: this is example of bridging the gap between local file access and apps running in containers.
+* Source code is in [bindmount-sample-1](./resources/udemy-docker-mastery-main/bindmount-sample-1/)
+* Container detects changes with host files and updates web server.
+* Start container with `docker run -p 80:4000 -v $(pwd):/site bretfisher/jekyll-serve`.
+* Refresh our browser to see changes.
+* Change the file in `_posts\` and refresh browser to see changes.
+
+### 6.1. Solution
+* Let's change directory to `bindmount-sample-1`.
+  ```bash
+  cd resources/udemy-docker-mastery-main/bindmount-sample-1
+  ```
+
+* Run **Jekyll** container.
+  ```bash
+  docker run -p 80:4000 -v $(pwd):/site bretfisher/jekyll-serve
+  ```
+  ![](./img/sec06/14.png)
+  * You can see your Jekyll container is running.
+
+* Now open your browser to visit [http://localhost/jekyll/update/2020/07/21/welcome-to-jekyll.html](http://localhost/jekyll/update/2020/07/21/welcome-to-jekyll.html)
+  ![](./img/sec06/15.png)
+
+* Go to the directory `bindmount-sample-1/_posts/` and edit the title of the file `2020-07-21-welcome-to-jekyll.md`.
+  ![](./img/sec06/16.png)
+
+* Then back to the browser and refresh the page.
+  ![](./img/sec06/17.png)
+  * You can see, Docker also detect that we have changed the file and update the web server.
+    ![](./img/sec06/18.png)
