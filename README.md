@@ -884,3 +884,63 @@ docker login
   ![](./img/sec06/17.png)
   * You can see, Docker also detect that we have changed the file and update the web server.
     ![](./img/sec06/18.png)
+
+# Section 7. Making it easier with Docker Compose: Tye Multi-Container Tool
+## 1. Docker Compose and The `docker-compose.yml` file.
+* Why: 
+  * Configure relationships between containers
+  * Save our docker container run settings in easu-to0-read file.
+  * Create one-liner developer environment startips.
+* Comprised of 2 separate but related things.
+  1. YAML-formatted file that describes our solution options for:
+    * containers
+    * networks
+    * volumes
+  2. A CLI tool `docker-compose` used for local/dev/test automation with those YAML files.
+
+* `docker-compose.yml` file.
+  * Compose YAML format has it's own versions: 1, 2, 2.1, 3, 3.1.
+  * YAML file can be used with `docker-compose` command for local docker automation or...
+  * With `docker` directly in production with Swarm (as of v1.13).
+  * `docker-compose.yml` is default filename, but any can be used with `docker-compose -f`.
+
+## 2. Trying out basic compose commands
+* Firstly, move to the directory `compose-sample-2`.
+  ```bash
+  cd resources/udemy-docker-mastery-main/compose-sample-1
+  docker compose up
+  docker compose up -d # run in background
+  ```
+
+* To get the log of the container that were run by docker-compose.
+  ```bash
+  docker compose logs
+  docker compose logs -f # keep watching CTRL + Z to stop
+  ```
+
+* Use `docker compose --help` to see all the commands.
+* To get all the running containers that were run by docker-compose.
+  ```bash
+  docker compose ps
+  ```
+
+* To get all the processes that were run by docker-compose.
+  ```bash
+  docker compose top
+  ```
+
+## 3. Assignment: Writing a compose file
+* Build a basic compose file for a Drupal content management system website. Docker Hub is your friend.
+* Use the `drupal` image along with the `postgres` image.
+* Use `ports` to export Drupal on 8080 so you can [http://localhost:8080](http://localhost:8080)
+* Be sure to set `POSTGRES_PASSWORD` environment variable for postgres.
+* Walk though Drupal setup via browser.
+* Tip: Drupal assumes DB is localhost, but it is service name.
+* Extra credit: Use volumes to store Drupal unique data.
+
+### 3.1. Solution
+* Firstly, move to the directory `compose-assignment-2`.
+  ```bash
+  cd resources/udemy-docker-mastery-main/compose-assignment-2
+  docker compose up
+  ```
