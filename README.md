@@ -939,8 +939,18 @@ docker login
 * Extra credit: Use volumes to store Drupal unique data.
 
 ### 3.1. Solution
+* Remember, whenever you use volume in any service, you also need to specify it in the volumes instruction in Dockerfile.
 * Firstly, move to the directory `compose-assignment-2`.
   ```bash
   cd resources/udemy-docker-mastery-main/compose-assignment-2
   docker compose up
   ```
+  * This is the result screen after running the above commands successfully.
+    ![](./img/sec07/01.png)
+  * Go to [http://localhost:8080](http://localhost:8080)
+    ![](./img/sec07/02.png)
+  * Setup.
+    ![](./img/sec07/03.png)
+    ![](./img/sec07/04.png)
+    ![](./img/sec07/05.png)
+    

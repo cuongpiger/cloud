@@ -2,7 +2,7 @@
 services:
 
   drupal:
-    image: drupal
+    image: drupal:9.4.8
     build: .
     ports:
       - "8080:80"
