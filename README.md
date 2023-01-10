@@ -993,3 +993,28 @@ docker login
   ```bash
   docker compose down --rmi local
   ```
+
+## 5. Assignment: Compose for Image Building
+* Building custom `drupal` image for local testing.
+* Compose is not just for developers. Testing apps is easy/fun.
+* Maybe your learning Drupal admin, or are a software tester.
+* Start with Compose file from previous assignment.
+* Make your `Dockerfile` and `docker-compose.yml` in dir `compose-assignment-3`.
+* Use the `drupal` image along with the `postgres` image as before.
+* Use `README.md` in that image for details.
+
+### 5.1. Solution
+* Change to directory [compose-assignment-3](./resources/udemy-docker-mastery-main/compose-assignment-3/)
+  ```bash
+  cd resources/udemy-docker-mastery-main/compose-assignment-3
+  ```
+
+* Run by docker compose
+  ```bash
+  docker compose up -d
+  ```
+
+* Stop and remove all.
+  ```bash
+  docker compose down
+  ```
