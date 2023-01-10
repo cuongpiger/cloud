@@ -955,3 +955,41 @@ docker login
     ![](./img/sec07/05.png)
 
 ## 4. Adding Image Building to Compose Files
+### 4.1. Using compose to build
+* Compose can also build your custom images.
+* Will build them with `docker compose up` if not found in cache.
+* Also rebuild with `docker compose build`.
+* Great for complex builds that have lots of vars or build args.
+
+### 4.2. Example
+* Firstly, move to the directory [compose-sample-3](./resources/udemy-docker-mastery-main/compose-sample-3/)
+  ```bash
+  cd resources/udemy-docker-mastery-main/compose-sample-3
+  ```
+* Remember, sometimes you do not need to specify the `CMD` instruction in your Dockerfile, because every image in docker has on by default.
+
+* Now, let's run `docker compose up` command.
+  ```bash
+  docker compose up -d
+  ```
+  ![](./img/sec07/06.png)
+
+* When we specify the `build` and `image` instructions in `docker-compose.yml` file, if we run docker compose, docker will create a new image and name it based on the `image` instruction. In this case, docker will create a new image called `nginx-custom`, the image that we have specified in `docker-compose.yml` file, run `docker image ls` to check.
+  ```bash
+  docker image ls
+  ```
+  ![](./img/sec07/07.png)
+
+* Now, visit [http://localhost](http://localhost).
+  ![](./img/sec07/07.gif)
+
+* And because we are using **bind mount**, we can absolutely modify the content at the host machine, and then the container will automatically update.
+* Now, we can use `docker compose down` command to stop entire the running containers.
+  ```bash
+  docker compose down
+  ```
+
+* When we run `docker compose down` command, docker only stop the all running services that we specified in `docker-compose.yml` file, but it does not remove the images that we have created. To remove the images, we can use `docker compose down --rmi local` command.
+  ```bash
+  docker compose down --rmi local
+  ```

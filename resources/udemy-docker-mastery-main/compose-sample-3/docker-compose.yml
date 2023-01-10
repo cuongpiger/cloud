@@ -10,6 +10,7 @@ services:
     build:
       context: .
       dockerfile: nginx.Dockerfile
+    image: nginx-custom
     ports:
       - '80:80'
   web:
