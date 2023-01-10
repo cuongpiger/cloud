@@ -953,4 +953,5 @@ docker login
     ![](./img/sec07/03.png)
     ![](./img/sec07/04.png)
     ![](./img/sec07/05.png)
-    
+
+## 4. Adding Image Building to Compose Files
