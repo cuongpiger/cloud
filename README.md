@@ -1018,3 +1018,58 @@ docker login
   ```bash
   docker compose down
   ```
+
+# Section 8. Swarm Intro and Creating a 3-Node Swarm Cluster
+## 1. Swarm Mode: Built-In Orchestration
+### 1.1. Containers everywhere = New Problems
+* How do we automate container lifecycle?
+* How can we easily scale out/in/up/down?
+* How can we ensure our containers are re-created if they fail?
+* How can we replace containers without downtime (blue/green deploy)?
+* How can we control/track where containers get started?
+* How can we create cross-node virtual networkss?
+* How can we ensure only trusted servers run our containers?
+* How can we store secrets, keys, passwords and get them to the right container (and only that container)?
+
+### 1.2. Swarm Mode: Built-in Orchestration
+* Swarm Mode is a clustering solution built inside Docker.
+* Not related to Swarm "classic" for pre-1.12 versions.
+* Added in 1.12 (Summer 2016) via SwarmKit toolkit.
+* Enahanced in 1.13 (January 2017) via Stacks and Secrets.
+* Not enabled by default, new commands once enabled:
+  * `docker swarm`
+  * `docker node`
+  * `docker service`
+  * `docker stack`
+  * `docker secret`
+
+* About Docker Swarm, the below image is a simple Swarm:
+  ![](./img/sec08/01.png)
+  * Manager Nodes:
+    * They actually have a database locally on them known as the **Raft Database**.
+    * **Raft Database** stores their configuration and gives them all the information they need to have to be authority inside a Swarm.
+    * Following the above image, the Swarm includes 3 manager nodes. And they all keep a copy of that database and encrypt their traffic in order to ensure integrity and guarantee the trust that they are able to manage this Swarm securely.
+  * Worker nodes:
+    * Each one of these would be a virtual machine, or physical host, running some distribution of Linux or Windows server.
+    * The above image shows how they are actually all communicating over what we call the Control Plane, which is how orders get sent around the Swarm, partaking actions.
+
+* In a little bit more complicated view:
+  ![](./img/sec08/02.png)
+  * We have this **Raft consensus database**, that is replicated again amongst all the nodes.
+  * The managers issue orders down to the workers
+  * **Internal distributed state store**: this is also called **Raft Database**.
+  * The managers themselves can also be workers. Of course, you can demote and promote workers and managers into the two different roles.
+  * When you think of a manager, typically think of a worker with permissions to control the Swarm.
+
+* The disadvantage of `docker container run` command is that it exactly runs only one container when it has been executed. So if we want to run 3 Nginx containers at the same time by only one command, the original docker run command can not do that.
+* In Swarm, it replaces the Docker run command, and allows us to add extra features to our containers when we run it, such as replicas to tell us how many of those it wants to run, and those are known as **tasks**.
+  ![](./img/sec08/03.png)
+  * Following the above image, a single service can have multiple tasks, and **each one of those tasks will launch a container**.
+  * The above image, we have created a service using docker service create to spin up an Nginx service using the Nginx image like we have done several times before.
+  * But we have told it that we would like three replicas. So it will use the manager nodes to decide where in the Swarm to place those. By default, it tries to spread them out. So each node would get its own copy of the nginx container up to the three replicas that we told it we need it.
+
+* This is a quick and basic understanding of how the managers work and what they are doing in the background.
+  ![](./img/sec08/04.png)
+  * There is actually a totally new Swarm API here that has a bunch of background services, such as the **scheduler**, **dispatcher**, **allocator** and **orchestrator**, that help make the decisions around what the workers should be executing at any given moment.
+  * The workers are constantly reporting to the managers and asking for new work.
+  * The managers are constantly doling out new work and evaluating what you have told them to do against what they are actually doing.
