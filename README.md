@@ -1084,7 +1084,7 @@ docker login
 
 * To enable Swarm, use the below command:
   ```bash
-  docker swarm init --advertise-addr 127.0.0.1
+  docker swarm init [--advertise-addr 127.0.0.1]
   ```
   * By default, Swarm is **active**:
     ![](./img/sec08/06.png)
@@ -1119,3 +1119,49 @@ docker login
   ```
   * The below image shows the result:
     ![](./img/sec08/08.png)
+
+* The `docker service ls` only shows the running services on the host to us, we can not know about their containers of them. To discover that, we can use the below command:
+  ```bash
+  docker service ps <service name|id>
+  ```
+  ![](./img/sec08/09.png)
+  * We can see there is a container called `gifted_bhabha.1` is currently running.
+  * We can use `docker container ls` to check.
+    ![](./img/sec08/10.png)
+    * There is also a container with the same name, but following behind is the **service ID** _(the red underline)_ of the cluster that currently hosts this container.
+
+* Now we will **scale up** this service to 3 replicas.
+  ```bash
+  docker service update <service ID|Name> --replicas 3
+  ```
+  ![](./img/sec08/11.png)
+  * Now let's check the above action is correct.
+    ```bash
+    docker service ls
+    docker service ps <service ID|name>
+    docker container ls
+    ```
+    ![](./img/sec08/12.png)
+    ![](./img/sec08/13.png)
+    ![](./img/sec08/14.png)
+
+* So, what happens if I try to stop or remove one in three of the above running containers?
+  ```bash
+  docker container rm -f gifted_bhabha.1.pandnzvss10rm1e6q5cieo19x
+  ```
+  ![](./img/sec08/15.png)
+  * The above container is removed successfully. Let's check again:
+    ![](./img/sec08/16.png)
+    ```bash
+    docker service ps gifted_bhabha
+    ```
+    ![](./img/sec08/16.png)
+      * We can see, now we have 4 containers running, and the one we just removed is now in the process of being **shutdown**. This help to ensure that we always have the number of replicas that we have asked for.
+
+* So to remove the above service, use these commands to deleve and check, everything worked correctly.
+  ```bash
+  docker service rm gifted_bhabha
+  docker service ls
+  docker container ls
+  ```
+  ![](./img/sec08/17.png)
