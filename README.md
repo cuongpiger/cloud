@@ -1073,3 +1073,49 @@ docker login
   * There is actually a totally new Swarm API here that has a bunch of background services, such as the **scheduler**, **dispatcher**, **allocator** and **orchestrator**, that help make the decisions around what the workers should be executing at any given moment.
   * The workers are constantly reporting to the managers and asking for new work.
   * The managers are constantly doling out new work and evaluating what you have told them to do against what they are actually doing.
+
+## 2. Create Your First Service and Scale it Locally
+* To check Swarm is active or not, use the below command:
+  ```bash
+  docker info
+  ```
+  * By default, Swarm is **inactive**:
+    ![](./img/sec08/05.png)
+
+* To enable Swarm, use the below command:
+  ```bash
+  docker swarm init --advertise-addr 127.0.0.1
+  ```
+  * By default, Swarm is **active**:
+    ![](./img/sec08/06.png)
+    * So what just happened?
+      * Lots of PKI and security automation
+        * Root Signing Certificate created for our Swarm.
+        * Certificate is issued for first Manager node.
+        * Join token are created.
+      * Raft database created to store root CA, configs and secrets
+        * Encrypted by default on risk (1.13+)
+        * No need for another key/value sysrem to hold orchestration/secrets
+        * Replicates logs amongst Managers via mutual TLS in "control plane".
+
+* After we initialized a Swarm successfully, we can list all the cluster nodes by the below command:
+  ```bash
+  docker node ls
+  ```
+  * The below image shows the result:
+    ![](./img/sec08/07.png)
+
+* Now, let's move on `service` command, `service` in a Swarm replaces the `docker run`. When we start talking about **a cluster**, we do not care so much about individual nodes. We do not actually probably name them.
+
+* Now let's create a new service using `docker service` with `alpine` image.
+  ```bash
+  docker service create alpine ping 8.8.8.8
+  ```
+  * The command above create a service using `alpine` image and then `ping` to Google DNS (it means `8.8.8.8`).
+
+* To get all running services in the cluster, use the below command:
+  ```bash
+  docker service ls
+  ```
+  * The below image shows the result:
+    ![](./img/sec08/08.png)
