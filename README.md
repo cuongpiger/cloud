@@ -1178,3 +1178,103 @@ docker login
 * **Option D**: Roll your own
   * `docker-machine` can provision machines for Amazon, Azure, DO, Google, etc.
   * Install docker anywhere with [https://get.docker.com](https://get.docker.com/)
+
+
+### 3.2. Solution
+* In this case, I use `multipass` to set up my cluster. Firsly run the three node.
+  ```bash
+  multipass launch --name node1 docker
+  multipass launch --name node2 docker
+  multipass launch --name node3 docker
+  ```
+* Then check all these virtual machines are running.
+  ```bash
+  multipass list
+  ```
+  ![](./img/sec08/18.png)
+
+* To check these virtual machines can communicate to each other, use ping command inside the shell of these virtual machines.
+  ```bash
+  multipass shell node1  # opening the shell of node1 to interactive
+
+  # inside node1's shell
+  ping node2  # take your look to see what is happening
+  ping node2
+  ```
+
+* Now open all the shell of 3 virtual machines.
+  ```bash
+  multipass shell node1
+  multipass shell node2
+  multipass shell node3
+  ```
+
+* Now let's initialize Swarm all 3 nodes.
+  ```bash
+  docker swarm init --advertise-addr <ip-node1> # node1
+  ```
+  ![](./img/sec08/19.png)
+
+* Now let's copy the generated `docker swarm ...` command in the above image to `node2` and `node3`.
+  ```bash
+  docker swarm join --token SWMTKN-1-5g4afpj1wbf5cv6jss82r34br1m3s11hjbvxq0d5zgtvbi5pad-8ke4l346ay6t64x37kcl020dy 10.53.168.241:2377 # node2
+  docker swarm join --token SWMTKN-1-5g4afpj1wbf5cv6jss82r34br1m3s11hjbvxq0d5zgtvbi5pad-8ke4l346ay6t64x37kcl020dy 10.53.168.241:2377 # node3
+  ```
+  ![](./img/sec08/20.png)
+    * Now `node2` and `node3` are workers of the leader `node1`.
+
+* Now back to the shell of `node1` and check `node2` and `node3` are joined to the cluster.
+  ```bash
+  docker node ls # node1
+  ```
+  ![](./img/sec08/21.png)
+
+* Now set role for `node2` into **the manager node**.
+  ```bash
+  docker node update --role manager node2 # node1
+  docker node ls # node1
+  ```
+  ![](./img/sec08/22.png)
+
+* Now if you want to generate a new token for a new node to join the cluster as **manager** or **worker** roles, use the below command:
+  ```bash
+  # inside node1's shell
+  docker swarm join-token manager # for manager node
+  docker swarm join-token worker # for worker node
+  ```
+  ![](./img/sec08/23.png)
+
+* Currently `node3` join to the cluster as **worker** node, so let's `node3` leave the cluster and then use the token to join to the cluster as **manager** node.
+  ```bash
+  docker swarm leave # node3
+  docker swarm join --token SWMTKN-1-5g4afpj1wbf5cv6jss82r34br1m3s11hjbvxq0d5zgtvbi5pad-5novn5lcxnmnp2x8pkvb3fccc 10.53.168.241:2377 # node3
+  ```
+  ![](./img/sec08/24.png)
+
+* Check again at `node1`.
+  ```bash
+  docker node ls  # node1
+  ```
+  ![](./img/sec08/25.png)
+
+* Now let's create a `alpine` service and then `ping` to Google DNS.
+  ```bash
+  # node1
+  docker service create --replicas 3 alpine ping 8.8.8.8
+  ```
+  ![](./img/sec08/26.png)
+
+* Check service is actually running.
+  ```bash
+  docker service ls
+  docker service ps <service name|id>
+  ```
+  ![](./img/sec08/27.png)
+
+* We also check the specific node in the cluster.
+  ```bash
+  # node1
+  docker node ps
+  docker node ps node2
+  ```
+  ![](./img/sec08/28.png)
