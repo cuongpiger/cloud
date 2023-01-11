@@ -1165,3 +1165,16 @@ docker login
   docker container ls
   ```
   ![](./img/sec08/17.png)
+
+## 3. Creating a 3-Node Swarm Cluster
+### 3.1. Creating 3-Node Swarm: Host Options
+* **Option A**: [https://labs.play-with-docker.com](https://labs.play-with-docker.com/).
+  * Only needs a browser, but resets after 4 hours.
+* **Option B**: `docker-machine`, or `multipass` _(using `snap` to install it)_ + **Virtual Box**.
+  * Free and runs locally, but requires a machine with 8GB memory.
+* **Option C**: Digital Ocean + Docker install.
+  * Most like a production setup, but costs $5-10/node/month while learning.
+  * Use my referral code in section resources to get $10 free.
+* **Option D**: Roll your own
+  * `docker-machine` can provision machines for Amazon, Azure, DO, Google, etc.
+  * Install docker anywhere with [https://get.docker.com](https://get.docker.com/)
