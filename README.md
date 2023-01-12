@@ -1278,3 +1278,102 @@ docker login
   docker node ps node2
   ```
   ![](./img/sec08/28.png)
+
+# Section 9. Swarm basic features and How to Use them in Your workflow
+## 1. Scaling Out with Overlay Networking
+### 1.1. Overlay Multi-Host Networking
+* Just choose `--driver overlay` when creating network.
+  * `--driver overlay` is basically creating a Swarm-wide **bridge network** where the containers across hosts on the same virtual network can access each other.
+* For container-to-container traffic inside a single Swarm.
+* Optional IPSec (AES) encryption on network creation.
+* Each service can be connected to multiple networks.
+  * E.g: front-end, back-end.
+
+### 1.2. Example
+* Create three virtual machines using `multipass`.
+  ```bash
+  multipass launch --name node1 docker
+  multipass launch --name node2 docker
+  multipass launch --name node3 docker
+  ```
+  
+* Get the IP-Address of these nodes:
+  * Node 1
+    ```bash
+    # host terminal
+    multipass shell node1
+
+    # inside the node1's shell
+    docker swarm init --advertise-addr <IP-Address>
+    ```
+    ![](./img/sec09/10.png)
+
+* Connect `node2` and `node3` to Swarm that `node1` is **leader**:
+  * Node 2
+    ```bash
+    multipass shell node2
+    docker swarm join --token <worker token>
+    ```
+  * Node 3
+    ```bash
+    multipass shell node3
+    docker swarm join --token <worker token>
+    ```
+* Set `node2` and `node3` as **manager nodes** in the cluster (ensure that `node1` and `node3` have been in the swarm).
+  * Node 1
+    ```bash
+    docker node update --role manager node2
+    docker node update --role manager node3
+    ```
+
+
+* Now, create a `overlay` virtual network.
+  ```bash
+  docker network create --driver overlay mydrupal
+  ```
+  ![](./img/sec09/01.png)
+
+* Now, create a `postgres` service and names it `psql`
+  ```bash
+  docker service create --name psql --network mydrupal -e POSTGRES_PASSWORD=mypass postgres:15.1
+  docker service ls
+  ```
+  ![](./img/sec09/02.png)
+
+* Check `psql` service.
+  ```bash
+  docker service ps psql
+  ```
+  ![](./img/sec09/03.png)
+
+* Get the logs of container on `node1` which is running `psql` service.
+  ```bash
+  docker container logs psql.1.trgb83f9s2bpm6gi2uml3s4cp
+  ```
+  ![](./img/sec09/04.png)
+
+* Run `drupal` service.
+  ```bash
+  docker service create --name drupal --network mydrupal -p 80:80 drupal:9.3.13
+  docker service ls
+  ```
+  ![](./img/sec09/05.png)
+
+* Check `drupal` service.
+  ```bash
+  docker service ps drupal
+  ```
+  ![](./img/sec09/06.png)
+
+* Now let's check the IPAddress of `drupal` service on `node1`
+  ```bash
+  # node1
+  hostname -I
+  ```
+  ![](./img/sec09/07.png)
+  * The IPAddress of `drupal` service is running on [http://10.181.211.176:80](http://10.181.211.176:80)
+  ![](./img/sec09/09.png)
+  * After all the setting was configured, we get this page.
+  ![](./img/sec09/08.png)
+
+* But there is a minor problem here, I have three nodes, so how do I know which node it is going to be on and which port I need to make sure that my DNS points to when I create this website name?
