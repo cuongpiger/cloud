@@ -1328,50 +1328,59 @@ docker login
 
 
 * Now, create a `overlay` virtual network.
-  ```bash
-  docker network create --driver overlay mydrupal
-  ```
-  ![](./img/sec09/01.png)
+  * Node 1
+    ```bash
+    docker network create --driver overlay mydrupal
+    ```
+    ![](./img/sec09/01.png)
 
 * Now, create a `postgres` service and names it `psql`
-  ```bash
-  docker service create --name psql --network mydrupal -e POSTGRES_PASSWORD=mypass postgres:15.1
-  docker service ls
-  ```
+  * Node 1
+    ```bash
+    docker service create --name psql --network mydrupal -e POSTGRES_PASSWORD=mypass postgres:15.1
+    docker service ls
+    ```
   ![](./img/sec09/02.png)
 
-* Check `psql` service.
-  ```bash
-  docker service ps psql
-  ```
-  ![](./img/sec09/03.png)
+* Check `psql` service on `node1`.
+  * Node 1
+    ```bash
+    docker service ps psql
+    ```
+    ![](./img/sec09/03.png)
+    * The `psql` is currently running on `node3`. Let's move on shell of `node3` to get the logs of `psql` service.
 
-* Get the logs of container on `node1` which is running `psql` service.
-  ```bash
-  docker container logs psql.1.trgb83f9s2bpm6gi2uml3s4cp
-  ```
-  ![](./img/sec09/04.png)
+* Get the logs of container on `node3` which is running `psql` service.
+  * Node 3
+    ```bash
+    docker container ls
+    docker container logs psql.1.p62j14jg68qv2fgwcsk9qffug
+    ```
+    ![](./img/sec09/04.png)
 
-* Run `drupal` service.
-  ```bash
-  docker service create --name drupal --network mydrupal -p 80:80 drupal:9.3.13
-  docker service ls
-  ```
-  ![](./img/sec09/05.png)
+* Now let's run `drupal` service using **overlay virtual network** `mydrupal`.
+  * Node 1
+    ```bash
+    docker service create --name drupal --network mydrupal -p 80:80 drupal:9.3.13
+    docker service ls
+    ```
+    ![](./img/sec09/05.png)
 
 * Check `drupal` service.
-  ```bash
-  docker service ps drupal
-  ```
-  ![](./img/sec09/06.png)
+  * Node 1
+    ```bash
+    docker service ps drupal
+    ```
+    ![](./img/sec09/06.png)
+      * It is currently running on `node1`.
 
-* Now let's check the IPAddress of `drupal` service on `node1`
+* Now let's check the IPAddress of `drupal` service on `node1`, `node2`, and `node3`.
   ```bash
-  # node1
   hostname -I
   ```
   ![](./img/sec09/07.png)
-  * The IPAddress of `drupal` service is running on [http://10.181.211.176:80](http://10.181.211.176:80)
+  * The IPAddress of `drupal` service is running on [http://10.53.168.151:80](http://10.53.168.151:80), [http://10.53.168.248:80](http://10.53.168.248:80), and [http://10.53.168.226:80](http://10.53.168.226:80). You can go to visit any URL of them.
+  ![](./img/sec09/11.gif)
   ![](./img/sec09/09.png)
   * After all the setting was configured, we get this page.
   ![](./img/sec09/08.png)
