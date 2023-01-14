@@ -1515,3 +1515,4 @@ docker login
 
 * Visit URL [http://10.53.168.151:5001](http://10.53.168.151:5001) to access the `result` service.
   ![](./img/sec09/21.png)
+  
