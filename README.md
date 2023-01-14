@@ -1385,4 +1385,56 @@ docker login
   * After all the setting was configured, we get this page.
   ![](./img/sec09/08.png)
 
-* But there is a minor problem here, I have three nodes, so how do I know which node it is going to be on and which port I need to make sure that my DNS points to when I create this website name?
+* But there is a minor problem here, I have three nodes, so how do I know which node it is going to be on and which port I need to make sure that my DNS points to when I create this website name?. Let inspect service `drupal`.
+  * Node 1
+    ```bash
+    docker network ls
+    docker service inspect drupal
+    ```
+    ![](./img/sec09/12.png)
+    * You can see, although we can access the `drupal` service within **three different URLs**, when you inspect, there is only **1 IP Address**. So, with the mentioned earlier, why we can access with 3 different URLs? We using **routing mesh** to solve this problem.
+
+## 2. Scaling out with routing mesh
+### 2.1. Routing mesh
+* Routes ingress (incoming) packets for a Service to proper task.
+  * The routing mesh is an incoming or ingress network network that distributes packets for our service to the task for that service.
+* Spans all nodes in Swarm.
+* Uses IPVS from Linux Kernel.
+* Load balances Swarm Services across their tasks.
+* Two ways this works:
+  * Container-to-container in a overlay network. (uses VIP).
+    * If our back-end system, like say the databases, were increased to two replicas, the front-ends talking to the back-end would not actually talk directly to their IP address, they would actually talk to something called a VIP _(or a Virtual IP)_, that Swarm puts in front of all services.
+    * VIP is a private IP inside the virtual networking of Swarm, and it ensures that the load is distributed amongst all the tasks for a service. You can imagine if you had a worker role in your application, and it had 10 different containers, you do not have to put a load balancer in front of that. When you are talking about traffic from one service inside your virtual network talking to another service inside your virtual network.
+  * External traffic incomingto published ports (all nodes listen)
+    * External traffic coming into your Swarm can actually choose to hit any of the nodes in your Swarm. Any of the worker nodes are going to have that published port open and listening for that container's traffic, and then it will reroute that traffic to the proper container based on its load balancing.
+
+### 2.2. Example for routing mesh
+* **Note**: You need to create 3 virtual machines using `multipass` as the previous section, initialize the Swarm in `node1` and then connect `node2` and `node3` to the Swarm.
+* Firstly, create the `search` service using the `elasticsearch:2` image.
+  * Node 1
+    ```bash
+    docker service create --name search --replicas 3 -p 9200:9200 elasticsearch:2
+    ```
+      * At here, there are 3 replicas of `search` service.
+
+* Get all the tasks of `search` service.
+  * Node 1
+    ```bash
+    docker service ps search
+    ```
+    ![](./img/sec09/13.png)
+    * You can see, there are 3 tasks of `search` service running on `node1`, `node2`, and `node3`.
+
+* Let's try to execute the `curl` command to get the information of `search` service.
+  * Node 1
+    ```bash
+    curl localhost:9200
+    ```
+    ![](./img/sec09/14.png)
+
+### 2.3. Routing mesh continued
+* The routing mesh in Docker Swarm version 20.10 is **stateless load balancing**. This is basically saying that if you have to use session cookies on your apllication, or it expects a consistent container to be talking to a consistent client, then you may need to add some other things to help solve that problem.
+* This load balancer is at OSI layer 3 (TCP), not later 4 (DNS). If you have ever run multiple websites on the same port, on the same server, this is not going to do that.
+* But the two above limitations can be overcome with:
+  * Nginx or HAProxy LBproxy.
+  * Docker Enterprise Edition, which comes with built-in Layer 4 web proxy, with it come something called UCP or Docker Data Center, which is a web interface.
