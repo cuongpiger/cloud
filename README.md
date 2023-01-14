@@ -1438,3 +1438,80 @@ docker login
 * But the two above limitations can be overcome with:
   * Nginx or HAProxy LBproxy.
   * Docker Enterprise Edition, which comes with built-in Layer 4 web proxy, with it come something called UCP or Docker Data Center, which is a web interface.
+
+## 3. Assignment: Create a multi-service multi-nide web app
+### 3.1. Problem
+* Using Docker's Distributed Voting App
+* Use `swarm-app-1` directory in our course repo for requirements.
+* 1 volume, 2 network, and 5 services needed.
+* Create the commands needed, spin up services, and test app.
+* Everything is using Docker Hub images, so no data needed on Swarm.
+* Like many computer things, this is $\frac{1}{2}$ art form and $\frac{1}{2}$ science.
+  ![](./img/sec09/15.png)
+
+### 3.2. Solution
+* **Note**: You need to create 3 virtual machines using `multipass` as the previous section, initialize the Swarm in `node1` and then connect `node2` and `node3` to the Swarm.
+* Firstly, I need to create an overlay virtual network, call them `backend` and `frontend`
+  * Node 1
+    ```bash
+    docker network create -d overlay backend
+    docker network create -d overlay frontend
+    ```
+    ![](/img/sec09/16.png)
+
+* Following the above image, let's create `voting-app` service using the `frontend` virtual network and 2 replicas.
+  * Node 1
+    ```bash
+    docker service create --name vote -p 80:80 --network frontend --replicas 2 dockersamples/examplevotingapp_vote:before
+    ```
+
+* Create `redis` service using the `frontend` virtual network.
+  * Node 1
+    ```bash
+    docker service create --name redis --network frontend redis:3.2
+    ```
+
+* Create the `worker` service using both `frontend` and `backend` virtual networks.
+  * Node 1
+    ```bash
+    docker service create --name worker --network frontend --network backend dockersamples/examplevotingapp_worker
+    ```
+
+* Create the `db` service using the `backend` virtual network.
+  * Node 1
+    ```bash
+    docker service create --name db --network backend -e POSTGRES_HOST_AUTH_METHOD=trust --mount type=volume,source=db-data,target=/var/lib/postgresql/data postgres:9.4
+    ```
+
+* Create the `result-app` service using `backend` virtual network.
+  * Node 1
+    ```bash
+    docker service create --name result --network backend -p 5001:80 dockersamples/examplevotingapp_result:before
+    ```
+
+* Check all the services are running.
+  * Node 1
+    ```bash
+    docker service ls
+    ```
+    ![](./img/sec09/17.png)
+
+* Now let's check the service `vote` is currently running on which IP-Addresses.
+  * Node 1
+    ```bash
+    docker service ps vote
+    ```
+    ![](./img/sec09/18.png)
+      * It is running on `node1` and `node3`
+
+* Get the IP-Addresses of `node1` and `node3`.
+  ```bash
+  multipass list
+  ```
+  ![](./img/sec09/19.png)
+
+* Now, visit URL [http://10.53.168.151](http://10.53.168.151) and [http://10.53.168.226](http://10.53.168.226) to visit the `vote` service.
+  ![](./img/sec09/20.png)
+
+* Visit URL [http://10.53.168.151:5001](http://10.53.168.151:5001) to access the `result` service.
+  ![](./img/sec09/21.png)
