@@ -1725,3 +1725,41 @@ docker login
     ```
     ![](./img/sec09/41.png)
       * The above secrets have been removed.
+
+## 8. Assignment: Create a Stack with secrets and deploy
+### 8.1. Problem
+* Use the **drupal** compose file in `compose-assignment-2`.
+* Rename image back to official `drupal:8.2`.
+* Remove `build:`
+* Add secret via `external:`.
+* Use environment variable `POSTGRES_PASSWORD_FILE` to use secret.
+* Add secret via cli:
+  ```bash
+  echo "<pw>" | docker secret create psql-pw -
+  ```
+* Copy compose into a new yml file on your Swarm `node1`.
+
+### 8.2. Solution
+* Go into the `secrets-sample-3` directory.
+  * Host
+    ```bash
+    cd resources/udemy-docker-mastery-main/secrets-sample-3
+    multipass transfer docker-compose.yml node1:/home/ubuntu/docker-compose.yml
+    multipass shell node1
+    ```
+  * Node 1
+    ```bash
+    mkdir secrets-sample-3
+    mv docker-compose.yml secrets-sample-3/
+    cd secrets-sample-3/
+    ```
+* Now run stack and name it `drupal`.
+  * Node 1
+    ```bash
+    echo "oagy938hs" | docker secret create psql-pw -
+    docker stack deploy -c docker-compose.yml drupal
+    docker stack ps drupal
+    ```
+    ![](./img/sec09/42.png)
+    ![](./img/sec09/43.png)
+      * The above image shows the `drupal` stack is running.
