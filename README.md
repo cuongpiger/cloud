@@ -1606,3 +1606,87 @@ docker login
   docker stack deploy -c example-voting-app-stack.yml <stack name>
   ```
     
+## 5. Secrets Storage for Swarm. Protecting Your environment variables
+* Swarm Raft DB is encrypted on disk by default.
+* Only stored on disk on Manager nodes.
+* Default is Managers and Workers control plane is TLS + Mutual Auth.
+* Secrets are first stored in Swarm, then assigned to a Service(s).
+* Only containers in assigned services can see them.
+* They look like files in containers but are actually in-memory fs `/run/secrets/<secret name>` or `/run/secrets/<secret_alias>`.
+* Local docker compose can use file-based secrets, but not secure.
+
+## 6. Using Secrets in Swarm service.
+### 6.1. Example
+* In this guideline, I use the directory `secrets-sample-1` and the virtual machines of previous sections.
+  * Host
+    ```bash
+    cd resources/udemy-docker-mastery-main/secrets-sample-1
+    multipass transfer psql_user.txt node1:/home/ubuntu/
+    multipass shell node1
+    ```
+  * Node 1
+    ```bash
+    mkdir secrets-sample-1
+    mv psql_user.txt secrets-sample-1/
+    cd secrets-sample-1/
+    ```
+
+* Now, let's create a secret inside swarm from the above-moved file.
+  * Node 1
+    ```bash
+    docker secret create psql_user psql_user.txt
+    ```
+    ![](./img/sec09/33.png)
+* I also need not create a secret from files, I can create an env variable inside `node1`.
+  * Node 1
+    ```bash
+    echo "myDBpassWORD" | docker secret create psql_pass -
+    ```
+    ![](./img/sec09/34.png)
+      * Here, I create a secret password `myDBpassWORD`, and name it `psql_pass`.
+
+* Now, check our secrets.
+  * Node 1
+    ```bash
+    docker secret ls
+    ```
+    ![](./img/sec09/35.png)
+    * Docker will not show the true values of our secrets.
+
+* And we can create a postgres service using the mentioned secrets.
+  * Node `
+    ```bash
+    docker service create --name psql --secret psql_user --secret psql_pass -e POSTGRES_HOST_AUTH_METHOD=trust -e POSTGRES_PASSWORD_FILE=/run/secrets/psql_pass -e POSTGRES_USER_FILE=/run/secrets/psql_user postgres
+    docker service ps psql
+    ```
+    ![](./img/sec09/36.png)
+
+* Now, we know `psql` service is running `node3`, let's open `node3` terminal and interactive with this container.
+  ```bash
+  # host machine
+  multipass shell node3
+
+  # node3's shell
+  docker container ls
+  docker exec -it <container id> bash
+  ls /run/secrets/
+  cat /run/secrets/psql_user
+  cat /run/secrets/psql_pass
+  ```
+  ![](./img/sec09/37.png)
+
+* In the case, we forget to provide these files when we created the service, `psql` service automatically re-create, we can use `docker service ps psql` to check if more than one task is running, which means the service is re-created.
+  * Node 1
+    ```bash
+    docker service ps psql
+    ```
+    ![](./img/sec09/38.png)
+      * In my scenario, the service worked well.
+
+* We also can remove the secrets inside a service, but when I remove one of these secrets, it would re-deploy the container.
+  * Node `
+    ```bash
+    docker service update --secret-rm psql_user psql
+    docker service ps psql
+    ```
+    ![](./img/sec09/39.png)
