@@ -1690,3 +1690,38 @@ docker login
     docker service ps psql
     ```
     ![](./img/sec09/39.png)
+
+## 7. Using Secrets in Swarm Stacks
+* In this section, I use the directory `secrets-sample-2`. Now I need to copy all the files in that one into `node1`.
+  * Host
+    ```bash
+    cd resources/udemy-docker-mastery-main/secrets-sample-2
+    multipass transfer docker-compose.yml node1:/home/ubuntu/docker-compose.yml
+    multipass transfer psql_password.txt node1:/home/ubuntu/psql_password.txt
+    multipass transfer psql_user.txt node1:/home/ubuntu/psql_user.txt
+    multipass shell node1
+    ```
+  * Node 1
+    ```bash
+    mkdir secrets-sample-2
+    mv docker-compose.yml psql_password.txt psql_user.txt secrets-sample-2/
+    cd secrets-sample-2/
+    ```
+
+* You can open the above `*.yml` file to discover how secrets work in stacks.
+* Now deploy this stack using the above `*.yml` file.
+  * Node 1
+    ```bash
+    docker stack deploy -c docker-compose.yml mydb
+    docker stack services mydb
+    ```
+    ![](./img/sec09/40.png)
+
+* Lastly, remove `mydb` stack and check the secrets again.
+  * Node 1
+    ```bash
+    docker stack rm mydb
+    docker secret ls
+    ```
+    ![](./img/sec09/41.png)
+      * The above secrets have been removed.
