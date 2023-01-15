@@ -48,8 +48,8 @@ services:
     deploy:
       replicas: 1
       update_config:
-        parallelism: 2
-        delay: 10s
+        parallelism: 2 # if your service with 4 replicas and a parallelism of 2, only 2 of them are running and the remaining ones are in the state of "waiting"
+        delay: 10s  # every time your service is updated, it will update for each replica in your swarm, the next replica will be executed after the previous replica has been done after 10 seconds.
       restart_policy:
         condition: on-failure
 
@@ -69,9 +69,9 @@ services:
         condition: on-failure
         delay: 10s
         max_attempts: 3
-        window: 120s
+        window: 120s # the next restart will be executed after 120 seconds
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == manager]  # this service only run on manager nodes
 
   visualizer:
     image: bretfisher/visualizer

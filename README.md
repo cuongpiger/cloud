@@ -1516,3 +1516,93 @@ docker login
 * Visit URL [http://10.53.168.151:5001](http://10.53.168.151:5001) to access the `result` service.
   ![](./img/sec09/21.png)
   
+## 4. Swarm stacks and Production Grade Compose
+* Swarm Stacks is basically compose files for production.
+* Stacks accept compose files as their declarative definition for services, networks, and volumes.
+* We use `docker stack deploy` rather then `docker service create`.
+* Stacks manages all those objects for us, including overlay network per stack. Adds stack name to start of their name.
+* New `deploy`: key in Compose file, can not do `build:`.
+* Compose now ignores `deploy:`, Swarm ignores `build:`.
+* The below image is an example for a Swarm Stack
+  ![](./img/sec09/22.png)
+  * In the new stacks, we are talking about **multiple services**, one or more. We can have dozens of services in a stack, everything is in a single **YAML** file.
+  * We can define **volumes** and **overlay networks** in that compose file. And that results in what we would call a **stack**.
+  * We now get to use a YAML file to actually do all those things we did not want to have to type in the service commands.
+* Notice that **the stack is only for one swarm**.
+
+### 4.1. Example with three nodes in `multipass`.
+* Now let's copy the directory `swarm-stack-1` into the `node1`.
+  ```bash
+  cd resources/udemy-docker-mastery-main
+  multipass transfer swarm-stack-1/example-voting-app-stack.yml node1:/home/ubuntu/
+  ```
+
+* Check the `example-voting-app-stack.yml` file exists in `node1`.
+  * Node 1
+    ```bash
+    cd /home/ubuntu
+    mkdir swarm-stack-1
+    mv example-voting-app-stack.yml swarm-stack-1/
+    ls
+    ```
+    ![](./img/sec09/23.png)
+
+* There are some other instructions in the `example-voting-app-stack.yml` file, open that file and then read it for more details.]
+* So now, let's perform this file to run entire our services.
+  * Node 1
+    ```bash
+    docker stack deploy -c example-voting-app-stack.yml voteapp
+    ```
+    ![](./img/sec09/24.png)
+
+* List stasks
+  * Node 1
+    ```bash
+    docker stack ls
+    ```
+    ![](./img/sec09/25.png)
+
+* List all the tasks in the `voteapp` stack.
+  * Node 1
+    ```bash
+    docker stack ps voteapp
+    docker container ls
+    ```
+    ![](./img/sec09/26.png)
+      * The above rows are not the **containers**, they are just the **tasks**.
+      * You can see, if I list all the running containers in `node1`, we can not see these rows.
+
+* To get all the running services in the `voteapp` stack.
+  * Node 1
+    ```bash
+    docker stack services voteapp
+    ```
+    ![](./img/sec09/27.png)
+
+* If you want to take a deep dive into `voteapp` stack, such as if you want to know to see which services are running on proper nodes.
+  * Node 1
+    ```bash
+    docker stack ps voteapp
+    ```
+    ![](./img/sec09/28.png)
+
+* Let's run `multipass list` on the host machine to get IP-Addresses of the nodes.
+  ```bash
+  multipass list
+  ```
+  ![](./img/sec09/29.png)
+
+* Now go to:
+  * Vote app:
+    ![](./img/sec09/30.png)
+  * Result app:
+    ![](./img/sec09/31.png)
+  * Visulization app:
+    ![](./img/sec09/32.png)
+      * This visulization app repo is [here](https://github.com/dockersamples/docker-swarm-visualizer).
+
+* Sometimes, if you have to update your `*.yml` file _(such as increasing number of replicas for a specific service)_, you could modify that file and then use the below command to update your stack.
+  ```bash
+  docker stack deploy -c example-voting-app-stack.yml <stack name>
+  ```
+    
