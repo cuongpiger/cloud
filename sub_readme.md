@@ -136,3 +136,68 @@
   ```bash
   docker service update --force web
   ```
+
+## 4. Healthchecks in Dockerfiles
+* `HEALTHCHECK` was added in 1.12.
+* Suported in Dockerfile, Compose YAML, docker run, and Swarm Services.
+* Docker engine will `exec`'s the command in the container _(e.g `curl localhost`)_.
+* It expects `exit 0` (OK) or `exit 1` (not OK).
+* Three container states: starting, healthy, unhealthy.
+* Much better then "is binary still running".
+* Not a external monitoring replacement.
+* Healthcheck status shows up in `docker container ls`.
+* Check last 5 healthchecks with `dokcer container inspect`.
+* Docker run does nothing with healthchecks.
+* Services will replace tasks if they fail healthchecks.
+* Service updates wait for them before continuing.
+* Examples:
+  * Healthcheck Docker Run Example.
+    ```bash
+    docker run --health-cmd="curl -f localhost:9200/_cluster/health || false" \
+      --health-interval=5s \ # healthcheck will run every 5s
+      --health-retries=3 \ # it will try this check x number of times before it consider it unhealthy
+      --health-timeout=2s \ # how long it is going to wait before it errors out and returns a bad code.
+      --health-start-period=15s \  # after 15s from the container starts, it will start to check the healthcheck.
+      elasticsearch:2
+    ```
+
+* To implement healthcheck in `Dockerfile`, use the following
+  * Nginx:
+    ```dockerfile
+    FROM nginx:1.13.7
+    HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
+      CMD curl -f http://localhost/ || exit 1
+    ```
+  * Postgres
+    ```dockerfile
+    FROM postgres:9.6
+    HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
+      CMD pg_isready -U postgres || exit 1
+    ```
+
+* Healthcheck in compose/stack files
+  ```yaml
+  version: "2.1" # minimum for healthcheck
+  services:
+    web:
+      image: nginx:1.13.7
+      healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost/"]
+        interval: 1m30s
+        timeout: 10s
+        retries: 3
+        start_period: 1m # version 3.4+
+  ```
+
+### 4.1. Practice
+* Run `postgres` container using healthcheck.
+  ```bash
+  docker container run -e POSTGRES_HOST_AUTH_METHOD=trust --name p2 --health-cmd="pg_isready -U postgres || exit 1" -d postgres
+  docker container ls
+  ```
+  ![](./img/sec10/07.png)
+
+* Healthcheck with docker service and stack.
+  ```bash
+  docker service create --name p3 -e POSTGRES_HOST_AUTH_METHOD=trust --health-cmd="pg_isready -U postgres || exit 1" postgres
+  ```
