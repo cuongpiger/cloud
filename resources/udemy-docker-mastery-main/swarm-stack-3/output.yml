@@ -1,0 +1,59 @@
+name: swarm-stack-3
+services:
+  drupal:
+    image: manhcuong8499/custom-drupal:latest
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      published: "80"
+      protocol: tcp
+    volumes:
+    - type: volume
+      source: drupal-modules
+      target: /var/www/html/modules
+      volume: {}
+    - type: volume
+      source: drupal-profiles
+      target: /var/www/html/profiles
+      volume: {}
+    - type: volume
+      source: drupal-sites
+      target: /var/www/html/sites
+      volume: {}
+    - type: volume
+      source: drupal-themes
+      target: /var/www/html/themes
+      volume: {}
+  postgres:
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/psql-pw
+    image: postgres:14.3
+    networks:
+      default: null
+    secrets:
+    - source: psql-pw
+    volumes:
+    - type: volume
+      source: drupal-data
+      target: /var/lib/postgresql/data
+      volume: {}
+networks:
+  default:
+    name: swarm-stack-3_default
+volumes:
+  drupal-data:
+    name: swarm-stack-3_drupal-data
+  drupal-modules:
+    name: swarm-stack-3_drupal-modules
+  drupal-profiles:
+    name: swarm-stack-3_drupal-profiles
+  drupal-sites:
+    name: swarm-stack-3_drupal-sites
+  drupal-themes:
+    name: swarm-stack-3_drupal-themes
+secrets:
+  psql-pw:
+    name: psql-pw
+    external: true

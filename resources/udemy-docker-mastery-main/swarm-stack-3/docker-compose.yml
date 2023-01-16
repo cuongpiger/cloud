@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   drupal:
-    image: custom-drupal:latest
+    image: manhcuong8499/custom-drupal:latest
 
   postgres:
     image: postgres:14.3

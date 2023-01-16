@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   drupal:
-    image: custom-drupal
+    image: manhcuong8499/custom-drupal:latest
     build: .
     ports:
       - "80:80"
