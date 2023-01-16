@@ -9,3 +9,5 @@
   ```
   ![](./img/sec10/01.png)
     * We can see our secret, why? Because of not as **Docker Swarm**, the secrets are not encrypted in the **Docker Compose**. So we can see out secrets. These secrets are not stored in **Raft Database**.
+
+## 2. Full App Lifecycle: Dev, Build and Deploy with a Single Compose Design
