@@ -75,3 +75,64 @@
   ```
     * Docker automatically merges these relevant files with their configuration options into one single `*.yml` file.
     * This is similar to `extends` in **Docker compose**, but keep in your mind that `extends` does not work in **Stacks**.
+
+## 3. Service updates: changing things in flight
+### 3.1. Service updates
+* Provide rolling replacement of tasks/containers in a service.
+* Limits downtime (be careful with **prevents** downtime).
+* Will replace containers for most changes.
+* Has many, many CLI options to contrl the update.
+* Create options will usually change, adding `-add` or `-rm` to them.
+* Includes rollback and healthcheck options.
+* Also has scale & rollback subcommand for quicker access.
+  * `docker service scale web=4` and
+  * `docker service roolback web`.
+
+* A stack deploy when pre-existing will issue service update.
+
+### 3.2. Swarm update examples
+* Just update the image used to a newer version.
+  ```bash
+  docker service update --image nginx:1.19.0 web
+  ```
+
+* Adding an environment variable and remove a port.
+  ```bash
+  docker service update --env-add NODE_ENV=production --publish-rm 8080 web
+  ```
+
+* Change number of replicas of two service.
+  ```bash
+  docker service scale web=8 api=6
+  ```
+
+* If you update the `*.yml` file, then:
+  ```bash
+  docker stack deploy -c <*.yml file> <stack name>
+  ```
+
+### 3.3. Practice
+* Firstly, run nginx service.
+  ```bash
+  docker service create -p 8088:80 --name web nginx:1.13.7
+  ```
+
+* Scale up our service with 5 replicas
+  ```bash
+  docker service scale web=5
+  ```
+
+* Changer version of `nginx` into `nginx:1.13.6`.
+  ```bash
+  docker service update --image nginx:1.13.6 web
+  ```
+
+* Change the publish port.
+  ```bash
+  docker service update --publish-rm 8088 --publish-add 9090:80 web
+  ```
+
+* In the case, you do not change anything, you just update external secrets, you can use the below command:
+  ```bash
+  docker service update --force web
+  ```
