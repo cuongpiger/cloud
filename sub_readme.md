@@ -77,3 +77,10 @@
   kubectl delete pod my-nginx
   kubectl delete deployment my-nginx
   ```
+
+## 7. Scaling ReplicaSets
+* Start a new deployment for one replica/pod
+  ```bash
+  kubectl create deployment my-apache --image httpd
+  kubectl get all
+  ```
