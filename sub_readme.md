@@ -84,3 +84,9 @@
   kubectl create deployment my-apache --image httpd
   kubectl get all
   ```
+
+* Scale it up with another pod.
+  ```bash
+  kubectl scale deploy/my-apache --replicas 2
+  kubectl scale deploy my-apache --replicas 2 # same to above command
+  ```
