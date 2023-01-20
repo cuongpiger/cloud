@@ -47,12 +47,12 @@
   > * This will list all the running components for the cluster, including the base components that are installed by default.
 
 ### 4.2.1. KinD and Docker networking
-* You should have a solid understanding how KinD and Docker networking work together. This is important to understand so that you can use KinD effectively as a testing environment.
-  ![](./img/chap04/05.png)
+* You should have a solid understanding how KinD and Docker networking work together. This is important to understand so that you can use KinD effectively as a testing environment.<br>
+  ![](./img/chap04/05.png)<br>
   * As an example, you want to deploy a web server to you K8s cluster. You deploy an Ingress controller in the KinD cluster and you want to test the site using Chrome on your host machine. You attempt to target the host on port 80 and receive a failure in your browser. Why would this fail?
 
-* Look at the below image:
-  ![](./img/chap04/06.png)
+* Look at the below image:<br>
+  ![](./img/chap04/06.png)<br>
   * The pod running the web server is in layer 3 and can not receive direct traffic from the host machine. In order to access the web server from your host machine, you will need to forward the traffic from the host machine to KinD layer.
 
 ## 4.3. Installing KinD
