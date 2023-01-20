@@ -77,6 +77,13 @@
     kubectl explain <type>
     kubecel explain node # get all
     ```
+    * Type names:
+      * The most common resource names have three forms:
+        * **singular** (e.g: `node`, `service`, `deployment`)
+        * **plural** (e.g: `nodes`, `services`, `deployments`)
+        * **short** (e.g: `no`, `svc`, `deploy`)
+      * Some resources do not have a short name.
+      * `endpoints` only have a plural form _(because even a single `endpoints` resources is actually a list of endpoints)_.
   * We can view the definition of a field in a resource, for instance:
     ```bash
     kubectl explain node.spec
@@ -86,5 +93,24 @@
     kubectl explain node --recursive
     ```
 
-<!-- myalias: long and complex text -->
-This is an example of using an alias: myalias
+## 5.1. Kubectl get
+More `get` commands:
+* **Services**:
+  * A **service** is a stable endpoint to connect to "something" _(in the initial proposal, they were called "portals")_.
+  * **Example 1**: List the services on our cluster with one of these commands:
+    ```bash
+    kubectl get services # [or svc]
+    ```
+    ![](./img/sec05/07.png)
+
+* **Listing running containers**:
+  * Containers are manipulated through **pods**.
+  * A **pod** is a group of containers:
+    * running together _(on the same node)_.
+    * sharing resources _(RAM, CPU; but also network, volumes)_.
+  * **Exercise 1**: List pods on our cluster.
+    ```bash
+    kubectl get pods
+    ```
+    ![](./img/sec05/08.png)
+      > * Currently, we do not have anything, we will see it later.
