@@ -1,19 +1,9 @@
-**<font style="color:blue">Resources</font>**:
+**Resources**:
 * **Source code** [https://github.com/PacktPublishing/Kubernetes-and-Docker-The-Complete-Guide](https://github.com/PacktPublishing/Kubernetes-and-Docker-The-Complete-Guide) 
 
 # Chapter 4. Deploying Kubernetes using KinD
 ## 4.1. Introducing Kubernetes components and objects
-
-
-## 4.1. Installing KinD
-* Install `kubectl`.
-  ```bash
-  sudo snap install kubectl --classic
-  ```
-
-* Install KinD.
-  * Following the guideline: [Installing With A Package Manager](https://kind.sigs.k8s.io/docs/user/quick-start/#installing-with-a-package-manager)
-## 4.2. Kubernetes components and objects
+* This chapter refers to common K8s objects and components.
 * **Components**:
   * **Control plane**:
     * **API-Server**: Front-end of the control plane that accepts requests from clients.
@@ -35,7 +25,51 @@
   * **Container Network Interface (CNI)**: Provide the network connection for pods. Common CNI examples include Flannel and Calico.
   * **Container Storage Interface (CSI)**: Provides the connection between pods and storage systems.
 
-## 4.3. Creating a KinD cluster
+### 4.1.1. Interacting with a cluster
+* We will use these basic commands to deploys parts of the cluster that we will use throughout this guideline.
+  |kubectl command|Description|
+  |-|-|
+  |`kubectl get <object>`|Retrieves a list of the requested objects. Example: `kubectl get nodes`.|
+  |`kubectl create -f <manifest_name>`|Creates the objects in the `include` manifest that is provided. `create` can only create the **initial objects**, it **can not update the objects**.|
+  |`kubecrl apply -f <manufest_name>`|Deploys the objects in the `include` manifest that is provided. Unlike the `create` option, the `aplly` command can update objects, as well as create objects.|
+  |`kubectl patch <object_type> <object_name> -p {patching options}`|Patches the supplied `object_type` with the options provided.|
+
+## 4.2. Using development clusters
+* **KinD** tool allows us to create **multiple clusters**, and each cluster can have multiple control plane and worker nodes.
+* KinD also has an additional component that is not part of most standard installations, such as:
+  * **Kindnet**: It is the included, default CNI when you install a base KinD cluster. You also have the option to disable it and use an alternative, such as **Calico**.
+
+* To show the complete cluster and all the components that are running, we can run the command:
+  ```bash
+  kubectl get pods --all-namespaces
+  ```
+  ![](./img/chap04/04.png)
+  > * This will list all the running components for the cluster, including the base components that are installed by default.
+
+### 4.2.1. KinD and Docker networking
+* You should have a solid understanding how KinD and Docker networking work together. This is important to understand so that you can use KinD effectively as a testing environment.
+  ![](./img/chap04/05.png)
+  * As an example, you want to deploy a web server to you K8s cluster. You deploy an Ingress controller in the KinD cluster and you want to test the site using Chrome on your host machine. You attempt to target the host on port 80 and receive a failure in your browser. Why would this fail?
+
+* Look at the below image:
+  ![](./img/chap04/06.png)
+  * The pod running the web server is in layer 3 and can not receive direct traffic from the host machine. In order to access the web server from your host machine, you will need to forward the traffic from the host machine to KinD layer.
+
+## 4.3. Installing KinD
+* Firstly, install **microk8s**, there will be a few more steps that you need to take before you can actually use **microk8s**, after that, you need to restart your machine.
+  ```bash
+  sudo snap install microk8s --classic
+  ```
+
+* After restarting your machine, you need to alias `kubectl` command.
+  ```bash
+  echo "alias kubectl='microk8s kubectl'" >> ~/.zshrc
+  ```
+
+* Then install **KinD** by this guideline: [Installing From Release Binaries ](https://kind.sigs.k8s.io/docs/user/quick-start/#installing-from-release-binaries)
+
+
+## 4.4. Creating a KinD cluster
 ### 4.3.1. Create a simple cluster
 * Create a simple cluster that runs the control plane and a worker node in a single container.
   ```bash
