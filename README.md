@@ -1,4 +1,4 @@
-**<span style="color:blue">Resources</span>**:
+**<font style="color:blue">Resources</font>**:
 * **Source code** [https://github.com/PacktPublishing/Kubernetes-and-Docker-The-Complete-Guide](https://github.com/PacktPublishing/Kubernetes-and-Docker-The-Complete-Guide) 
 
 # Chapter 4. Deploying Kubernetes using KinD
