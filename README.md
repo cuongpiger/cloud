@@ -114,3 +114,11 @@ More `get` commands:
     ```
     ![](./img/sec05/08.png)
       > * Currently, we do not have anything, we will see it later.
+
+## 5.2. Kubectl Namespace Basics
+* **Namespaces** allow us to segregate resources into groups.
+* **Exercise 1**: List the namespaces on our cluster with one of these commands:
+  ```bash
+  kubectl get namespaces # or [namespace, ns]
+  ```
+  
