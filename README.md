@@ -116,9 +116,59 @@ More `get` commands:
       > * Currently, we do not have anything, we will see it later.
 
 ## 5.2. Kubectl Namespace Basics
-* **Namespaces** allow us to segregate resources into groups.
-* **Exercise 1**: List the namespaces on our cluster with one of these commands:
-  ```bash
-  kubectl get namespaces # or [namespace, ns]
-  ```
-  
+### 5.2.1. Namespaces
+* **Namespaces** allows us to segregate resources.
+* Namespaces are used to filter the view.
+* To list the namespaces on the cluster, use one of these commands:
+    ```bash
+    kubectl get namespaces
+    kubectl get namespace
+    kubectl get ns
+    ```
+* **Exercice 1**: List the namespaces on your cluster.
+    ```bash
+    kubectl get ns
+    ```
+    ![](./img/sec05/09.png)
+
+### 5.2.2. Accessing namespaces
+* By default, `kubectl` uses the `default` namespace.
+* We can see resources in all namespaces with `--all-namespaces`.
+* To list the pods in all namespaces, use one of these commands:
+    ```bash
+    kubectl get pods --all-namespaces
+    kubectl get pods -A
+    ```
+    ![](./img/sec05/10.png)
+
+### 5.2.3. What are all these control plane pods?
+* `etcd` is our etcd server.
+* `kube-apiserver` is the API server.
+* `kube-controller-manager` and `kube-scheduler` are other control plane components.
+* `coredns` provides DNS-based service discovery.
+* `kube-proxy` is the (per-node) component managing port mappings and such.
+* `<net_name>` is the optional (per-node) component managing the network overlay.
+* The `READY` column indicates the number of containers in each pod.
+* **Note**: this only shows containers, you will see host services.
+* **Also note**: you many see different namespaces depending on setup.
+
+### 5.2.4. Scoping another namepsace
+* We can also look at a different namespace (other than `default`).
+* To list only the pods in the `kube-system` namespace, use one of these commands:
+    ```bash
+    kubectl get pods --namespace=kube-system
+    kubectl get pods -n kube-system
+    ```
+    ![](./img/sec05/11.png)
+
+### 5.2.5. Namespaces and other `kubectl` commands
+* We can use `-n`/`--namespace` with almost every `kubectl` command.
+    * Example:
+        ```bash
+        kubectl create --namespace=X
+        ```
+        * to create something in namespace `X`.
+* We can use `-A`/`--all-namespaces` with most commands that manipulate multiple objects.
+    * Example:
+        * `kubectl delete` can delete resources across multiple namespaces.
+        * `kubectl label` can add/remove/update labels across multiple namespaces.
