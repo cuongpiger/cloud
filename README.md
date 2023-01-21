@@ -172,3 +172,32 @@ More `get` commands:
     * Example:
         * `kubectl delete` can delete resources across multiple namespaces.
         * `kubectl label` can add/remove/update labels across multiple namespaces.
+
+## 5.3. Kubernetes Newer Namespaces
+### 5.3.1. What about `kube-public`?
+* `kube-public` is created by our installer and **used to security bootstrapping**.
+* To list the pods in the `kube-public` namespace:
+    ```bash
+    kubectl -n kube-public get pods
+    ```
+    ![](./img/sec05/12.png)
+
+### 5.3.2. Exploring `kube-public`
+* The only interesting object in `kube-public` is a `ConfigMap` named `cluster-info` _(about `ConfigMap` we will talk later)_.
+* You can think of `ConfigMap` as configuration files that then you can get later in your apps.
+* To list `ConfigMap` objects in the `kube-public` namespace:
+    ```bash
+    kubectl -n kube-public get configmaps
+    ```
+    ![](./img/sec05/13.png)
+
+* To inspect the `cluster-info`, use the command:
+    ```bash
+    kubectl -n kube-public get configmap cluster-info -o yaml
+    ```
+    ![](./img/sec05/14.png)
+
+### 5.3.3. What about `kube-node-lease`?
+* The `kube-node-lease` namespace contains one `Lease` object pernode.
+* **Node leases**  are a new way to implement **node heartbeats** _(node regularly pinging to control plane to say "I'm alive!")_.
+* For more details, see **KEP-0009** or the **node controller documentation**.
