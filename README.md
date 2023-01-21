@@ -2,6 +2,44 @@
   * **Slide**: [https://slides.kubernetesmastery.com](https://slides.kubernetesmastery.com/)
 
 # Section 2. The What and Why of Kubernetes
+## 2.1. What and Why of Kubernetes
+### 2.1.1. What and why of orchestration
+* There are many **computing orchestrators**.
+* They make decisions about when and where to "**do work**".
+* We have done this since the dawn of computing: **Mainframe schedulers**, **Puppet**, **Terraform**, **AWS**, **Mesos**, **Hadoop**, etc.
+* But we also need **a orchestration** because:
+    * The popularity of distributed computing. This required us to come up with new ways to manage lots of machines.
+    * Docker containers allow us to package up our apps and distribute them around different computers using common HTTP protocols. These containers have a common runtime that allowed us to run many different copies of the same thing on a single OS.
+* We needed "**many servers to act like one, and run many containers**".
+* And finally, the **Container Orchestrator** was born. It allows us to use **one file** to describe your app or **one command** to deploy it to a thousand computers.
+
+### 2.1.2. Container orchestrator
+* Many open source projects have been created to:
+    * Schedule running of containers on servers.
+    * Dispatch them across many nodes.
+    * Monitor and react to container and server health.
+    * Provide storage, networking, inbound proxy (also called **ingress**), security, and logging features.
+    * Provide API's to allow extensibility and management.
+
+### 2.1.3. Major container orchestration projects
+* There are so many orchestrators, such as:
+    * Kubernetes, aka K8s.
+    * Docker Swarm (and Swarm classic).
+    * Apache Mesos/Marathon.
+    * Cloud Foundry.
+    * Amazon ECS.
+    * HashiCorp Nomad.
+* Many of these tools run on top of Docker engine and K8s is the one orchestrator with many distributions.
+
+## 2.2. Kubernetes Distributions
+* The K8s cloud-managed distro: AKS, GKE, EKS, DOK,...
+* Self-Managed distro: RedHat OpenShift, Docker Enterprisem Rancherm Canonical, Charmed, openSUSE Kubic,...
+* Vanilla installer: kubeadm, kops, kubicorn,...
+* Local dev/test: Docker Desktop, minikube, microk8s,...
+* CI testing: kind.
+* Special builds: Rancher k3s
+
+
 * K8s distributions:
   * Cloud-Managed distros: AKS, GKE, EKS, DOK,...
   * Self-managed distros: RedHat OpenShift, Docker Enterprise, Rancher, Canonical. Charmed, OpenSUSE Kubic.
@@ -201,3 +239,24 @@ More `get` commands:
 * The `kube-node-lease` namespace contains one `Lease` object pernode.
 * **Node leases**  are a new way to implement **node heartbeats** _(node regularly pinging to control plane to say "I'm alive!")_.
 * For more details, see **KEP-0009** or the **node controller documentation**.
+
+## 5.4. Kubectl describe
+### 5.4.1. Viewing details
+* We can use `kubectl get -o yaml` to seel all available details, but YAML output is often simultaneously too much and not enough.
+    * For instance: `kubectl get node node1 -o yaml`
+        ![](./img/sec05/15.png)
+
+* For a comprehensive overview, we can use:
+    ```bash
+    kubectl describe node node1
+    ```
+    ![](./img/sec05/16.png)
+
+* `kubectl describe` needs **a resource type** and (optionally) **a resourse name**.
+* It is possible to provide **a resource name prefix** and all matching objects will be displayed.
+* `kubectl describe` will retrieve some extra information about the resource.
+* To look at the information available for your node name with one of the following:
+    ```bash
+    kubectl describe node/<node_name>
+    kubectl describe node <node_name>
+    ```
