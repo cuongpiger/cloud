@@ -260,3 +260,90 @@ More `get` commands:
     kubectl describe node/<node_name>
     kubectl describe node <node_name>
     ```
+
+# Section 6. Your first deployment
+## 6.1. Your first deployment with kutectl
+### 6.1.1. Running our first containers on K8s
+* First thing first: we can not run a container.
+* We are going to run a pod, and it that pod there will be a **single container**.
+* In that container in the pod, we are going to run a simple `ping` command.
+* Then, we are going to start additional copies of the pod.
+
+### 6.1.2. Starting a simple pod with `kubectl run`
+* We need to specify at least a name and the image we want to use
+* **Exercise**: Let's ping `1.1.1.1`, Cloudfare's public DNS resolver.
+    ```bash
+    kubectl run pingpong --image alpine ping 1.1.1.1
+    ```
+    ![](./img/sec06/01.png)
+
+### 6.1.3. Behind the scenes of `kubectl run`
+* Let's look at the resources that were created by `kubectl run`
+* **Exercise**: List most resource types:
+    ```bash
+    kubectl get all
+    ```
+    ![](./img/sec06/02.png)
+
+
+### 6.1.4. What are these different things?
+* A **deployment** is a high-level construction.
+    * allows scaling, rolling updates, rollbacks.
+    * multiple deployments can be used together to implement a canary deployment.
+    * delegates pods management to **replica sets**.
+* A **replica set** is a low-level construct.
+    * makes sure that a given number of identical pods are running.
+    * allows scaling.
+    * rarely used directly.
+
+* **Note**: A **replication controller** is the _(deprecated)_ predecessor of a replica set.
+
+### 6.1.5. Our `pingpong` deployment.
+_Starting in 1.18 use `kubectl create deployment` to do this._
+* `kubectl run` created a deployment, `deployment.apps/pingpong`.
+    ![](./img/sec06/03.png)
+* That deployment created a replica set, `replicaset.apps/pingpong-xxxxxxxxx`.
+    ![](./img/sec06/04.png)
+* That replica set created a pod, `pod/pingpong-xxxxxxxxx-yyyyy`.
+    ![](./img/sec06/05.png)
+* We will see later how these folks play together for:
+    * scaling
+    * rolling updates
+    * high availability
+
+## 6.2. Kubectl logs
+### 6.2.1. Viewing container output
+* Let's use the `kubectl logs` command.
+* We will pass either a **pod name**, or a **type/name**. E.g: if we specify a deployment or a replica set, it will get the first pod in it.
+* Unless specified otherwise, it will only show logs of the first container in the pod.
+* **Exercise**: View the result of our `ping` command:
+    ```bash
+    kubectl logs pod/pingpong
+    ```
+
+* To scale the `pingpong` pod into 3 replicas.
+    ```bash
+    kubectl scale deploy/pingpong --replicas 3
+    ```
+
+* If you want to look at $n$ latest log line and keep to follow the log, you can use the `--tail` and `-f` flags.
+    ```bash
+    kubectl logs pod/pingpong --tail 1 --follow
+    ```
+
+## 6.3. Deleting pods and watching the effects
+* Delete a resource.
+    ```bash
+    kubectl delete pod/pingpong
+    ```
+* What happend?
+    * `kubectl delete pod` terminates the pod gracefully _(sending it the TERM signal and waiting for it to shutdown)_.
+    * As soon as the pod is in "**Terminating**" state, the **replica set** replaces it.
+    * But we can still see the output of the "**Terminating**" pod in `kubectl logs`.
+    * Until 30 seconds later, when the grace period expires, the pod is then killed and `kubectl logs` exits.
+
+# Section 7. Cron Jobs and Resource Creation Options
+## 7.1 Kubectl run cronjob
+### 7.1.1. What if we wanted something different?
+* What if we wanted to start a "one-shot" container that does not get restarted.
+* We could use 
