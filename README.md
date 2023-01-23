@@ -3,6 +3,14 @@
 
 # Chap 2. First steps with Docker and K8s
 ## 2.2. Setting up a K8s cluster
+* [Optional] Run the cluster in **KinD**:
+  ```bash
+  kind create cluster --name k8s-playground --config resources/me/config.yaml
+
+  # verify the installation succeeded
+  docker container ls
+
+  ```
 ### 2.2.1. Running a local single-node K8s cluster with Minikube
 * Installing Minikube using the below command:
   ```bash
@@ -119,3 +127,6 @@
   kubectl get all
   ```
   ![](./img/chap02/13.png)
+
+
+kubectl expose deployment my-deployment --port=80 --target-port=8080 --type=LoadBalancer
