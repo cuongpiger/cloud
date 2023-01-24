@@ -141,4 +141,85 @@
   ```
   ![](./img/chap02/15.png)
 
-  
+# Chapter 3. Pods: running containers in K8s
+## 3.1. Creating pods from YAML or JSON descriptors
+### 3.1.1. Examining a YAML descriptor of an existing pod
+* Three important sections are found in almost all K8s resources:
+  * `metadata`: Includes the name, namespace, labels, and other information about the pod.
+  * `spec`: Contains the actual description of the pod's contents, such as the pod's containers, volumes, and other data.
+  * `status`: Contains the current information about the running pod, such as what condition the pod is in, the description and status of each container, and the pod's internal IP and other basic info.
+
+### 3.1.2. Creating a simple YAML descriptor for a pod
+* When you implement a descriptor, you can use the `kubectl explain` command to get more information about the fields that you can use in the descriptor:
+  ```bash
+  kubectl explain pod.spec
+  kubectl explain pods
+  ```
+### 3.1.3. Using `kubectl create` to create the pod
+* To create the pod from your YAML file:
+  ```bash
+  kubectl create -f resources/me/chap03/kubia-manual.yaml
+  ```
+  ![](./img/chap03/01.png)
+
+* Verity:
+  ```bash
+  kubectl get all
+  ```
+  ![](./img/chap03/02.png)
+
+### 3.1.4. View application logs
+* To view the logs of a container in a pod, use the `kubectl logs` command:
+  ```bash
+  kubectl logs kubia-manual
+  ```
+  ![](./img/chap03/03.png)
+
+* If you have multiple pods running on the same app, use this command to view the logs of a specific container in a specific pod:
+  ```bash
+  kubectl logs kubia-manual -c kubia
+  ```
+  ![](./img/chap03/04.png)
+
+### 3.1.5. Sending requests to the pod
+* To forward your machine's local port 8888 to port 8080 of your `kubia-manual` pod:
+  ```bash
+  kubectl port-forward kubia-manual 8888:8080
+  ```
+  ![](./img/chap03/05.png)
+  * The port forwarder is running and you can connect to your pod through the local port.
+
+* Try sending requests to the forwarded port:
+  ```bash
+  curl localhost:8888
+  ```
+  ![](./img/chap03/06.png)
+
+## 3.2. Organizing pods with labels
+### 3.2.1. Specifying labels when creating a pod
+* See the file [kubia-manual-with-labels.yaml](./resources/me/chap03/kubia-manual-with-labels.yaml) to understand. Now run this app.
+  ```bash
+  kubectl create -f resources/me/chap03/kubia-manual-with-labels.yaml
+  ```
+  ![](./img/chap03/07.png)
+
+* List all available labels:
+  ```bash
+  kubectl get pods --show-labels
+  ```
+  ![](./img/chap03/08.png)
+
+* List all pods with a specific label:
+  ```bash
+  kubectl get pods -l creation_method=manual --show-labels
+  kubectl get pods -L creation_method,env --show-labels  # create a new column following the labels
+  ```
+  ![](./img/chap03/09.png)
+
+### 3.2.2. Modifying labels on existing pods
+* Assign label `creation_method=manual` to the `kubia-manual` pod:
+  ```bash
+  kubectl label pod kubia-manual creation_method=manual
+  kubectl get pods --show-labels
+  ```
+  ![](./img/chap03/10.png)
