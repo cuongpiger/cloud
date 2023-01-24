@@ -223,3 +223,53 @@
   kubectl get pods --show-labels
   ```
   ![](./img/chap03/10.png)
+
+## 3.3. Listing subset of pods through labal selectors
+* Get all the pods that `creation_method` equal to `manual`:
+  ```bash
+  kubectl get pods -l creation_method=manual --show-labels
+  ```
+  ![](./img/chap03/11.png)
+
+* List all pods that include the `env` label, whatever its value is:
+  ```bash
+  kubectl get pods -l env --show-labels
+  ```
+  ![](./img/chap03/12.png)
+
+* And those that do not have the `env` label:
+  ```bash
+  kubectl get pods -l '!env' --show-labels
+  ```
+  ![](./img/chap03/13.png)
+
+* Similarly, you could also match pods with the following label selectors:
+  * `creation_method!=manual` to select pods with the `creation_method` label with any value other than `manual`.
+  * `env in (prod,devel)` to selects pods with the `env` label set to either `prod` or `devel`.
+  * `env notin (prod,devel)` to select pods with the `env` label set to any value other than `prod` or `devel`.
+
+## 3.4. Using labels and selectors to constrain pod scheduling
+* Use can use the field `nodeSelector` to specify the nodes you want to deploy your pods.
+
+## 3.5. Anootating pods
+* Annotation helps you to add more metadata to your pods, such as company name, version, bla bla bla.
+  ```bash
+  kubectl annotate pod kubia-manual mycompany.com/someannotation="foo bar"
+  kubectl describe pod kubia-manual
+  ```
+  ![](./img/chap03/14.png)
+
+## 3.6. Using namespaces to group resources
+* Get all current namespaces:
+  ```bash
+  kubectl get ns
+  ```
+  ![](./img/chap03/15.png)
+
+* Get all pods of namespace `kube-system`:
+  ```bash
+  kubectl get pods --namespace kube-system
+  ```
+  ![](./img/chap03/16.png)
+
+### 3.6.1. Creating a namespace
