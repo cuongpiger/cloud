@@ -10,6 +10,7 @@
   # verify the installation succeeded
   docker container ls
 
+  minikube start --nodes 2 -p multinode-demo
   ```
 ### 2.2.1. Running a local single-node K8s cluster with Minikube
 * Installing Minikube using the below command:
@@ -128,5 +129,16 @@
   ```
   ![](./img/chap02/13.png)
 
+* Get the IP-Address of the service:
+  ```bash
+  minikube service -p multinode-demo --all
+  ```
+  ![](./img/chap02/14.png)
 
-kubectl expose deployment my-deployment --port=80 --target-port=8080 --type=LoadBalancer
+* Testing:
+  ```bash
+  curl <url>
+  ```
+  ![](./img/chap02/15.png)
+
+  
