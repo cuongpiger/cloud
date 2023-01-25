@@ -362,3 +362,83 @@
 
 ### 4.1.3. Configuring additional properties if the liveness probe.
 * You can tell to K8s to wait a period of time before starting to probe the container, see the file and take a deep dive to field `initialDelaySeconds` of file [kubia-liveness-probe-initial-delay.yaml](./resources/me/chap04/kubia-liveness-probe-initial-delay.yaml)
+
+## 4.2. Introducing ReplicationControllers
+* A **ReplicationController** is a K8s resource that ensures its pods are **always kept running**.
+* Look at the below image to find out how it works:
+  ![](./img/chap04/02.png)
+
+* A **ReplicationController**'s job is to make sure that an exact number of pods always matches its labels selector. It will work like the below image:
+  ![](./img/chap04/03.png)
+
+### 4.2.1. Understanding the three parts of a ReplicationController
+* A **ReplicationController** has **three essential parts**:<br>
+  ![](./img/chap04/04.png)<br>
+  * A _label selector_, which determines what pods are in the **ReplicationController**'s scope.
+  * A _replica count_, which specifies the desired number of pods that should be running.
+  * A _pod template_, which is used when creating new pod replicas.
+
+### 4.2.2. Creating a ReplicationController
+* **Important**:
+  * You need to specify the field `spec.replicas.selector.app` of ReplicationController and the field `metadata.labels.app` of pod template to be the same.
+  * Or you just only specify the field `metadata.labels.app` of pod template and the field `spec.replicas.selector` will be automatically created by K8s.
+
+* Create the app with [kubia-rc.yaml](./resources/me/chap04/kubia-rc.yaml) config file.
+  ```bash
+  kubectl create -f resources/me/chap04/kubia-rc.yaml
+  kubectl get all --show-labels
+  ```
+  ![](./img/chap04/05.png)
+
+* For example, try to **delete one of the pods manually** to see how ReplicationController spins up a new one **immediately** to replace it, bringing the number of matching pods back to three.
+  ```bash
+  kubectl delete pod <pod_name>
+  ```
+  ![](./img/chap04/06.png)
+
+* Getting information about a **ReplicationController**.
+  ```bash
+  kubectl get rc
+  ```
+  ![](./img/chap04/07.png)
+
+* Or `describe` a **ReplicationController**.
+  ```bash
+  kubectl describe rc kubia
+  ```
+  ![](./img/chap04/08.png)
+
+### 4.2.3. Moving pods in and out of the scope of a  **ReplicationController**
+* Although a pod is not tied to a ReplicationController, the pod does reference it in the `metadata.ownerReferences` field., which you can use to easily find which ReplicationController a pod belongs to.
+* So, if you change the label of a pod, it will be removed from the scope of the ReplicationController. So the ReplicationController will create a new pod to replace it.
+  ```bash
+  kubectl label pod <pod_name> <label_field>=<new_value> --overwrite
+  kubectl get pods -L app
+  ```
+  ![](./img/chap04/09.png)
+  * So in this case, the pod which not be referenced to will keep be running until you delete it manually.
+
+* Edit a running ReplicationController by the below command:
+  ```bash
+  kubectl edit rc <replication_controller_name>
+  ```
+### 4.2.4. Horizontally scalling pods
+* Scale the **ReplicationController of Kubia** app up to 10 replicas:
+  ```bash
+  kubectl scale rc kubia --replicas=10
+  kubectl get pods -L app --show-labels
+  ```
+  ![](./img/chap04/10.png)
+
+### 4.2.5. Deleting a ReplicationController
+* When you delete a ReplicationController, all the pods it manages will be deleted as well.
+  ```bash
+  kubectl delete rc kubia
+  kubectl get pods -L app --show-labels
+  ```
+  ![](./img/chap04/11.png)
+
+* But when you only want to delete the ReplicationController, and keep its managed pods alive, you the below command:
+  ```bash
+  kubectl delete rc kubia --cascade=false
+  ```

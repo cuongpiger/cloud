@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
       - name: kubia
-        image: luksa/kubia
+        image: manhcuong8499/kubia
         ports:
         - containerPort: 8080
