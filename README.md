@@ -12,6 +12,11 @@
 
   minikube start --nodes 2 -p multinode-demo
   ```
+
+* List all clusters in Minikube:
+  ```bash
+  minikube profile list
+  ```
 ### 2.2.1. Running a local single-node K8s cluster with Minikube
 * Installing Minikube using the below command:
   ```bash
@@ -273,3 +278,55 @@
   ![](./img/chap03/16.png)
 
 ### 3.6.1. Creating a namespace
+* Creating a namespace from YAML file:
+  ```bash
+  kubectl create -f resources/me/chap03/custom-namespace.yaml
+  kubectl get ns
+  ```
+  ![](./img/chap03/17.png)
+
+* Creating a namespace from command line:
+  ```bash
+  kubectl create namespace custom-namespace-2
+  ```
+  ![](./img/chap03/18.png)
+
+* To create resources in the namespace you have created, use the command:
+  ```bash
+  kubectl create -f resources/me/chap03/kubia-manual.yaml --namespace custom-namespace
+  kubectl get all -n custom-namespace
+  ```
+  ![](./img/chap03/19.png)
+
+* To switch to different namespace, use the command:
+  ```bash
+  kubectl config set-context --current --namespace custom-namespace
+  kubectl config view | grep namespace # get current namespace
+  ```
+  ![](./img/chap03/20.png)
+
+## 3.7. Stopping and removing pods
+* Delete a pod by name
+  ```bash
+  kubectl delete pod kubia-manual
+  ```
+
+* Delete pods using label selectors
+  ```bash
+  kubectl delete pods -l creation_method=manual
+  ```
+
+* Delete pods by deleting the whole namespace
+  ```bash
+  kubectl delete ns custom-namespace
+  ```
+
+* Delete all pods in a namespace, while keeping the namespace
+  ```bash
+  kubectl delete pods --all
+  ```
+
+* Delete all resources in a namespace:
+  ```bash
+  kubectl delete all --all
+  ```
