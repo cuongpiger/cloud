@@ -442,3 +442,18 @@
   ```bash
   kubectl delete rc kubia --cascade=false
   ```
+
+## 4.3. Using ReplicaSets instead of ReplicationControllers
+* Similar to **ReplicationController**, it is a new generation of **ReplicationController** and replaces the old one completely _(ReplicationController will eventually be deprecated)_.
+
+### 4.3.1 Comparing a ReplicaSet to a ReplicationController
+* A single ReplicationController can not match pods with the label `env=production` and those with the label `env=devel` at the same time. It can only match either pods with the `env=production` label or pods with the `env=devel` label. But a single ReplicaSet can match both sets of pods and treat them as a single group.
+
+### 4.3.2. Defining a ReplicaSet
+* Create a ReplicaSet with [kubia-replicaset.yaml](./resources/me/chap04/kubia-replicaset.yaml) config file.
+  ```bash
+  kubectl create -f resources/me/chap04/kubia-replicaset.yaml
+  kubectl get all --show-labels
+  ```
+  ![](./img/chap04/12.png)
+  
