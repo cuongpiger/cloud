@@ -340,7 +340,16 @@
   * An **EXEC** probe executes an arbitrary command inside the container and checks the command's exit status code. If the status code is 0, the probe is successful. All other codes are considered failures.
 
 ### 4.1.2. Creating an HTTP-based liveness probe
+* In `liveness` you need to specify the field `livenessProbe` in the `YAML` config file.
 * Create `manhcuong8499/kubia-unhealthy` image:
   ```bash
-  docker 
+  cd resources/me/chap04/kubia-unhealthy
+  docker build -t kubia-unhealthy .
+  docker tag kubia-unhealthy manhcuong8499/kubia-unhealthy
+  docker push manhcuong8499/kubia-unhealthy
+  ```
+* Run our app:
+  ```bash
+  kubectl create -f resources/me/chap04/kubia-liveness-probe.yaml
+  kubectl get pods kubia-liveness
   ```
