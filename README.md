@@ -353,3 +353,10 @@
   kubectl create -f resources/me/chap04/kubia-liveness-probe.yaml
   kubectl get pods kubia-liveness
   ```
+
+* When you want to figure out why the previous container terminated, you can use the command:
+  ```bash
+  kubectl describe pod kubia-liveness
+  ```
+  ![](./img/chap04/01.png)
+  
