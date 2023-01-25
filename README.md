@@ -359,4 +359,6 @@
   kubectl describe pod kubia-liveness
   ```
   ![](./img/chap04/01.png)
-  
+
+### 4.1.3. Configuring additional properties if the liveness probe.
+* You can tell to K8s to wait a period of time before starting to probe the container, see the file and take a deep dive to field `initialDelaySeconds` of file [kubia-liveness-probe-initial-delay.yaml](./resources/me/chap04/kubia-liveness-probe-initial-delay.yaml)
