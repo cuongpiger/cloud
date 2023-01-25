@@ -330,3 +330,17 @@
   ```bash
   kubectl delete all --all
   ```
+
+# Chapter 4. Replication and other controllers: deploying managed pods
+## 4.1. Keep pods healthy
+### 4.1.1. Introducing liveness probes
+* K8s can probe a container using one of the three mechanisms:
+  * An **HTTP GET** probe performs an HTTP GET request on the container's IP address, a port and path you specify. If the probe receives a response, and the response code does not represent an error (in other words, if the HTTP response code is 2xx or 3xx), the probe is considered successful. If the server returns an error response code or if it does not respond at all, the probe is considered a failure and the container will be restarted as a result.
+  * A **TCP socket** probe tries to open a TCP connection to the specified port of the container. If the connection is established successfully, the probe is successful. Otherwise, the container is restarted.
+  * An **EXEC** probe executes an arbitrary command inside the container and checks the command's exit status code. If the status code is 0, the probe is successful. All other codes are considered failures.
+
+### 4.1.2. Creating an HTTP-based liveness probe
+* Create `manhcuong8499/kubia-unhealthy` image:
+  ```bash
+  docker 
+  ```
