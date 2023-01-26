@@ -581,3 +581,29 @@
 * Look at the file [cronjob.yaml](./resources/me/chap04/cronjob.yaml). You specify time to run the job in the field `spec.schedule`.
 * Sometime, you can also add field `spec.startingDeadlineSeconds` to specify the duration time that the job can be delayed before it is considered failed.
   * For example: If you set `spec.startingDeadlineSeconds: 15`, one of the times the job is supposed to run is 10:30:00, if it does not start by 10:30:15 for whatever reason, the job will not run and will be shown as failed.
+
+# Chapter 5. Services: enabling clients to discover and talk to pods
+## 5.1. Introducing services
+### 5.1.1. Creating services
+* Creating a service through kubectl expose: We can use `expose` command to create a service, we can expose the **ReplicationController** or **ReplicaSet**. But this option is not recommended.
+* Creating a service throught a YAML file:
+  * Look at the file [kubia-svc.yaml](./resources/me/chap05/kubia-svc.yaml) and then use this file to create our service.
+  ```bash
+  kubectl create -f resources/me/chap05/kubia-svc.yaml
+  kubectl get svc # get all available services
+  ```
+  ![](./img/chap05/01.png)
+  * But this is the cluster IP, it's only accessible from inside the cluster
+* There are several ways that you can send your request to this above service:
+  * Creating a pod that will send the request to the service's cluster IP and log the response.
+  * You `ssh` into one of the K8s nodes and use the `curl` command.
+  * You can execute `curl` command inside one of your existing pods through the `kubectl exec` command.
+
+* Now let's make requests to our service:
+  ```bash
+  kubectl get pods
+  kubectl describe pod <pod_name>
+  kubectl exec <pod_name> -- curl -s <api_endpoints>
+  ```
+  ![](./img/chap05/02.png)
+  ![](./img/chap05/03.png)
