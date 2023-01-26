@@ -457,3 +457,127 @@
   ```
   ![](./img/chap04/12.png)
   
+* Get all the **ReplicaSet**:
+  ```bash
+  kubectl get rs
+  ```
+  ![](./img/chap04/13.png)
+
+* Describe **ReplicaSet**
+  ```bash
+  kubectl describe rs kubia
+  ```
+  ![](./img/chap04/14.png)
+
+### 4.3.3. Using the ReplicaSet's more expressive label selectors
+* Discover the field `spec.replicas.selector.matchExpressions:` in the file [kubia-replicaset-matchexpressions.yaml](./resources/me/chap04/kubia-replicaset-matchexpressions.yaml).
+  ```bash
+  kubectl create -f resources/me/chap04/kubia-replicaset-matchexpressions.yaml
+  kubectl get all --show-labels
+  ```
+  ![](./img/chap04/15.png)
+
+## 4.4. Running exactly one pod on each node with DaemonSets
+* A **DaemonSet** ensures that **exactly one pod** is running on each node in the cluster. It is useful for running a pod that provides a service to the entire node, such as a logging agent or a monitoring agent.
+  ![](./img/chap04/16.png)
+* In the case of a node goes down, the DaemonSet does not create a new pod on another node to replace the one that went down. It only creates a new pod on a new node when a new node is added to the cluster.
+* You also use DaemonSet when you want to run a pod on specific nodes, not all nodes in the cluster. This is done by specifying a `nodeSelector` in the pod template.
+
+* Creating a DaemonSet YAML definition:
+  * Look at the file  [ssd-monitor-daemonset.yaml](./resources/me/chap04/ssd-monitor-daemonset.yaml).
+  ```bash
+  cd ./resources/me/chap04/ssd-monitor
+  docker build -t ssd-monitor .
+  docker tag ssd-monitor manhcuong8499/ssd-monitor
+  docker push manhcuong8499/ssd-monitor
+  ```
+  
+  ```bash
+  kubectl create -f resources/me/chap04/ssd-monitor-daemonset.yaml
+  kubectl get ds # get daemonset resources
+  ```
+  ![](./img/chap04/17.png)
+  * There is nothing to happen, because you **forgot to label your nodes with the `disk=ssd` label**.
+
+* Labeling nodes with `disk=ssd` label:
+  ```bash
+  kubectl get nodes
+  kubectl label node multinode-demo-m02 disk=ssd
+  kubectl get all --show-labels
+  ```
+  ![](./img/chap04/18.png)
+  * Now there is exactly one pod running this DaemonSet.
+  * DaemonSet will create a new pod on a new node when a new node is added to the cluster.
+
+* Let remove the label `disk=ssd` from the node `multinode-demo-m02`:
+  ```bash
+  kubectl label node multinode-demo-m02 disk=hdd --overwrite
+  kubectl get all --show-labels
+  ```
+  ![](./img/chap04/19.png)
+  * You can see, when you have changed the label of the node, the DaemonSet will remove the pod from the node.
+  * Now, there is nothing happen like the first time you create the DaemonSet.
+
+## 4.5. Running pods that perform a single completable task
+* If you only want to run a task that terminates after completing its work, use need to use a **Job**.
+### 4.5.1. Introducing  the Job resource
+* K8s includes support for this through the Job resource, it allows to run a pod whose container is not restarted when the process running inside finishes successfully. Once it does, the pod is considered complete.
+
+### 4.5.1. Defining a Job resource
+* Following the file [](./resources/me/chap04/batch-job.yaml).
+* Build the image:
+  ```bash
+  cd ./resources/me/chap04/batch-job
+  docker build -t batch-job .
+  docker tag batch-job manhcuong8499/batch-job
+  docker push manhcuong8499/batch-job
+  ```
+
+* Create the Job:
+  ```bash
+  kubectl create -f resources/me/chap04/batch-job.yaml
+  kubectl get all --show-labels
+  kubectl logs <pod_name>
+  ```
+  ![](./img/chap04/20.png)
+  ![](./img/chap04/21.png)
+  * The job is completed after 2 minutes.
+
+* To get job:
+  ```bash
+  kubectl get jobs
+  ```
+  ![](./img/chap04/22.png)
+
+### 4.5.2. Running multiple pod instances in a Jon sequentially
+* Following file [](./resources/me/chap04/multi-completion-batch-job.yaml)
+  * It is only completed when all the pods are completed _(in this example is 5)_.
+  * Run as sequential, not parallel.
+  ```bash
+  kubectl create -f resources/me/chap04/multi-completion-batch-job.yaml
+  kubectl get all --show-labels
+  ```
+  ![](./img/chap04/23.png)
+  ![](./img/chap04/24.png)
+
+* If you want to run them as parallel, following file [multi-completion-parallel-batch-job.yaml](./resources/me/chap04/multi-completion-parallel-batch-job.yaml)
+  ```bash
+  kubectl create -f resources/me/chap04/multi-completion-parallel-batch-job.yaml
+  kubectl get all --show-labels
+  ```
+  ![](./img/chap04/25.png)
+* You also change the number of pods which is able to run at same time when your job is on the fly.
+  ```bash
+  kubectl edit job multi-completion-batch-job
+  ```
+  * and then edit the field `spec.parallelism: 2` to `spec.parallelism: 3`
+
+### 4.5.3. Limiting the time allowed for a Job pod to complete
+* You can also limit the time allowed for a Job pod to complete by specifying a `spec.activeDeadlineSeconds` field in the Job YAML definition.
+* Look at the file [time-limited-batch-job.yaml](./resources/me/chap04/time-limited-batch-job.yaml).
+
+## 4.6. Scheduling Jobs to run periodically or once in the future
+### 4.6.1. Creating a CronJob
+* Look at the file [cronjob.yaml](./resources/me/chap04/cronjob.yaml). You specify time to run the job in the field `spec.schedule`.
+* Sometime, you can also add field `spec.startingDeadlineSeconds` to specify the duration time that the job can be delayed before it is considered failed.
+  * For example: If you set `spec.startingDeadlineSeconds: 15`, one of the times the job is supposed to run is 10:30:00, if it does not start by 10:30:15 for whatever reason, the job will not run and will be shown as failed.

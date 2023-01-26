@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: ssd-monitor
@@ -15,5 +15,5 @@ spec:
         disk: ssd
       containers:
       - name: main
-        image: luksa/ssd-monitor
+        image: manhcuong8499/ssd-monitor
 
