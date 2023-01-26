@@ -607,3 +607,54 @@
   ```
   ![](./img/chap05/02.png)
   ![](./img/chap05/03.png)
+
+* There is a big thing you need to know that when you make a request to K8s, it will choose a random pod to send the request to. So, you can see the response is different each time you make a request. In the case you want to keep the affinity between the client and the previous pod, you need to set the field `spec.sessionAffinity: ClientIP` in the service YAML file.
+  * This will make the service to :send the request to the same pod that the client has previously sent the request to.
+
+* **Expose multiple ports in the same service**
+  * You can expose multiple ports for your service like this:
+  ```yaml
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: kubia
+    spec:
+      ports:
+      - name: http
+        port: 80
+        targetPort: 8080
+      - name: https
+        port: 443
+        targetPort: 8443
+      selector:
+        app: kubia
+  ```
+
+* **Using named ports**:
+  * If you have a pod like this:
+  ```yaml
+  kind: Pod
+  spec:
+    containers:
+    - name: kubia
+      ports:
+      - name: http
+      containerPort: 8080
+      - name: https
+      containerPort: 8443
+  ```
+
+  * And now you want your service to use this pod's ports, you can do this:
+  ```yaml
+  apiVersion: v1
+  kind: Service
+  spec:
+    ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: https
+      port: 443
+      targetPort: https
+  ```
+  * So later if you chage the pod's port, you don't need to change the service's port.
