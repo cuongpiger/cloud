@@ -17,6 +17,11 @@
   ```bash
   minikube profile list
   ```
+
+* List all service in a cluster:
+  ```bash
+  minikube service -p multinode-demo --all
+  ```
 ### 2.2.1. Running a local single-node K8s cluster with Minikube
 * Installing Minikube using the below command:
   ```bash
@@ -658,3 +663,57 @@
       targetPort: https
   ```
   * So later if you chage the pod's port, you don't need to change the service's port.
+
+### 5.1.2. Discovering services
+_You need to read the book to get the more clearer._
+* This section shows you how to expose the IP address and port of the service without manually looking up it. 
+* To delete all pods in the cluster:
+  ```bash
+  kubectl delete pods --all
+  ```
+* You can use the command `env` to get all the environment variables in the real host, you also do that to get all the available ones in pods.
+  ```bash
+  kubectl create -f resources/me/chap05/kubia-svc.yaml # create the service first
+  kubectl create -f resources/me/chap04/kubia-replicaset.yaml # and then create the replicaset to make the pods can automactically look up the pair of port and ip-address of the proper service
+  kubectl get pods
+  kubectl exec <pod_name> -- env
+  ```
+  ![](./img/chap05/04.png)
+
+* You need not know exactly the pair of ports and IP addresses of the service with which you want to interact. K8s have a pod called `kube-dns` _(or `coreDNS`)_ which is responsible for resolving the service name to the IP address and port of the service. Let's try call API without specify the IP address number.
+  ```bash
+  kubectl exec <pod_name> -- -it -- bash
+
+  # inside the pod's shell
+  curl -s http://kubia.default.svc.cluster.local
+  curl -s http://kubia.default
+  curl -s http://kubia
+  cat /etc/resolv.conf
+  ```
+  ![](./img/chap05/05.png)
+  ![](./img/chap05/06.png)
+
+## 5.2. Connecting to services living outside the cluster
+### 5.2.1. Introducing service endpoints
+* Describe the service **Kubia**.
+  ```bash
+  kubectl describe svc kubia
+  ```
+  ![](./img/chap05/07.png)
+
+  ```bash
+  kubectl get endpoints kubia
+  ```
+  ![](./img/chap05/08.png)
+  * You can see these endpoints are the IP addresses of the pods that are currently running this service. The service hold ones to redirect the request to the proper pod.
+
+### 5.2.2. Manually configuring service endpoints
+* When a request comes to service, it will look up the endpoints to find a proper pod to send the request to.
+* If you create a service without a pod selector, K8s will not even create the **Endpoints** resource, And in this case, you need to create the **Endpoints** resource manually.
+* Let open file [external-service.yaml](./resources/me/chap05/external-service.yaml), this is a service without pod selector.
+  ```bash
+  kubectl create -f resources/me/chap05/external-service.yaml
+  kubectl get svc
+  ```
+  ![](./img/chap05/09.png)
+  
