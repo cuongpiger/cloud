@@ -682,7 +682,7 @@ _You need to read the book to get the more clearer._
 
 * You need not know exactly the pair of ports and IP addresses of the service with which you want to interact. K8s have a pod called `kube-dns` _(or `coreDNS`)_ which is responsible for resolving the service name to the IP address and port of the service. Let's try call API without specify the IP address number.
   ```bash
-  kubectl exec <pod_name> -- -it -- bash
+  kubectl exec <pod_name> -it -- bash
 
   # inside the pod's shell
   curl -s http://kubia.default.svc.cluster.local
@@ -717,3 +717,23 @@ _You need to read the book to get the more clearer._
   ```
   ![](./img/chap05/09.png)
   
+* **Creating an Endpoints resource for a service without a selector**
+  * Now I will create an **Endpoints** resource for this service.
+  * The Endpoints object needs to have the same name as the service and contain the list of target IP addresses and ports for the service
+  [](./resources/me/chap05/external-service-endpoints.yaml)
+  ```bash
+  kubectl create -f resources/me/chap05/external-service-endpoints.yaml
+  ```
+  * Now if you `describe` service `external-service`, you will see the endpoints are the IP addresses and ports that you have specified in the **Endpoints** resource.
+  ```bash
+  kubectl describe svc external-service
+  ```
+  ![](./img/chap05/10.png)
+
+### 5.2.3.Creating an alias for an external service
+* Look at the file [external-service-externalname.yaml](./resources/me/chap05/external-service-externalname.yaml).
+  ```bash
+  kubectl create -f resources/me/chap05/external-service-externalname.yaml
+  kubectl get svc
+  ```
+  ![](./img/chap05/10.png)
