@@ -731,9 +731,39 @@ _You need to read the book to get the more clearer._
   ![](./img/chap05/10.png)
 
 ### 5.2.3.Creating an alias for an external service
+* Read this post to take deep dive into this resource. [https://www.ithands-on.com/2021/04/kubernetes-101-external-services.html](https://www.ithands-on.com/2021/04/kubernetes-101-external-services.html)
 * Look at the file [external-service-externalname.yaml](./resources/me/chap05/external-service-externalname.yaml).
   ```bash
   kubectl create -f resources/me/chap05/external-service-externalname.yaml
   kubectl get svc
   ```
   ![](./img/chap05/10.png)
+
+## 5.3. Exposing services to external clients
+* In this section, you will learn how to expose services to external clients.
+* There are a few ways to make a service accessible externally:
+  * NodePort
+  * LoadBalancer
+  * Ingress
+
+### 5.3.1. Using a NodePort service
+#### 5.3.1.1. Creating a NodePort service
+* Look at the file [kubia-svc-nodeport.yaml](./resources/me/chap05/kubia-svc-nodeport.yaml).
+* Run the below command to run the NodePort service.
+  ```bash
+  kubectl create -f resources/me/chap05/kubia-svc-nodeport.yaml
+  kubectl get svc
+  ```
+  ![](./img/chap05/11.png)
+
+* This service is accessible at the following addresses:
+  ![](./img/chap05/12.png)
+  ![](./img/chap05/13.png)
+
+* To get all IP addresses of nodes and then stand at outside to call the kubia service:
+  ![](./img/chap05/14.png)
+  ![](./img/chap05/15.png)
+
+### 5.3.2. Exposing a service through an external load balancer
+* Look at the file [kubia-svc-loadbalancer.yaml](./resources/me/chap05/kubia-svc-loadbalancer.yaml).
+* Minikube does not support the **LoadBalancer** service type, so you need to use a cloud provider to test this service type.
