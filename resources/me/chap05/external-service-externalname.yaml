@@ -4,6 +4,6 @@ metadata:
   name: external-service
 spec:
   type: ExternalName
-  externalName: google.com
+  externalName: catfact.ninja
   ports:
   - port: 80
