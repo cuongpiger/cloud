@@ -767,3 +767,62 @@ _You need to read the book to get the more clearer._
 ### 5.3.2. Exposing a service through an external load balancer
 * Look at the file [kubia-svc-loadbalancer.yaml](./resources/me/chap05/kubia-svc-loadbalancer.yaml).
 * Minikube does not support the **LoadBalancer** service type, so you need to use a cloud provider to test this service type.
+
+## 5.4. Exposing services externally through an Ingress resource
+* **Enabling the Ingress add-on in Minikube** _[p.143]_
+  * List all the Minikube's add-ons:
+    ```bash
+    minikube addons list
+    ```
+    ![](./img/chap05/16.png)
+  * If Ingress controller has not been installed, run this command:
+    ```bash
+    minikube addons enable ingress [-p <cluster_name>]
+    ```
+    ![](./img/chap05/17.png)
+  * When Ingress controller is enabled, this should spin up a new pod called `nginx-ingress-controller` in the `kube-system` namespace.
+    ```bash
+    kubectl get pods --all-namespaces
+    ```
+    ![](./img/chap05/18.png)
+
+### 5.4.1. Creating an Ingress resource
+* **Preparation**:
+  ```bash
+  kubectl create -f resources/me/chap05/kubia-svc.yaml # create the service first
+  kubectl create -f resources/me/chap04/kubia-replicaset.yaml # and then create the replicaset to
+  kubectl create -f resources/me/chap05/kubia-svc-nodeport.yaml # run NodePort service
+  ```
+  ![](./img/chap05/19.png)
+
+* **Creating an Ingress controller**:
+  * File: [kubia-ingress.yaml](./resources/me/chap05/kubia-ingress.yaml).
+  * Run the below command to create the Ingress controller:
+    ```bash
+    kubectl create -f resources/me/chap05/kubia-ingress.yaml
+    ```
+
+### 5.4.2. Accessing the service through the Ingress
+#### 5.4.2.1. Obtaining the IP address of the Ingress
+* To look up the IP, you need to list Ingress:
+  ```bash
+  kubectl get ingresses
+  ```
+  ![](./img/chap05/20.png)
+
+#### 5.4.2.2. Ensuring the host configured in the Ingress points to the Ingress' IP address
+* Because we do not buy a domain name, so we need to add the IP address of the Ingress to the hosts file.
+  ```bash
+  sudo nano /etc/hosts
+  ```
+  ![](./img/chap05/21.png)
+
+#### 5.4.2.3. Accessing pods through the Ingress
+```bash
+curl http://kubia.example.com
+kubectl exec pod/kubia-fhnln -- curl -s http://kubia.example.com
+curl http://192.168.49.2:30123
+```
+![](./img/chap05/22.png)
+
+
