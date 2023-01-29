@@ -849,4 +849,6 @@ curl http://192.168.49.2:30123
   curl -k https://kubia.example.com
   ```
   ![](./img/chap05/24.png)
-  
+
+## 5.5. Signaling when a pod is ready to accept connections
+###
