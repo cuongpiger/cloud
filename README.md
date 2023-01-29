@@ -825,4 +825,28 @@ curl http://192.168.49.2:30123
 ```
 ![](./img/chap05/22.png)
 
+### 5.4.3. Exposing multiple services through the same Ingress
+### 5.4.4. Configuring Ingress to handle TLS traffic
+* Create the private key and certificate:
+  ```bash
+  openssl genrsa -out tls.key 2048
+  openssl req -new -x509 -key tls.key -out tls.cert -days 360 -subj "/CN=kubia.example.com"
+  kubectl create secret tls tls-secret --cert=tls.cert --key=tls.key
+  ```
 
+* Update the Ingress controller by file [kubia-ingress-tls.yaml](./resources/me/chap05/kubia-ingress-tls.yaml)
+  ```bash
+  kubectl apply -f resources/me/chap05/kubia-ingress-tls.yaml
+  ```
+
+* Call API using `https`:
+  ```bash
+  curl -k -v https://kubia.example.com
+  ```
+  ![](./img/chap05/23.png)
+
+  ```bash
+  curl -k https://kubia.example.com
+  ```
+  ![](./img/chap05/24.png)
+  

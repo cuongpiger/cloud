@@ -13,4 +13,4 @@ spec:
           service:
             name: kubia-nodeport
             port:
-              number: 8
+              number: 80
