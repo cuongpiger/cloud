@@ -851,4 +851,95 @@ curl http://192.168.49.2:30123
   ![](./img/chap05/24.png)
 
 ## 5.5. Signaling when a pod is ready to accept connections
-###
+### 5.5.2. Adding a readiness probe to a pod
+* Focus the file [kubia-rc-readinessprobe.yaml](./resources/me/chap05/kubia-rc-readinessprobe.yaml).
+```bash
+kubectl create -f resources/me/chap05/kubia-svc.yaml # create the service first
+kubectl create -f resources/me/chap05/kubia-rc-readinessprobe.yaml # and then create the replication controller to
+kubectl create -f resources/me/chap05/kubia-svc-nodeport.yaml # run NodePort service
+kubectl get all
+```
+![](./img/chap05/25.png)
+
+* Create the file `/var/ready` for random chosen pod:
+  ```bash
+  kubectl exec pod/kubia-2ss55 -- touch /var/ready
+  kubectl get all
+  ```
+  ![](./img/chap05/26.png)
+  
+* Check **Readiness** status of a pod:
+  ```bash
+  kubectl describe pod kubia-2ss55
+  ```
+  ![](./img/chap05/27.png)
+  * 1 successful and 3 failed checks.
+
+* `cURL` to the **NodePort**:
+  ```bash
+  curl http://192.168.49.2:30123
+  ```
+  ![](./img/chap05/28.png)
+  * Because there is only one pod that is ready, so the request is routed to that pod.
+  * You can see the pod ID of it is the pod that you created the file `/var/ready` in the previous step.
+
+## 5.6. Using a headless service for discovering individual pods
+### 5.6.1. Creating a headless service
+* Focus the file [kubia-svc-headless.yaml](./resources/me/chap05/kubia-svc-headless.yaml).
+* Create the headless service:
+  ```bash
+  kubectl create -f resources/me/chap05/kubia-svc-headless.yaml
+  kubectl get all -o wide
+  ```
+  ![](./img/chap05/29.png)
+
+* Because this is a headless service, so there is no load balancer for it, you also can not see its cluster IP, because everything is connect directly to the pod.
+  ```bash
+  kubectl describe svc kubia-headless
+  kubectl describe svc kubia
+  ```
+  ![](./img/chap05/30.png)
+
+### 5.6.2. Discovering pods through DNS
+* Run pod:
+  ```bash
+  kubectl run dnsutils --image=tutum/dnsutils --command -- sleep infinity
+  ```
+
+* Performs DNS lookup.
+  ```bash
+  kubectl exec pod/dnsutils -- nslookup kubia-headless
+  kubectl get pods -o wide
+  ```
+  ![](./img/chap05/31.png)
+  ![](./img/chap05/32.png)
+  * We get these two IP-address of the `READY` pods in the cluster.
+
+* But when we call to the service **Kubia**, we only get the IP address of the cluster, not the IP address of the pod.
+  ```bash
+  kubectl exec pod/dnsutils -- nslookup kubia
+  ```
+  ![](./img/chap05/33.png)
+
+# Chapter 6. Volumes: attaching disk storage to container
+* Creating a pod, open file [fortune-pod.yaml](./resources/me/chap06/fortune-pod.yaml).
+  ```bash
+  kubectl create -f resources/me/chap06/fortune-pod.yaml
+  kubectl get pods
+  ```
+  ![](./img/chap06/01.png)
+
+* Seeing the pod in action:
+  ```bash
+  kubectl port-forward fortune 8080:80
+  curl http://localhost:8080
+  ```
+  ![](./img/chap06/02.png)
+
+
+* Running a web server pod serving files from a cloned git repository: [gitrepo-volume-pod.yaml](./resources/me/chap06/gitrepo-volume-pod.yaml)
+  ```bash
+  kubectl create -f resources/me/chap06/web-pod.yaml
+  kubectl get pods
+  ```
+  ![](./img/chap06/03.png)
