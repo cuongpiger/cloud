@@ -942,4 +942,38 @@ kubectl get all
   kubectl create -f resources/me/chap06/web-pod.yaml
   kubectl get pods
   ```
+
+## 6.5. Decoupling pods from the underlying storage technology
+### 6.5.2. Creating a PersistentVolume
+* Look at the file [mongodb-pv-hostpath.yaml](./resources/me/chap06/mongodb-pv-hostpath.yaml)
+  ```bash
+  kubectl create -f resources/me/chap06/mongodb-pv-hostpath.yaml
+  kubectl get pv
+  ```
   ![](./img/chap06/03.png)
+
+### 6.5.3. Claiming a PersistentVolume by creating a PersistentVolumeClaim
+* Using the file [mongodb-pvc.yaml](./resources/me/chap06/mongodb-pvc.yaml)
+  ```bash
+  kubectl create -f resources/me/chap06/mongodb-pvc.yaml
+  kubectl get pvc
+  ```
+  ![](./img/chap06/04.png)
+
+### 6.5.4. Using a PersistentVolumeClaim in a pod
+* Using the file [mongodb-pod-pvc.yaml](./resources/me/chap06/mongodb-pod-pvc.yaml).
+  ```bash
+  kubectl create -f resources/me/chap06/mongodb-pod-pvc.yaml
+  kubectl get pods
+  ```
+
+* Access to bash of mongodb pod:
+  ```bash
+  kubectl exec -it mongodb -- /bin/bash
+
+  # inside the pod
+  mongosh # connect to shell of mongo
+  show dbs # show all databases
+  ```
+  ![](./img/chap06/05.png)
+  

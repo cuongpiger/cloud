@@ -5,10 +5,12 @@ metadata:
 spec:
   containers:
   - image: mongo
+    securityContext:
+      runAsUser: 0
     name: mongodb
     volumeMounts:
     - name: mongodb-data
-      mountPath: /data/db
+      mountPath: /data
     ports:
     - containerPort: 27017
       protocol: TCP
