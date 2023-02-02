@@ -976,4 +976,19 @@ kubectl get all
   show dbs # show all databases
   ```
   ![](./img/chap06/05.png)
+
+# Chapter 9. Deployments: updating applications declaratively
+* Build the image from Dockerfile [](./resources/me/chap09/v1/Dockerfile)
+  ```bash
+  cd resources/me/chap09/v1
+  docker build -t manhcuong8499/kubia:v1 .
+  docker image push manhcuong8499/kubia:v1
+  ```
+
+* Run `kubia:v1` ReplicationController from file [kubia-rc-and-service-v1.yaml](./resources/me/chap09/kubia-rc-and-service-v1.yaml):
+  ```bash
+  cd resources/me/chap09
+  kubectl create -f ./resources/me/chap09/kubia-rc-and-service-v1.yaml
+  kubectl get all
+  ```
   
