@@ -991,4 +991,6 @@ kubectl get all
   kubectl create -f ./resources/me/chap09/kubia-rc-and-service-v1.yaml
   kubectl get all
   ```
+  ![](./img/chap09/01.png)
+
   
