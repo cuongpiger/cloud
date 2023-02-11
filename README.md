@@ -993,4 +993,4 @@ kubectl get all
   ```
   ![](./img/chap09/01.png)
 
-  
+
