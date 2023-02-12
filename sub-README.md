@@ -28,3 +28,10 @@
     * ... and others.
 ## 6.2. Using volumes to share data between containers
 * This section discusses how to use volumes to share data between containers in a pod.
+### 6.2.1. Using `emptyDir` volumes
+* The app running inside the pod can then write any files it needs to it.
+* The volume's lifetime is tied to the pod's lifetime, the volume's contents are deleted when the pod is deleted.
+* An `emptyDir` volume is especially useful for sharing files between containers running in the same pod.
+* It can also be used be a **single container** for when a container needs top write data to disk temporarily, such as when performing a sort operation on a large dataset, which can not fit into the available memory.
+
+###### Using an `emptyDir` volume in a pod
