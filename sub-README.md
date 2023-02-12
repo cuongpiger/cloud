@@ -35,3 +35,28 @@
 * It can also be used be a **single container** for when a container needs top write data to disk temporarily, such as when performing a sort operation on a large dataset, which can not fit into the available memory.
 
 ###### Using an `emptyDir` volume in a pod
+* Using the previous example where a **web server**, a **content agent**, and a **log rotator** share two volumes, but let's simplify a bit.
+* You will build a pod with **only the web server container** and **the content agent** and a **single volume** for the HTML.
+* We use Nginx as the web serverm and the and the UNIX `fortune` _(this command will print out a random quote every time you run it)_ command to generate HTML content. You will create a script that invokes the `fortune` command every 10 seconds and stores its output in `index.html`.
+* The first step, let's build the `fortune` container image using [this Dockerfile](./resources/me/chap06/fortune/Dockerfile).
+    ```bash
+    docker image build -t manhcuong8499/fortune -f ./resources/me/chap06/fortune/Dockerfile ./resources/me/chap06/fortune/
+    docker image push manhcuong8499/fortune
+    ```
+
+###### Creating a pod
+* Working file [fortune-pod.yaml](./resources/me/chap06/fortune-pod.yaml).
+* Create the pod:
+    ```bash
+    kubectl apply -f ./resources/me/chap06/fortune-pod.yaml
+    ```
+    ![](./img/chap06/03.png)
+    * The pod contains two containers and a single volume.
+
+###### Seeing the pod in action
+* To see the fortune message, you need to access to the pod. You will do that by forwarding a port from your local machine to the pod.
+* Forward port 8080 on your local machine to port 80 on the pod:
+    ```bash
+    kubectl port-forward pod/fortune 8080:80
+    ```
+    ![](./img/chap06/04.png)
