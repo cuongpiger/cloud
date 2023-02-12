@@ -10,7 +10,7 @@
     * The below image shows three containers of the same pod without shared storage.<br>
     ![](./img/chap06/01.png)<br>
     * The below image shows three containers sharing two volumes mounted at various mount paths.<br>
-    ![](./img/chap06/02.png)<br>
+    ![](./img/chap06/02_.png)<br>
 
 ### 6.1.2. Introducing available volume types
 * Here is a list of several of the available volume types:
@@ -60,3 +60,5 @@
     kubectl port-forward pod/fortune 8080:80
     ```
     ![](./img/chap06/04.png)
+    ![](./img/chap06/05.png)
+    
