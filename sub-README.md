@@ -61,4 +61,82 @@
     ```
     ![](./img/chap06/04.png)
     ![](./img/chap06/05.png)
-    
+
+###### Specifying the medium to use for the `emptyDir`
+* The `emptyDir` you used as the volume was created on the actual disk of the worker node hosting your pod, so its performance depends on the type of the node's disks.
+* You can tell K8s to create `emptyDir` on a **tmpfs** _(in memory instead of on disk)_. To do this, set the `emptyDir`'s `medium` property to `Memory` like this:
+    ```bash
+    volumes:
+    - name: html
+      emptyDir:
+        medium: Memory
+    ```
+
+### 6.2.2. Using a Git repository as the starting point for a volume
+* A `gitRepo` volume is basically an `emptyDir` volume that gets populated by cloning a Git repository and checking out a specific revision when the pod is starting up _(but before its containers are created)_.
+    ![](./img/chap06/06.png)
+
+* After the `gitRepo` volume is created, it is not kept in sync with the repo it is referencing. The files in the volume will not be updated when you push additional commits to the Git repository.
+* Working file [gitrepo-volume-pod.yaml](./resources/me/chap06/gitrepo-volume-pod.yaml)
+    ```bash
+    kubectl apply -f ./resources/me/chap06/gitrepo-volume-pod.yaml
+    ```
+
+* **Note**: `gitRepo` has not been supported since Kubernetes v1.16.0.
+
+## 6.3. Accessing files on the worker node's filesystem
+* Working file: [fortune-hostpath.yaml](./resources/me/chap06/fortune-hostpath.yaml).
+* Create the pod:
+    ```bash
+    kubectl apply -f ./resources/me/chap06/fortune-hostpath.yaml
+    ```
+* We can also see the `index.html` file has been created on the worker node's filesystem.
+    ![](./img/chap06/07.png)
+
+* Find more in this [link](https://www.devopsschool.com/blog/kubernetes-volume-hostpath-explained-with-examples/).
+* Describe the `pod/fortune` we also see the `hostPath` volume is mounted at `/data`:
+    ```bash
+    kubectl describe pod/fortune
+    ```
+    ![](./img/chap06/08.png)
+
+## 6.4. Using persistent storage
+* Learn more in book.
+## 6.5. Decoupling pos from the underlying storage technology.
+### 6.5.1. Introducing PersistentVolumes and PersistentVolumeClaims
+![](./img/chap06/09.png)
+### 6.5.2. Creating a PersistentVolume
+* Working file: [mongodb-pv-hostpath.yaml](./resources/me/chap06/mongodb-pv-hostpath.yaml).
+* Create the PV:
+    ```bash
+    kubectl apply -f ./resources/me/chap06/mongodb-pv-hostpath.yaml
+    kubectl get pv
+    ```
+    ![](./img/chap06/10.png)
+
+* PersistentVolumes like cluster nodes, do not belong to any namespace, unlike pods and PersistentVolumeClaims.
+    ![](./img/chap06/11.png)
+
+### 6.5.3. Claiming a PersistentVolume by creating a PersistentVolumeClaim
+###### Creating a PersistentVolumeClaim
+* Working file: [mongodb-pvc.yaml](./resources/me/chap06/mongodb-pvc.yaml).
+* Create the PVC:
+    ```bash
+    kubectl apply -f ./resources/me/chap06/mongodb-pvc.yaml
+    kubectl get pvc
+    ```
+    ![](./img/chap06/12.png)
+
+* The PersistentVolume's capacity must be large enough to accommodate what the claim requests.
+* The volume's access modes must include the access mode requested by the claim.
+* Some kinds of access modes:
+    * `ReadWriteOnce` - `RWO`: the volume can be mounted as read-write by a single node.
+    * `ReadOnlyMany` - `ROX`: the volume can be mounted read-only by many nodes.
+    * `ReadWriteMany` - `RWS`: the volume can be mounted as read-write by many nodes.
+    * **Note**: `RWO`, `ROX`, and `RWX` pertain to the number of worker nodes that can use the volume at the same time, not to the number of pods.
+
+### 6.5.4. Using a PersistentVolumeClaim in a pod
+* Find more in the book.
+
+## 6.6. Dynamic provisioning of PersistentVolumes
+* See more in this [link](https://viblo.asia/p/kubernetes-series-bai-7-persistentvolumeclaims-tach-pod-ra-khoi-kien-truc-storage-ben-duoi-6J3Zgyeq5mB) and book.

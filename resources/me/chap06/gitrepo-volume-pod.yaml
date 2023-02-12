@@ -4,7 +4,7 @@ metadata:
   name: gitrepo-volume-pod
 spec:
   containers:
-  - image: nginx:alpine
+  - image: manhcuong8499/nginx-custom
     name: web-server
     volumeMounts:
     - name: html

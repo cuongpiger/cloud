@@ -1,6 +1,6 @@
 **Resources**:
   * **Source code**: [https://github.com/luksa/kubernetes-in-action](https://github.com/luksa/kubernetes-in-action)
-
+  * [Vietnamese version](https://viblo.asia/s/kubernetes-series-bq5QL8QGlD8)
 # Chap 2. First steps with Docker and K8s
 ## 2.2. Setting up a K8s cluster
 * [Optional] Run the cluster in **KinD**:
