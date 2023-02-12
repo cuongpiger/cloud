@@ -10,7 +10,6 @@
     * The below image shows three containers of the same pod without shared storage.<br>
     ![](./img/chap06/01.png)<br>
     * The below image shows three containers sharing two volumes mounted at various mount paths.<br>
-    
     ![](./img/chap06/02.png)<br>
 
 ### 6.1.2. Introducing available volume types
