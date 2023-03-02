@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  namespace: kube-flannel
+  labels:
+    role: backend
+    app: myapp
+spec:
+  containers:
+  - name: myapp
+    image: manhcuong8499/helloworld-server:v1
+    ports:
+    - containerPort: 5000
+      protocol: TCP
