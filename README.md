@@ -59,3 +59,8 @@
   * http://172.18.0.3:32080
   * http://172.18.0.2:32080
   ![](./img/07.png)
+
+* Delete the cluster:
+  ```bash
+  kind delete cluster --name kind
+  ```
