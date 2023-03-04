@@ -56,7 +56,8 @@
   ```bash
   ifconfig
   ```
-  ![](./img/03.png)
+  
+  ![](./img/03.png)<br>
   * The host IP address is `192.168.1.14`.
 
 * Now I can use my phone and then access the Nginx service through the host IP address [http://192.168.1.14:8080](http://192.168.1.14:8080):
