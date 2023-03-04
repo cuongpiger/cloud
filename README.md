@@ -52,6 +52,16 @@
 * Now, we can access the Nginx service through the IP dddress [http://0.0.0.0:8080](http://0.0.0.0:8080):
   ![](./img/06.png)
 
+* You can also access the Nginx from another device, such as phone, tablet, as long as those devices are connected to the same network as the host. To do this, you need to get the IP Address of your host:
+  ```bash
+  ifconfig
+  ```
+  ![](./img/03.png)
+  * The host IP address is `192.168.1.14`.
+
+* Now I can use my phone and then access the Nginx service through the host IP address [http://192.168.1.14:8080](http://192.168.1.14:8080):
+  ![](./img/04.png)
+
 * Delete the Kind cluster.
   ```bash
   kind delete cluster --name multi-node-cluster
