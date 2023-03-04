@@ -1,5 +1,6 @@
 ###### References
 * Medium - [https://medium.com/devstream/creating-a-local-kubernetes-cluster-from-the-groud-up-a-tutorial-of-kind-f5433ee1408a](https://medium.com/devstream/creating-a-local-kubernetes-cluster-from-the-groud-up-a-tutorial-of-kind-f5433ee1408a)
+* StackOverFlow - [https://stackoverflow.com/questions/62432961/how-to-use-nodeport-with-kind](https://stackoverflow.com/questions/62432961/how-to-use-nodeport-with-kind)
 
 <hr>
 
