@@ -7,8 +7,8 @@
   * Network Policy
 
 ## Table of content
-- [1. K8s networking](#1-k8s-networking)
-  - [1.1. Docker networking](#11-docker-networking)
+- [K8s networking](#1-k8s-networking)
+  - [Docker networking](#11-docker-networking)
 
 ## Annotation
 |No.|Term|Description|
@@ -18,7 +18,7 @@
 |3| Routing tables|A routing table is a database maintained by a router that lists the available routes to destination networks or hosts. The routing table contains information that a router uses to determine the best path for forwarding IP packets to their destination.|
 |4|ARP tables|An Address Resolution Protocol (ARP) table is a table maintained by a device on a local area network (LAN) that maps IP addresses to Media Access Control (MAC) addresses. The ARP protocol is used to translate IP addresses to MAC addresses, which are used to identify network devices at the data link layer of the OSI model.|
 
-## 1. K8s networking
+## [1. K8s networking](#table-of-content)
 * K8s itself does not care how you implement networking in your cluster, but you must meet its three requirements:
   * All containers should be accessible to each other without NAT, regardless of which nodes they are on.
   * All nodes should communicate with all containers.
