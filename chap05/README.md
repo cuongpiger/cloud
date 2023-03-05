@@ -7,8 +7,8 @@
   * Network Policy
 
 ## Table of content
-* 1. K8s networking
-  * 1.1. Docker networking
+- [1. K8s networking](#1-k8s-networking)
+  - [1.1. Docker networking](#11-docker-networking)
 
 ## Annotation
 |No.|Term|Description|
