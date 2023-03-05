@@ -10,8 +10,9 @@
 |No.|Term|Description|
 |-|-|-|
 |1|Ethernet|Ethernet is a family of networking technologies used to transmit data over a local area network (LAN)|
-|2| Routing table|A routing table is a database maintained by a router that lists the available routes to destination networks or hosts. The routing table contains information that a router uses to determine the best path for forwarding IP packets to their destination.|
-|3|ARP table|An Address Resolution Protocol (ARP) table is a table maintained by a device on a local area network (LAN) that maps IP addresses to Media Access Control (MAC) addresses. The ARP protocol is used to translate IP addresses to MAC addresses, which are used to identify network devices at the data link layer of the OSI model.|
+|2|Network namespace|Network namespace is a feature of Linux, it has its own **routing tables $^{3}$**, **arp tables $^{4}$**, and network devices.|
+|3| Routing table|A routing table is a database maintained by a router that lists the available routes to destination networks or hosts. The routing table contains information that a router uses to determine the best path for forwarding IP packets to their destination.|
+|4|ARP table|An Address Resolution Protocol (ARP) table is a table maintained by a device on a local area network (LAN) that maps IP addresses to Media Access Control (MAC) addresses. The ARP protocol is used to translate IP addresses to MAC addresses, which are used to identify network devices at the data link layer of the OSI model.|
 
 ## 1. K8s networking
 * K8s itself does not care how you implement networking in your cluster, but you must meet its three requirements:
@@ -25,5 +26,5 @@
   * Host mode
   * None mode
 
-* **Bridge** is the default networking model. Docker creates and attaches virtual __Ethernet $^{1}$__ device (also know as `veth`) and assigns **network namespace** _(network namespace is a feature of Linux, it has its own __routing tables $^{2}$__, __arp tables $^{3}$__, and network devices.)_ to each container.
+* **Bridge** is the default networking model. Docker creates and attaches virtual __Ethernet $^{1}$__ device (also know as `veth`) and assigns **network namespace $^{2}$** to each container.
 
