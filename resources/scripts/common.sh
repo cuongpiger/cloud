@@ -6,21 +6,24 @@ set -euxo pipefail
 
 # Variable Declaration
 
-KUBERNETES_VERSION="1.26.1-00"
+# DNS Setting
+sudo mkdir /etc/systemd/resolved.conf.d/
+cat <<EOF | sudo tee /etc/systemd/resolved.conf.d/dns_servers.conf
+[Resolve]
+DNS=${DNS_SERVERS}
+EOF
+
+sudo systemctl restart systemd-resolved
 
 # disable swap
 sudo swapoff -a
 
-# keeps the swaf off during reboot
+# keeps the swap off during reboot
 (crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | crontab - || true
 sudo apt-get update -y
-
-
 # Install CRI-O Runtime
 
-OS="xUbuntu_20.04"
-
-VERSION="1.23"
+VERSION="$(echo ${KUBERNETES_VERSION} | grep -oE '[0-9]+\.[0-9]+')"
 
 # Create the .conf file to load the modules at bootup
 cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
@@ -47,18 +50,19 @@ cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cr
 deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
 EOF
 
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
 curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
 
 sudo apt-get update
 sudo apt-get install cri-o cri-o-runc -y
 
+cat >> /etc/default/crio << EOF
+${ENVIRONMENT}
+EOF
 sudo systemctl daemon-reload
 sudo systemctl enable crio --now
 
 echo "CRI runtime installed susccessfully"
-
-# Install kubelet, kubectl and Kubeadm
 
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
@@ -73,4 +77,5 @@ sudo apt-get install -y jq
 local_ip="$(ip --json a s | jq -r '.[] | if .ifname == "eth1" then .addr_info[] | if .family == "inet" then .local else empty end else empty end')"
 cat > /etc/default/kubelet << EOF
 KUBELET_EXTRA_ARGS=--node-ip=$local_ip
+${ENVIRONMENT}
 EOF
