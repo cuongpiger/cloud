@@ -11,7 +11,7 @@
 
 # 1. Prerequisites
 * Install VirtualBox.
-  * Download `*deb` file which is proper for your system at this link [https://www.virtualbox.org/wiki/Linux_Downloads](https://www.virtualbox.org/wiki/Linux_Downloads)
+  * Download `*.deb` file which is proper for your system at this link [https://www.virtualbox.org/wiki/Linux_Downloads](https://www.virtualbox.org/wiki/Linux_Downloads)
   * Using the `sudo apt install ./<file_name>.deb` command, install the downloaded file.
 * Fix error `The IP address configured for the host-only network is not within the allowed ranges` of VirtualBox when using `vagrant up` command, following these commands:
   ```bash
