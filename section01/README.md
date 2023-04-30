@@ -18,3 +18,8 @@
   nvb
   ```
   ![](./img/02.png)
+
+# 2. Some commands of this section
+|Command|Description|Presentation|
+|-|-|-|
+|`:Lexplore`|Open the file explorer|![](./img/03.png)|
