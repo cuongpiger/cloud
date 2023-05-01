@@ -6,6 +6,7 @@
 ---
 
 # 1. Table of content
-|Topic|Description|
-|-|-|
-|[NeoVim options](./section01/)|The popular NeoVim options, such as tab-size, line-number, etc.|
+|#|Topic|Description|
+|-|-|-|
+|1|[NeoVim options](./section01/)|The popular NeoVim options, such as tab-size, line-number, etc.|
+|2|[Key Mappings](./section02/)|Setting up key mappings for NeoVim.|
