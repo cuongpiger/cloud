@@ -7,3 +7,4 @@
 |5|[neovim/neovim-from-scratch](https://github.com/cuongpiger/devops/tree/neovim/neovim-from-scratch)|Learning NeoVim from scratch|`neovim`|
 |6|[udemy/aws-cloud-practitioner](https://github.com/cuongpiger/cloud/tree/udemy/aws-cloud-practitioner)|AWS Cloud Practitioner Essentials|`aws`, `cloud`|
 |7|[lab/kubeadm-using-vagrant](https://github.com/cuongpiger/cloud/tree/lab/kubeadm-using-vagrant)|Create k8s cluster with `kubeadm` using `Vagrant`|`k8s`, `kubeadm`, `vagrant`|
+|8|[ansible/code-my-own-module](https://github.com/cuongpiger/cloud/tree/ansible/code-my-own-module)|Code my own Ansible module|`ansible`, `module`|
