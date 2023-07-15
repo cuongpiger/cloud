@@ -1,0 +1,13 @@
+.idea
+.vscode
+ubuntu-jammy*.log
+.vagrant
+temp
+*.crt
+*.key
+*.pem
+*.csr
+*csr.json
+*.kubeconfig
+quick-steps
+venv
