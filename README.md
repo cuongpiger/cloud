@@ -1,3 +1,5 @@
+[↩ Back to `main` branch](https://github.com/cuongpiger/cloud)
+
 ###### References
 - Youtube - [https://youtube.com/playlist?list=PL2We04F3Y_41jYdadX55fdJplDvgNGENo](https://youtube.com/playlist?list=PL2We04F3Y_41jYdadX55fdJplDvgNGENo)
 - Github - [https://github.com/mmumshad/kubernetes-the-hard-way](https://github.com/mmumshad/kubernetes-the-hard-way)
@@ -33,4 +35,3 @@
 
 - In the VM `master-1`, use the command `ip a` to check the IP address of the VM.
   ![](./img/06.png)
-  
