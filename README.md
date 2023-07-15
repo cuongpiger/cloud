@@ -35,3 +35,38 @@
 
 - In the VM `master-1`, use the command `ip a` to check the IP address of the VM.
   ![](./img/06.png)
+
+# 2. Install the client-tools
+## 2.1. Config the `ssh` keypair
+- In the VM `master-1`, generate the SSH key pair.
+  ```bash
+  ssh-keygen
+  ```
+  ![](./img/07.png)
+
+- `cat` the public SSH keypair
+  ```bash
+  cat ~/.ssh/id_rsa.pub
+  ```
+  ![](./img/08.png)
+
+- Copy the public SSH keypair to the other VMs.
+  ```bash=
+  vagrant ssh master-2
+
+  $ cat >> ~/.ssh/authorized_keys <<EOF
+  <paste the public SSH keypair here>
+  EOF
+  ```
+  ![](./img/09.png)
+
+  - Repeat the above steps for the VMs `worker-1`, `worker-2`, and `loadbalancer`.
+
+## 2.2. Install `kubectl`
+- Install `kubectl` on the VM `master-1`.
+  ```bash=
+  wget https://storage.googleapis.com/kubernetes-release/release/v1.24.3/bin/linux/amd64/kubectl && \
+  chmod +x kubectl && \
+  sudo mv kubectl /usr/local/bin/
+  ```
+  ![](./img/10.png)
