@@ -8,4 +8,4 @@
 |6|[udemy/aws-cloud-practitioner](https://github.com/cuongpiger/cloud/tree/udemy/aws-cloud-practitioner)|AWS Cloud Practitioner Essentials|`aws`, `cloud`|
 |7|[lab/kubeadm-using-vagrant](https://github.com/cuongpiger/cloud/tree/lab/kubeadm-using-vagrant)|Create k8s cluster with `kubeadm` using `Vagrant`|`k8s`, `kubeadm`, `vagrant`|
 |8|[ansible/code-my-own-module](https://github.com/cuongpiger/cloud/tree/ansible/code-my-own-module)|Code my own Ansible module|`ansible`, `module`|
-|9|[lab/install-k8s-manually](https://github.com/cuongpiger/cloud/tree/lab/install-k8s-manually))|Install k8s cluster manually using **Vagrant**|`k8s`, `vagrant`|
+|9|[lab/install-k8s-manually](https://github.com/cuongpiger/cloud/tree/lab/install-k8s-manually)|Install k8s cluster manually using **Vagrant**|`k8s`, `vagrant`|
