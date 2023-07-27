@@ -9,3 +9,4 @@
 |7|[lab/kubeadm-using-vagrant](https://github.com/cuongpiger/cloud/tree/lab/kubeadm-using-vagrant)|Create k8s cluster with `kubeadm` using `Vagrant`|`k8s`, `kubeadm`, `vagrant`|
 |8|[ansible/code-my-own-module](https://github.com/cuongpiger/cloud/tree/ansible/code-my-own-module)|Code my own Ansible module|`ansible`, `module`|
 |9|[lab/install-k8s-manually](https://github.com/cuongpiger/cloud/tree/lab/install-k8s-manually)|Install k8s cluster manually using **Vagrant**|`k8s`, `vagrant`|
+|10|[lab/setup-k8s-by-kubeadm](https://github.com/cuongpiger/cloud/tree/lab/setup-k8s-by-kubeadm)|Setup k8s cluster by `kubeadm` and `vagrant|`k8s`, `kubeadm`, `vagrant`|
