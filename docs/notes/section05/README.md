@@ -1,13 +1,15 @@
-###### [_Back to `main` branch_](./../../../README.md)
+###### [_↩ Back to `main` branch_](./../../../README.md)
 
-##### Table of contents
-- [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud)
-  - [45. Instance Roles Demo](#45-instance-roles-demo)
-  - [46. EC2 Instance Purchasing Options](#46-ec2-instance-purchasing-options)
-  - [47. Shared Responsibility Model for EC2](#47-shared-responsibility-model-for-ec2)
-  - [48. EC2 Summary](#48-ec2-summary)
+##### 🌈 Table of contents
+- ##### [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud)
+  - ##### [45. Instance Roles Demo](#45-instance-roles-demo)
+  - ##### [46. EC2 Instance Purchasing Options](#46-ec2-instance-purchasing-options)
+  - ##### [47. Shared Responsibility Model for EC2](#47-shared-responsibility-model-for-ec2)
+  - ##### [48. EC2 Summary](#48-ec2-summary-1)
 
-# Section 5. EC2 - Elastic Compute Cloud
+<hr>
+
+# [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud)
 
 ## 45. Instance Roles Demo
 - `aws` CLI is installed by default inside the **EC2** instances.
@@ -43,7 +45,7 @@
   * **IAM roles** assigned to EC2 instance and **IAM user access management**.
   * **Data security** on your instance.
 
-## 48. EC2 Summary
+## [48. EC2 Summary](#48-ec2-summary)
 * **EC2 Instance**: AMI (OS) + Instance Size (CPU + RAM) + Storage + **Security Groups** + **EC2 User Data**.
 - **Security Groups**: Firewall attached to the EC2 instance.
 - **EC2 User Data**: Script launched at the first start of an instance.
