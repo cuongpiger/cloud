@@ -1,23 +1,23 @@
 ###### [_↩ Back to `main` branch_](./../../../README.md)
 
 ##### 🌈 Table of contents
-- ##### [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud)
-  - ##### [45. Instance Roles Demo](#45-instance-roles-demo)
-  - ##### [46. EC2 Instance Purchasing Options](#46-ec2-instance-purchasing-options)
-  - ##### [47. Shared Responsibility Model for EC2](#47-shared-responsibility-model-for-ec2)
+- ##### [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud-1)
+  - ##### [45. Instance Roles Demo](#45-instance-roles-demo-1)
+  - ##### [46. EC2 Instance Purchasing Options](#46-ec2-instance-purchasing-options-1)
+  - ##### [47. Shared Responsibility Model for EC2](#47-shared-responsibility-model-for-ec2-1)
   - ##### [48. EC2 Summary](#48-ec2-summary-1)
 
 <hr>
 
 # [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud)
 
-## 45. Instance Roles Demo
+## [45. Instance Roles Demo](#45-instance-roles-demo)
 - `aws` CLI is installed by default inside the **EC2** instances.
 - Users can use `aws` CLI to access the AWS services, such as list **IAM** users,...
 - However, if we want to access other AWS services, such as **S3**, we need to configure the `aws` CLI with the **Access Key** and **Secret Key**. This is not a good practice because the **Access Key** and **Secret Key** are stored inside the **EC2** instance and can be stolen by people who have access to the **EC2** instance and log in to the instances later.
 - To solve the third bullet problem, AWS allows us to create **IAM Roles** and assign them to the **EC2** instances. Then, the **EC2** instances can access the AWS services without using the **Access Key** and **Secret Key**.
 
-## 46. EC2 Instance Purchasing Options
+## [46. EC2 Instance Purchasing Options](#46-ec2-instance-purchasing-options)
 * Depends on the use case, your workload, and your budget, you can choose the most suitable **EC2** instance purchasing option.
 * There are several options:
   * **On-Demand**: Pay as you go. No long-term commitment. Short workload, predictable pricing, and pay by second.
@@ -32,7 +32,7 @@
   * **Capacity Reservations**: Reserve capacity for your EC2 instances in a specific Availability Zone for any duration. This option is suitable for predictable workloads that require a specific type of instance all the time.
 * Compare prices between different options.
 
-## 47. Shared Responsibility Model for EC2
+## [47. Shared Responsibility Model for EC2](#47-shared-responsibility-model-for-ec2)
 * **AWS**:
   * AWS is going to be responsible for **all data centers**, their **infrastructure**, and **physical security** of the hardware.
   * Make sure that you have isolation on the physical host if you are getting, for example, a **dedicated host**.
