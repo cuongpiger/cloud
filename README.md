@@ -4,12 +4,12 @@
 - **Course resources**: [https://courses.datacumulus.com/downloads/certified-cloud-practitioner-zb2](https://courses.datacumulus.com/downloads/certified-cloud-practitioner-zb2/)
   ![](img/cover.png)
 
-##### Table of Contents
-- ###### [Section 5. EC2 - Elastic Compute Cloud](./docs/notes/section05/README.md)
-  - ##### [45. Instance Roles Demo](#45-instance-roles-demo-1)
-  - ##### [46. EC2 Instance Purchasing Options](#46-ec2-instance-purchasing-options-1)
-  - ##### [47. Shared Responsibility Model for EC2](#47-shared-responsibility-model-for-ec2-1)
-  - ##### [48. EC2 Summary](#48-ec2-summary-1)
+##### 🌈 Table of contents
+- ##### [Section 5. EC2 - Elastic Compute Cloud](./docs/notes/section05/README.md)
+  - ##### [45. Instance Roles Demo](./docs/notes/section05/README.md#45-instance-roles-demo-1)
+  - ##### [46. EC2 Instance Purchasing Options](./docs/notes/section05/README.md#46-ec2-instance-purchasing-options-1)
+  - ##### [47. Shared Responsibility Model for EC2](./docs/notes/section05/README.md#47-shared-responsibility-model-for-ec2-1)
+  - ##### [48. EC2 Summary](./docs/notes/section05/README.md#48-ec2-summary-1)
 
 # Section 1. Introduction
 
