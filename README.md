@@ -7,6 +7,9 @@
 ##### Table of Contents
 - ###### [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud-1)
   - ##### [45. Instance Roles Demo](#45-instance-roles-demo-1)
+  - ##### [46. EC2 Instance Purchasing Options](#46-ec2-instance-purchasing-options-1)
+  - ##### [47. Shared Responsibility Model for EC2](#47-shared-responsibility-model-for-ec2-1)
+  - ##### [48. EC2 Summary](#48-ec2-summary-1)
 
 # Section 1. Introduction
 
@@ -142,13 +145,13 @@
 * Compare prices between different options.
 
 ## 47. Shared Responsibility Model for EC2
-* AWS:
+* **AWS**:
   * AWS is going to be responsible for **all data centers**, their **infrastructure**, and **physical security** of the hardware.
   * Make sure that you have isolation on the physical host if you are getting, for example, a **dedicated host**.
   * Replacing faulty hardware.
   * Make sure that they are still compliant with the **regulations** that they have agreed to.
 
-* Users
+* **Users**:
   * Define your own **Security Groups** rules.
   * You own the entire VM inside of your **EC2** instance, so you are responsible for patching the OS, installing the software, and configuring the network, not AWS.
   * **IAM roles** assigned to EC2 instance and **IAM user access management**.
