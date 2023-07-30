@@ -3,6 +3,7 @@
 ###### 🌈 References
 - **Course**: [https://www.udemy.com/course/aws-certified-cloud-practitioner-new](https://www.udemy.com/course/aws-certified-cloud-practitioner-new/)
 - **Course resources**: [https://courses.datacumulus.com/downloads/certified-cloud-practitioner-zb2](https://courses.datacumulus.com/downloads/certified-cloud-practitioner-zb2/)
+- [**Slides**](./docs/slides/AWS%20Certified%20Cloud%20Practitioner%20Slides%20v5.pdf)
 
 
 ###### 🌈 Table of contents
