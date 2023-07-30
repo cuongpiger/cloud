@@ -1,8 +1,12 @@
-[_↩ Back to `main` branch_](https://github.com/cuongpiger/cloud/)
+###### [_↩ Back to `main` branch_](https://github.com/cuongpiger/cloud/)
 
 - **Course**: [https://www.udemy.com/course/aws-certified-cloud-practitioner-new](https://www.udemy.com/course/aws-certified-cloud-practitioner-new/)
 - **Course resources**: [https://courses.datacumulus.com/downloads/certified-cloud-practitioner-zb2](https://courses.datacumulus.com/downloads/certified-cloud-practitioner-zb2/)
   ![](img/cover.png)
+
+##### Table of Contents
+- ###### [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud-1)
+  - ##### [45. Instance Roles Demo](#45-instance-roles-demo-1)
 
 # Section 1. Introduction
 
@@ -149,3 +153,11 @@
   * You own the entire VM inside of your **EC2** instance, so you are responsible for patching the OS, installing the software, and configuring the network, not AWS.
   * **IAM roles** assigned to EC2 instance and **IAM user access management**.
   * **Data security** on your instance.
+
+## 48. EC2 Summary
+* **EC2 Instance**: AMI (OS) + Instance Size (CPU + RAM) + Storage + **Security Groups** + **EC2 User Data**.
+- **Security Groups**: Firewall attached to the EC2 instance.
+- **EC2 User Data**: Script launched at the first start of an instance.
+- **SSH**: start a terminal into our EC2 Instances (port 22).
+- **EC2 Instance Role**: link to **IAM roles**.
+- **Purchasing Options**: On-Demand, Spot, Reserved (Standard + Convertible + Scheduled), Dedicated Host, Dedicated Instance
