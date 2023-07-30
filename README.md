@@ -136,3 +136,16 @@
   * **Dedicated Instances**: Instances running on hardware that's dedicated to you. May share hardware with other instances in the same account.
   * **Capacity Reservations**: Reserve capacity for your EC2 instances in a specific Availability Zone for any duration. This option is suitable for predictable workloads that require a specific type of instance all the time.
 * Compare prices between different options.
+
+## 47. Shared Responsibility Model for EC2
+* AWS:
+  * AWS is going to be responsible for **all data centers**, their **infrastructure**, and **physical security** of the hardware.
+  * Make sure that you have isolation on the physical host if you are getting, for example, a **dedicated host**.
+  * Replacing faulty hardware.
+  * Make sure that they are still compliant with the **regulations** that they have agreed to.
+
+* Users
+  * Define your own **Security Groups** rules.
+  * You own the entire VM inside of your **EC2** instance, so you are responsible for patching the OS, installing the software, and configuring the network, not AWS.
+  * **IAM roles** assigned to EC2 instance and **IAM user access management**.
+  * **Data security** on your instance.
