@@ -12,6 +12,7 @@
   - ##### [46. EC2 Instance Purchasing Options](./docs/notes/section05/README.md#46-ec2-instance-purchasing-options-1)
   - ##### [47. Shared Responsibility Model for EC2](./docs/notes/section05/README.md#47-shared-responsibility-model-for-ec2-1)
   - ##### [48. EC2 Summary](./docs/notes/section05/README.md#48-ec2-summary-1)
+  - ##### [Quiz 3: EC2 Quiz](./docs/notes/section05/README.md#quiz-3-ec2-quiz-1)
 
 <hr>
 

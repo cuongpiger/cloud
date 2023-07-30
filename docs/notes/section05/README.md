@@ -6,6 +6,7 @@
   - ##### [46. EC2 Instance Purchasing Options](#46-ec2-instance-purchasing-options-1)
   - ##### [47. Shared Responsibility Model for EC2](#47-shared-responsibility-model-for-ec2-1)
   - ##### [48. EC2 Summary](#48-ec2-summary-1)
+  - ##### [Quiz 3: EC2 Quiz](#quiz-3-ec2-quiz-1)
 
 <hr>
 
@@ -52,3 +53,25 @@
 - **SSH**: start a terminal into our EC2 Instances (port 22).
 - **EC2 Instance Role**: link to **IAM roles**.
 - **Purchasing Options**: On-Demand, Spot, Reserved (Standard + Convertible + Scheduled), Dedicated Host, Dedicated Instance
+
+## [Quiz 3: EC2 Quiz](#quiz-3-ec2-quiz)
+- Quiz 1:<br>
+  ![](./img/q05.png)
+
+- Quiz 2:<br>
+  ![](./img/q04.png)
+
+- Quiz 3:<br>
+  ![](./img/q02.png)
+
+- Quiz 4:<br>
+  ![](./img/q03.png)
+
+- Quiz 5:<br>
+  ![](./img/q01.png)
+
+- Quiz 6:<br>
+  ![](./img/q07.png)
+
+- Quiz 7:<br>
+  ![](./img/q06.png)
