@@ -1,4 +1,4 @@
-###### [_↩ Back to `main` branch_](./../../../README.md)
+###### [_↩ Back to `homepage`_](./../../../README.md)
 
 ##### 🌈 Table of contents
 - ##### [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud-1)
