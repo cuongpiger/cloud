@@ -1,6 +1,6 @@
 ###### [_↩ Back to `homepage`_](./../../../README.md)
 
-##### 🌈 Table of contents
+###### 🌈 Table of contents
 - ##### [Section 5. EC2 - Elastic Compute Cloud](#section-5-ec2---elastic-compute-cloud-1)
   - ##### [45. Instance Roles Demo](#45-instance-roles-demo-1)
   - ##### [46. EC2 Instance Purchasing Options](#46-ec2-instance-purchasing-options-1)
