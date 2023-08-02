@@ -7,6 +7,10 @@
 
 
 ###### 🌈 Table of contents
+- ##### [Section 4. IAM - Identity and Access Management](./docs/notes/section04/README.md)
+  - ##### [14. IAM Introduction: Users, Groups, Policies](./docs/notes/section04/README.md#14-iam-introduction-users-groups-policies-1)
+  - ##### [15. IAM Users and Groups Hands on](./docs/notes/section04/README.md#15-iam-users-and-groups-hands-on-1)
+
 - ##### [Section 5. EC2 - Elastic Compute Cloud](./docs/notes/section05/README.md)
   - ##### [45. Instance Roles Demo](./docs/notes/section05/README.md#45-instance-roles-demo-1)
   - ##### [46. EC2 Instance Purchasing Options](./docs/notes/section05/README.md#46-ec2-instance-purchasing-options-1)
