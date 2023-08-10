@@ -10,4 +10,4 @@
 |8|[ansible/code-my-own-module](https://github.com/cuongpiger/cloud/tree/ansible/code-my-own-module)|Code my own Ansible module|`ansible`, `module`|
 |9|[lab/install-k8s-manually](https://github.com/cuongpiger/cloud/tree/lab/install-k8s-manually)|Install k8s cluster manually using **Vagrant**|`k8s`, `vagrant`|
 |10|[lab/setup-k8s-by-kubeadm](https://github.com/cuongpiger/cloud/tree/lab/setup-k8s-by-kubeadm)|Setup k8s cluster by `kubeadm` and `vagrant|`k8s`, `kubeadm`, `vagrant`|
-|11|[udemy/docker-mastery](https://github.com/cuongpiger/cloud/tree/udemy/docker-mastery)|Udemy course: Docker Mastery|`docker`|
+|11|[udemy/docker-mastery](https://github.com/cuongpiger/cloud/tree/udemy/docker-mastery)|Udemy course: Docker Mastery|`docker`, `udemy`|
