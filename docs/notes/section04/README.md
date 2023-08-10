@@ -4,6 +4,7 @@
 - ##### [Section 4. IAM - Identity and Access Management](#section-4-iam---identity-and-access-management-1)
   - ##### [14. IAM Introduction: Users, Groups, Policies](#14-iam-introduction-users-groups-policies-1)
   - ##### [15. IAM Users and Groups Hands on](#15-iam-users-and-groups-hands-on-1)
+  - ##### [16. IAM Policies](#16-iam-policies-1)
 
 <hr>
 
@@ -21,3 +22,7 @@
 ## [15. IAM Users and Groups Hands on](#15-iam-users-and-groups-hands-on)
 - Demo: create a new **IAM User** and add it to a **Group**.
 - Watch this video [https://www.udemy.com/course/aws-certified-cloud-practitioner-new/learn/lecture/20281863#content](https://www.udemy.com/course/aws-certified-cloud-practitioner-new/learn/lecture/20281863#content).
+
+## [16. IAM Policies](#16-iam-policies)
+- This section teachs you the structure of **Policy** in IAM.
+- A **Policy** is a **JSON** document that defines one (or more) **Permissions**.
