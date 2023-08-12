@@ -85,4 +85,11 @@
   ```
   ![](./img/09.png)
   ![](./img/08.png)
-  
+
+## 1.3. Limit resource usage
+- To below command will run the `kuard` application with the limited resource usage of 200m RAM, 1GB memory-swap and 1024 cpu-shares:
+  ```bash
+  # working directory: kuard
+  ./command.sh run_kuard_app_with_limited_resource
+  ```
+  ![](./img/10.png)
