@@ -23,3 +23,13 @@
       docker images
       ```
       ![](./img/02.png)
+  - Step 3:
+    - Run the container, run the command:
+      ```bash=
+      ./run_container.sh
+      ```
+    - Open a new terminal and run the below command to test NodeJS server:
+      ```bash=
+      curl 0.0.0.0:3000
+      ```
+      ![](./img/03.png)
