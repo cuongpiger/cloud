@@ -4,6 +4,7 @@
 
 ###### 🌈 Table of Contents
   - ##### 1. [Running Kubernetes in Docker](#1-running-kubernetes-in-docker-1)
+  - ##### 2. [Cluster Components](#2-cluster-components-1)
     - ##### 1.1. [Run simple NodeJs application](#11-run-simple-nodejs-application-1)
     - ##### 1.2. [Multistage image builds](#12-multistage-image-builds-1)
     - ##### 1.3. [Limit resource usage](#13-limit-resource-usage-1)
@@ -54,4 +55,5 @@
   kubectl describe node <node_name>
   ```
   ![](./img/04.png)
-  
+
+# [2. Cluster Components](#2-cluster-components)
