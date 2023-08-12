@@ -1,2 +1,4 @@
 .vscode
 .vagrant
+node_modules
+.idea
