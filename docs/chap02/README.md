@@ -1,6 +1,6 @@
 # Chapter 2. Creating and running containers
 
-###### Table of Contents
+###### 🌈 Table of Contents
   - ##### 1. [Building application images with Docker](#1-building-application-images-with-docker-1)
     - ###### 1.1. [Run simple NodeJs application](#11-run-simple-nodejs-application-1)
 
