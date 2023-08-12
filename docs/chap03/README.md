@@ -36,3 +36,22 @@
 
       ```
       ![](./img/01_.png)
+
+- Get `cluster-info`:
+  ```bash=
+  kubectl cluster-info
+  ```
+  ![](./img/02.png)
+
+- Check cluster is generally healthy:
+  ```bash=
+  kubectl get componentstatuses
+  ```
+  ![](./img/03.png)
+
+- Describe the cluster node:
+  ```bash=
+  kubectl describe node <node_name>
+  ```
+  ![](./img/04.png)
+  
