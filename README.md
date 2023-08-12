@@ -2,6 +2,8 @@
 
 <hr>
 
+![](./docs/img/cover.png)
+
 ###### 🌈 Table of Contents
 
 - ##### [Chapter 2. Creating and running containers](./docs/chap02/README.md#chapter-2-creating-and-running-containers)
