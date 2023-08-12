@@ -5,9 +5,9 @@
 ###### 🌈 Table of Contents
   - ##### 1. [Running Kubernetes in Docker](#1-running-kubernetes-in-docker-1)
   - ##### 2. [Cluster Components](#2-cluster-components-1)
-    - ##### 1.1. [Run simple NodeJs application](#11-run-simple-nodejs-application-1)
-    - ##### 1.2. [Multistage image builds](#12-multistage-image-builds-1)
-    - ##### 1.3. [Limit resource usage](#13-limit-resource-usage-1)
+    - ##### 2.1. [Kubernetes Proxy](#21-kubernetes-proxy-1)
+    - ##### 2.2. [Kubernetes DNS](#22-kubernetes-dns-1)
+    - ##### 2.3. [Kubernetes UI](#23-kubernetes-ui-1)
 
 # [1. Running Kubernetes in Docker](#1-running-kubernetes-in-docker)
 - Entire this section is performed in the VirtualBox VM.
@@ -57,3 +57,35 @@
   ![](./img/04.png)
 
 # [2. Cluster Components](#2-cluster-components)
+## [2.1. Kubernetes Proxy](#21-kubernetes-proxy)
+- K8s proxy is responsible for routing network traffic to load-balanced services in the K8s cluster.
+- The proxy must be present on **every node in the cluster**.
+  ```bash
+  kubectl get daemonsets -n kube-system kube-proxy
+  ```
+  ![](./img/05.png)
+
+## [2.2. Kubernetes DNS](#21-kubernetes-proxy)
+- K8s also runs a DNS server, which provides naming and discovery for the services that are defined in the cluster.
+- This DNS server also runs as a replicated service on the cluster.
+- Depending on the size of your cluster, you may have one or more replicas of the DNS service running.
+- The DNS service is run as a K8s deployment, which manages these replicas.
+  ```bash
+  kubectl get deployments --namespace=kube-system coredns -owide
+  ```
+  ![](./img/06.png)
+  ```bash
+  kubectl get services --namespace=kube-system -owide
+  ```
+  ![](./img/07.png)
+
+## [2.3. Kubernetes UI](#23-kubernetes-ui)
+- K8s also provides a web-based UI for managing the cluster.
+  ```bash
+  kubectl get deployments --namespace=kube-system kubernetes-dashboard -owide
+  ```
+  ![](./img/08.png)
+  ```bash
+  kubectl get services --namespace=kube-system kubernetes-dashboard -owide
+  ```
+  ![](./img/09.png)
