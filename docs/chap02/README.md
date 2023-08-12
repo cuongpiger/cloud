@@ -4,6 +4,7 @@
   - ##### 1. [Building application images with Docker](#1-building-application-images-with-docker-1)
     - ##### 1.1. [Run simple NodeJs application](#11-run-simple-nodejs-application-1)
     - ##### 1.2. [Multistage image builds](#12-multistage-image-builds-1)
+    - ##### 1.3. [Limit resource usage](#13-limit-resource-usage-1)
 
 # [1. Building application images with Docker](#1-building-application-images-with-docker)
 ## [1.1. Run simple NodeJs application](#11-run-simple-nodejs-application)
@@ -86,7 +87,7 @@
   ![](./img/09.png)
   ![](./img/08.png)
 
-## 1.3. Limit resource usage
+## [1.3. Limit resource usage](#13-limit-resource-usage)
 - To below command will run the `kuard` application with the limited resource usage of 200m RAM, 1GB memory-swap and 1024 cpu-shares:
   ```bash
   # working directory: kuard
