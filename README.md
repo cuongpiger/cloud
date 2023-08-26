@@ -16,3 +16,8 @@
     - ##### 2.1. [Kubernetes Proxy](./docs/chap03/README.md#21-kubernetes-proxy-1)
     - ##### 2.2. [Kubernetes DNS](./docs/chap03/README.md#22-kubernetes-dns-1)
     - ##### 2.3. [Kubernetes UI](./docs/chap03/README.md#23-kubernetes-ui-1)
+
+- ##### [Chapter 4. Common `kubectl` commands](./docs/chap04/README.md#chapter-4-common-kubectl-commands)
+  - ##### 1. [Namespaces](./docs/chap04/README.md#1-namespaces-1)
+  - ##### 2. [Contexts](./docs/chap04/README.md#2-contexts-1)
+  - ##### 3. [Creating, updating, and destroying K8s objects](./docs/chap04/README.md#3-creating-updating-and-destroying-k8s-objects-1)

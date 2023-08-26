@@ -5,6 +5,7 @@
 ###### 🌈 Table of Contents
   - ##### 1. [Namespaces](#1-namespaces-1)
   - ##### 2. [Contexts](#2-contexts-1)
+  - ##### 3. [Creating, updating, and destroying K8s objects](#3-creating-updating-and-destroying-k8s-objects-1)
 
 # [1. Namespaces](#1-namespaces)
 - K8s use **namespaces** to organize objects in the cluster.
@@ -32,3 +33,15 @@
   kubectl config use-context my-context
   ```
 - Contexts can also be used to manage different clusters or different users for authenticating to those clusters using the `--users` or `--clusters` flags with the `set-context` command.
+
+# [3. Creating, updating, and destroying K8s objects](#3-creating-updating-and-destroying-k8s-objects)
+- Objects in K8s API are represented as JSON or YAML files.
+- Let's assume that you have a simple object stored in `obj.yaml`. You can use the below command to create the object in the cluster:
+  ```bash
+  kubectl apply -f obj.yaml
+  ```
+- To update the object, you can edit the `obj.yaml` file and run the above command again.
+- If you want to see the `apply` command will do without actually changing the object, you can use the `--dry-run` flag:
+  ```bash
+  kubectl apply -f obj.yaml --dry-run
+  ```
