@@ -9,6 +9,7 @@
     - ##### 2.2. [Creating a Pod manifest](#22-creating-a-pod-manifest-1)
   - ##### 3. [Accessing your pod](#3-accessing-your-pod-1)
     - ##### 3.1. [Using port forwarding](#31-using-port-forwarding-1)
+    - ##### 3.2. []
 
 # [1. Pods in K8s](#1-pods-in-k8s)
 - A Pod represents a collection of application containers and volumes running in the same execution environment.
@@ -56,4 +57,4 @@
   curl 0.0.0.0:8080
   ```
 
-  
+
