@@ -13,7 +13,6 @@
   ```bash
   kubectl get pods -n kube-system
   ```
-  ![](./img/01.png)
 
 - To get pods in all namespaces in the cluster, run the command:
   ```bash
@@ -32,5 +31,4 @@
   kubectl config set-context my-context --namespace=my-namespace
   kubectl config use-context my-context
   ```
-
-  
+- Contexts can also be used to manage different clusters or different users for authenticating to those clusters using the `--users` or `--clusters` flags with the `set-context` command.
