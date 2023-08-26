@@ -8,6 +8,7 @@
     - ##### 2.1. [Creating a Pod](#21-creating-a-pod-1)
     - ##### 2.2. [Creating a Pod manifest](#22-creating-a-pod-manifest-1)
   - ##### 3. [Accessing your pod](#3-accessing-your-pod-1)
+    - ##### 3.1. [Using port forwarding](#31-using-port-forwarding-1)
 
 # [1. Pods in K8s](#1-pods-in-k8s)
 - A Pod represents a collection of application containers and volumes running in the same execution environment.
@@ -43,3 +44,16 @@
   ```
 
 # [3. Accessing your pod](#3-accessing-your-pod)
+- This section teach you how to interact with your pod.
+
+## [3.1. Using port forwarding](#31-using-port-forwarding)
+- To access the pod at only the local machine, you can use the port forwarding feature of `kubectl`:
+  ```bash
+  kubectl port-forward kuard 8080:8080
+  ```
+- Open new terminal and run the command:
+  ```bash
+  curl 0.0.0.0:8080
+  ```
+
+  
