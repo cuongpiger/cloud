@@ -21,3 +21,25 @@
   - ##### 1. [Namespaces](./docs/chap04/README.md#1-namespaces-1)
   - ##### 2. [Contexts](./docs/chap04/README.md#2-contexts-1)
   - ##### 3. [Creating, updating, and destroying K8s objects](./docs/chap04/README.md#3-creating-updating-and-destroying-k8s-objects-1)
+- ##### Chapter 5. Pods
+  - Learn about Pod manifest (`*.yaml` file).
+  - Interact with Pods:
+    - Creating a Pod using `kubectl run` command.
+    - Creating a Pod from `*.yaml` file using `kubectl apply` command.
+    - Listing pods in the cluster using `kubectl get` commands.
+    - Get the detailed information about a Pod using `kubectl describe` command.
+    - Deleting a Pod using `kubectl delete` command.
+    - Forwarding a local port to a port in the Pod using `kubectl port-forward` command.
+    - Get logs from a Pod using `kubectl logs` command.
+    - Executing a command in a Pod using `kubectl exec (-it) [pod] -- ` command.
+    - Copying files to and from a Pod using `kubectl cp` command.
+  - Health checks:
+    - Liveness probes.
+    - Readiness probes.
+  - Resource management:
+    - Resource requests and limits using `*.yaml` file.
+  - Persisting data with **Volumes**:
+    - Using `hostPath` volume for persisting data.
+    - Using `emptyDir` volume for ephemeral data.
+    - Introducing the remote disk, such as `nfs` volume.
+
