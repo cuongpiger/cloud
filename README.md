@@ -43,5 +43,7 @@
     - Using `emptyDir` volume for ephemeral data.
     - Introducing the remote disk, such as `nfs` volume.
 
-- ##### Chapter 6. Labels and Annotations $[p.65]$
-
+- ## Chapter 6. Labels and Annotations $[p.65]$
+  - Introducing **Labels** to **grouping**, **viewing** and **operating**. $[p.65 \Rightarrow 66]$
+  - Applying **Lables**: $[p.67]$
+    - Using with `kubectl run` command and `--labels` flag. $[p.67 \Rightarrow 68]$
