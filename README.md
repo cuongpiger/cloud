@@ -1,6 +1,6 @@
 ###### [_↩ Back to `main` branch_](https://github.com/cuongpiger/cloud)
 
-![](./docs/img/cover.png)
+[![](./docs/img/cover.png)](https://github.com/cuongpiger/bookocs/blob/f16feb5127bb3dcf5a8dc6b336a130eeea2db829/devops/docker%20-%20k8s/Kubernetes%20Up%20and%20Running.pdf)
 
 ###### 🌈 Table of Contents
 
