@@ -21,7 +21,7 @@
   - ##### 1. [Namespaces](./docs/chap04/README.md#1-namespaces-1)
   - ##### 2. [Contexts](./docs/chap04/README.md#2-contexts-1)
   - ##### 3. [Creating, updating, and destroying K8s objects](./docs/chap04/README.md#3-creating-updating-and-destroying-k8s-objects-1)
-- ##### Chapter 5. Pods
+- ## Chapter 5. Pods
   - Learn about Pod manifest (`*.yaml` file).
   - Interact with Pods:
     - Creating a Pod using `kubectl run` command.
