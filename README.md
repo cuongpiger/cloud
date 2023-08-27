@@ -13,4 +13,4 @@
 |11|[udemy/docker-mastery](https://github.com/cuongpiger/cloud/tree/udemy/docker-mastery)|Udemy course: Docker Mastery|`docker`, `udemy`|
 |12|[udemy/kubernetes-mastery](https://github.com/cuongpiger/cloud/tree/udemy/kubernetes-mastery)|Udemy course: Kubernetes Mastery|`k8s`, `udemy`|
 |13|[books/k8s-up-and-running](https://github.com/cuongpiger/cloud/tree/books/k8s-up-and-running)|Books: Kubernetes Up and Running|`k8s`, `books`|
-|14|[lab/docker-buildx](https://github.com/cuongpiger/golang/tree/lab/docker-buildx)|Using `buildx` to build multi-arch container image.|`docker`, `buildx`|
+|14|[golang@lab/docker-buildx](https://github.com/cuongpiger/golang/tree/lab/docker-buildx)|Using `buildx` to build multi-arch container image.|`docker`, `buildx`|
