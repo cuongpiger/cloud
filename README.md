@@ -43,3 +43,5 @@
     - Using `emptyDir` volume for ephemeral data.
     - Introducing the remote disk, such as `nfs` volume.
 
+- ##### Chapter 6. Labels and Annotations $[p.65]$
+
