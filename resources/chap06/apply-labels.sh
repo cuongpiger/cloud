@@ -1,40 +1,47 @@
-#!/bin/bash
+kubectl create deployment alpaca-prod --image=gcr.io/kuar-demo/kuard-amd64:blue --replicas=2
+kubectl label deployment alpaca-prod ver=1 app=alpaca env=prod --overwrite
 
-alpaca_prod() {
-  kubectl run alpaca-prod \
-    --image=gcr.io/kuar-demo/kuard-amd64:blue \
-    --replicas=2 \
-    --labels="ver=1,app=alpaca,env=prod"
-}
 
-alpaca_test() {
-  kubectl run alpaca-test \
-    --image=gcr.io/kuar-demo/kuard-amd64:green \
-    --replicas=1 \
-    --labels="ver=2,app=alpaca,env=test"
-}
+kubectl create deployment alpaca-test --image=gcr.io/kuar-demo/kuard-amd64:green --replicas=1
+kubectl label deployment alpaca-test ver=2 app=alpaca env=test --overwrite
 
-bandicoot_prod() {
-  kubectl run bandicoot-prod \
-    --image=gcr.io/kuar-demo/kuard-amd64:green \
-    --replicas=2 \
-    --labels="ver=2,app=bandicoot,env=prod"
-}
 
-bandicoot_staging() {
-  kubectl run bandicoot-staging \
-    --image=gcr.io/kuar-demo/kuard-amd64:green \
-    --replicas=1 \
-    --labels="ver=2,app=bandicoot,env=staging"
-}
+kubectl create deployment bandicoot-prod --image=gcr.io/kuar-demo/kuard-amd64:green --replicas=2
+kubectl label deployment bandicoot-prod ver=2 app=bandicoot env=prod --overwrite
 
-case $1 in
-alpaca-prod) alpaca_prod ;;
-alpaca-test) alpaca_test ;;
-bandicoot-prod) bandicoot_prod ;;
-bandicoot-staging) bandicoot_staging ;;
-*)
-  echo "Usage: $0 { alpaca | alpaca-test | bandicoot | bandicoot-staging }" >&2
-  exit 1
-  ;;
-esac
+
+kubectl create deployment bandicoot-staging --image=gcr.io/kuar-demo/kuard-amd64:green --replicas=1
+kubectl label deployment bandicoot-staging ver=2 app=bandicoot env=staging --overwrite
+
+
+kubectl get deployments --show-labels
+
+
+kubectl label deployments alpaca-test "canary=true"
+
+
+kubectl get deployments -L canary
+
+
+kubectl label deployments alpaca-test "canary-"
+
+
+kubectl get pods --show-labels
+
+
+kubectl get deployments --selector="ver=2"
+
+
+kubectl get deployments --selector="app=bandicoot,ver=2"
+
+
+kubectl get deployments --selector="app in (alpaca,bandicoot)"
+
+
+kubectl get deployments --selector="canary"
+
+
+kubectl get deployments --selector='!canary'
+
+
+kubectl get deployments -l 'ver=2,!canary'
