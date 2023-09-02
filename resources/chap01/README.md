@@ -19,3 +19,18 @@
   - **Operators** are a **specialized form of custom controller** designed for managing **complex, stateful applications** with **domain-specific knowledge**.
 
 - Both Controllers and Operators play a **crucial role** in Kubernetes by automating resource management and lifecycle operations, ensuring that the cluster remains in the desired state, and reducing manual administrative tasks. The choice between them depends on the complexity and specific requirements of the applications you're managing in your Kubernetes environment.
+
+## 1.1. The control loop
+- **The Control Loop** is responsible for continuously **monitoring** and **reconciling** the **actual state** of resources with their **desired state**. It ensures that the cluster's resources are maintained according to the declared configurations and policies.
+- Here's how the Control Loop works:
+  - **Desired State**: Kubernetes resources, such as pods, services, deployments, and replicasets, are defined with a desired state. This desired state specifies how the resource should behave, how many replicas should exist, which image should be used, etc. The desired state is typically declared in resource manifests.
+  - **Actual State**: The Control Loop continuously **monitors** the actual state of resources within the cluster. It gathers information about the existing resources, their health, and their current configurations.
+  - **Comparison**: The Control Loop compares the **desired state** with the **actual state**. It checks for any discrepancies or differences between the two.
+  - **Reconciliation**: If discrepancies are found, the Control Loop takes action to bring the actual state in line with the desired state. This can involve creating, updating, or deleting resources, adjusting resource configurations, or scaling the number of replicas.
+  - **Periodic Process**: The Control Loop operates in a loop, constantly reevaluating the state of resources. It periodically checks the resources it manages, and if there are differences between desired and actual states, it initiates reconciliation.
+
+- Key points about the Control Loop:
+  - **Event-Driven**: The Control Loop can be **event-driven**, meaning it reacts to **events** or changes as they happen. For example, when a pod crashes, the Control Loop can respond immediately to replace it.
+  - **Level-Driven**: In some cases, the Control Loop can be **level-driven**, periodically checking and reconciling resources. This approach is suitable for maintaining a steady state and avoiding excessive churn.
+  - **Controllers**: Controllers are components within the Kubernetes control plane that implement the Control Loop. Each controller specializes in managing a specific type of resource (e.g., Deployment controller, ReplicaSet controller) and ensures that the desired state of those resources is maintained.
+  - **Automation**: The Control Loop is responsible for much of the automation in Kubernetes. It keeps resources running as expected, scales resources as needed, and enforces desired configurations.
