@@ -76,3 +76,21 @@
     - **Normal Events**: These indicate successful or expected operations, such as pod creation.
     - **Warning Events**: These indicate issues, errors, or unexpected situations, such as pod failures.
   - **Event Retention**: Events are stored in the cluster for a configurable period. Older events are automatically deleted to manage storage.
+
+## 1.3. Edge- Versus Level-Driven Triggers
+- **Edge-Driven** and **Level-Driven** are two different approaches to triggering actions or reactions based on the state changes of resources. These approaches are often associated with Kubernetes controllers and how they respond to resource changes. Let's explore the differences:
+  - **Edge-Driven (Event-Driven) Triggers**:
+    - **Definition**: In an edge-driven trigger mechanism, actions are triggered based on the occurrence of an event or state change. This means that an action is taken immediately when a specific event happens.
+    - **Usage**: Edge-driven triggers are commonly used in Kubernetes when you want controllers or components to react swiftly to resource changes. For example, when a pod crashes (an event), a controller might immediately create a replacement pod.
+    - **Efficiency**: Edge-driven triggers can be highly efficient and responsive because they react in real-time to events as they happen.
+    - **Example**: A Deployment controller that scales up or down based on resource utilization is edge-driven. When CPU usage exceeds a threshold (an event), it triggers the scaling action.
+
+  - **Level-Driven (Reconciliation Loop) Triggers**:
+    - **Definition**: In a level-driven trigger mechanism, actions are triggered based on the discrepancy or difference between the desired state and the current state. Controllers continuously compare the desired state with the actual state and take action when there's a difference.
+    - **Usage**: Level-driven triggers are often used in Kubernetes controllers that manage complex resources and require a steady state to be maintained. Controllers periodically check for differences and make adjustments to bring the system back to the desired state.
+    - **Efficiency**: Level-driven triggers can be efficient when resource changes occur frequently, as they avoid excessive churn by allowing time for resources to stabilize before taking action.
+    - **Example**: The ReplicaSet controller, which ensures that a specified number of pod replicas is running, is level-driven. It periodically checks the actual pod count against the desired count and adjusts as needed.
+
+- In summary:
+  - **Edge-Driven**: Reacts immediately to events or state changes, suitable for scenarios where rapid response is required.
+  - **Level-Driven**: Periodically checks and reconciles the actual state with the desired state, suitable for maintaining a steady state and avoiding excessive churn.
