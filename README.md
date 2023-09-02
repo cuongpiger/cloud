@@ -47,3 +47,4 @@
   - Introducing **Labels** to **grouping**, **viewing** and **operating**. $[p.65 \Rightarrow 66]$
   - Applying **Lables**: $[p.67]$
     - Using with `kubectl run` command and `--labels` flag. $[p.67 \Rightarrow 68]$
+    - Using `kubectl get pods --show-labels` command. $[p.67]$
