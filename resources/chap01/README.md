@@ -64,3 +64,15 @@
   - **Batch Jobs**: Kubernetes supports batch processing through **Job** resources. **Jobs** can represent tasks that need to be run to completion, and work queues can help distribute and manage these jobs.
   - **Event Processing**: Applications can use work queues to process and respond to events generated within the cluster or from external sources.
   - **Data Processing**: In data-intensive applications, work queues can be used to distribute data processing tasks across multiple nodes or containers.
+
+## 1.2. Events
+- **Event** is a resource object that represents a real-time report of a state change in the cluster. Events are used to track the history of actions, changes, and incidents that occur within the cluster. They provide visibility into the operations and behaviors of various components and resources.
+- Key characteristics of K8s Events:
+  - **State Changes**: Events capture information about significant state changes or activities within the cluster, such as the creation, update, or deletion of resources like pods, services, nodes, and more.
+  - **Metadata**: Each event includes metadata such as the name of the involved resource, the type of event (e.g., Normal or Warning), a timestamp indicating when the event occurred, and a message providing details about the event.
+  - **Reason and Source**: Events include a "**reason**" field that explains why the event occurred and a "**source**" field that indicates which component or entity generated the event.
+  - **Visibility**: Events are a valuable tool for monitoring, troubleshooting, and auditing cluster activities. They help cluster operators and administrators understand what is happening within the cluster.
+  - **Event Types**: Events can be categorized into two primary types:
+    - **Normal Events**: These indicate successful or expected operations, such as pod creation.
+    - **Warning Events**: These indicate issues, errors, or unexpected situations, such as pod failures.
+  - **Event Retention**: Events are stored in the cluster for a configurable period. Older events are automatically deleted to manage storage.
