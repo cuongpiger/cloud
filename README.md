@@ -15,4 +15,4 @@
 # Linux
 |#|Command|Description|Note|
 |-|-|-|-|
-|1|`cat /etc/apt/sources.list`|Show the list of repositories.|![](./img/linux/01.png)|
+|1|`cat /etc/apt/sources.list`|Show the list of repositories. You can add more linux repositories here.|![](./img/linux/01.png)|
