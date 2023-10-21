@@ -15,3 +15,4 @@
 |13|[books/k8s-up-and-running](https://github.com/cuongpiger/cloud/tree/books/k8s-up-and-running)|Books: Kubernetes Up and Running|`k8s`, `books`|
 |14|[golang@lab/docker-buildx](https://github.com/cuongpiger/golang/tree/lab/docker-buildx)|Using `buildx` to build multi-arch container image.|`docker`, `buildx`|
 |15|[commands](https://github.com/cuongpiger/cloud/tree/commands)|My own common commands that I often use.|`commands`|
+|16|[k8s/templates](https://github.com/cuongpiger/cloud/tree/k8s/templates)|Popular Kubernetes templates to test and demonstrate.|`k8s`, `templates`|
