@@ -1,12 +1,11 @@
-**NOTE**: This is a ***LAB*** document, it is NOT for production use.
+**NOTE**: This is a ***STAGING*** document, it is NOT for production use.
 
 # 1. Block
 - The K8s manifest. This manifest will create a `StorageClass`, a `PersistentVolumeClaim` and a `Pod`, the `Pod` will mount the `PersistentVolumeClaim` as a volume.
 - The values of `<PUT_VOLUME_TYPE_UUID_OR_NAME>` can be:
-  - `vContainer-RWM-blockstorage`
-  - `test`
-  - `ceph`
-  - `vol_type_common`
+  - `400iops_DEV-POOL`
+  - `600iops_DEV-POOL`
+  - `1200iops_DEV-POOL`
 
 - File [block.yaml](./manifest/block/block.yaml).
   ```yaml
