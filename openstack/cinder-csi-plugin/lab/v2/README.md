@@ -16,7 +16,7 @@
     name: csi-pvc-cinderplugin  # [2] The PVC name, CAN be changed
   spec:
     accessModes:
-    - ReadWriteOnce  # Must set this value, currently only support RWO
+    - ReadWriteOnce  # MUST set this value, currently only support RWO
     resources:
       requests:
         storage: 1Gi  # [3] The PVC size, CAN be changed
