@@ -1,5 +1,8 @@
 **NOTE**: This is a ***LAB*** document, it is NOT for production use.
 
+
+
+
 # 1. Block
 ## 1.1. Apply the manifest
 - The K8s manifest. This manifest will create a `StorageClass`, a `PersistentVolumeClaim` and a `Pod`, the `Pod` will mount the `PersistentVolumeClaim` as a volume.
@@ -147,4 +150,20 @@
   I1031 07:30:59.378797       1 mount_linux.go:294] Unmounting /var/lib/kubelet/plugins/kubernetes.io/csi/cinder.csi.openstack.org/85d87f63e677d7e240db3075b94e22af56ee13bfb663575ef26a6b4550bb343f/globalmount
   W1031 07:30:59.391695       1 mount_helper_common.go:133] Warning: "/var/lib/kubelet/plugins/kubernetes.io/csi/cinder.csi.openstack.org/85d87f63e677d7e240db3075b94e22af56ee13bfb663575ef26a6b4550bb343f/globalmount" is not a mountpoint, deleting
   I1031 07:30:59.391824       1 utils.go:94] [ID:1324] GRPC response: {}
+  ```
+
+## 1.3. Delete `PersistentVolumeClaim`
+- If a `PersistentVolumeClaim` is deleted, the `PersistentVolume` will be deleted too.
+  ![](./img/04.png)
+
+- It causes the volume that the `PersistentVolumeClaim` mounts is deleted in the OpenStack Cinder.
+  ![](./img/05.png)
+- The logs of **controller server**:
+  ```bash
+  # Phase: DeleteVolume
+  I1031 07:43:33.020579       1 utils.go:88] [ID:433] GRPC call: /csi.v1.Controller/DeleteVolume
+  I1031 07:43:33.020612       1 utils.go:89] [ID:433] GRPC request: {"volume_id":"23698f4e-3558-4efe-9a74-440f7fc7cd74"}
+  I1031 07:43:33.020715       1 controllerserver.go:156] DeleteVolume: called with args {"volume_id":"23698f4e-3558-4efe-9a74-440f7fc7cd74"}
+  I1031 07:43:33.364360       1 controllerserver.go:173] DeleteVolume: Successfully deleted volume 23698f4e-3558-4efe-9a74-440f7fc7cd74
+  I1031 07:43:33.364771       1 utils.go:94] [ID:433] GRPC response: {}
   ```
