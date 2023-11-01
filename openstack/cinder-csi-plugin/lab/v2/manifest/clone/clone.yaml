@@ -1,0 +1,64 @@
+# Define the StorageClass
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-cinderplugin-sc
+provisioner: cinder.csi.openstack.org
+parameters:
+  type: 7816bad1-7f5b-4400-b2fd-b6334dc32d4b
+---
+
+# Define the source PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: source-pvc
+spec:
+  storageClassName: csi-cinderplugin-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+# Define the cloned PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: csi-pvc-clone
+spec:
+  dataSource:
+    name: source-pvc
+    kind: PersistentVolumeClaim
+    apiGroup: ""
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-cinderplugin-sc
+---
+
+# Define the Pod that using the cloned PVC
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: IfNotPresent
+    name: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    volumeMounts:
+      - mountPath: /var/lib/www/html
+        name: csi-data-cinderplugin
+  volumes:
+  - name: csi-data-cinderplugin
+    persistentVolumeClaim:
+      claimName: csi-pvc-clone
+      readOnly: false
+      
