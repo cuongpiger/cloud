@@ -211,7 +211,7 @@
     resources:
       requests:
         storage: 1Gi
-    storageClassName: csi-cinderplugin-sc
+    storageClassName: csi-cinderplugin-sc  # MUST be same value with [1]
   ---
 
   # Define the Pod that using the cloned PVC
@@ -229,11 +229,11 @@
         protocol: TCP
       volumeMounts:
         - mountPath: /var/lib/www/html
-          name: csi-data-cinderplugin
+          name: csi-data-cinderplugin  # [4] The volume name, CAN be changed
     volumes:
-    - name: csi-data-cinderplugin
+    - name: csi-data-cinderplugin  # MUST be same value with [4]
       persistentVolumeClaim:
-        claimName: csi-pvc-clone
+        claimName: csi-pvc-clone  # MUST be same value with [3]
         readOnly: false
   ```
 - If a `PersistentVolumeClaim` is cloned, the `PersistentVolume` will be cloned too.
