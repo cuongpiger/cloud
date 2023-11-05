@@ -9,7 +9,7 @@
   - `ceph`
   - `vol_type_common`
 
-- File [block.yaml](./manifest/block/block.yaml).
+- File [block.yaml](../manifest/block/block.yaml).
   ```yaml
   apiVersion: storage.k8s.io/v1
   kind: StorageClass

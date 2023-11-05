@@ -2,7 +2,7 @@
 
 # 2. Clone
 - This manifest will create a `StorageClass`, 2 `PersistentVolumeClaim`, 2 `PersistentVolume` and 1 `Pod`.
-- File [clone.yaml](./manifest/clone/clone.yaml).
+- File [clone.yaml](../manifest/clone/clone.yaml).
   ```yaml
   # Define the StorageClass
   apiVersion: storage.k8s.io/v1
