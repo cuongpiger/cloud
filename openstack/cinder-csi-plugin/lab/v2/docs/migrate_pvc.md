@@ -23,7 +23,7 @@
   > - Suppose the result of the above command is $\text{8766d416-72c5-4732-a717-72d9c2d05e70}$.
 
   - **Step 4** [Optional]: Create the Snapshot for the $\text{pvc}$.
-  - **Step 5**: Mark the `PersistentVolume`’s reclaim policy as `Retain`. This will keep the volume in VNG CLOUD even if the PV or PVC is accidentally deleted from the cluster.
+  - **Step 5**: Mark the `PersistentVolume`’s reclaim policy as `Retain`. This will keep the volume in VNG CLOUD even if the `PersistentVolume` or `PersistentVolumeClaim` is accidentally deleted from the cluster.
   ```bash
   # cluster A
   kubectl patch pv pvc-4846ea7c-489b-4aaa-ba9b-0e7b4e44b6d5 -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
