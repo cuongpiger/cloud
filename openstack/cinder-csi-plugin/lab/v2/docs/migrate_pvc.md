@@ -47,7 +47,7 @@
   kubectl delete pvc <PVC_NAME>
   ```
 
-  - **Step 10**: Apply the manifest file $\text{pvc.yaml}$ to the cluster $B$.
+  - **Step 10**: Apply the manifest file ***pvc.yaml*** to the cluster $B$.
   ```bash
   # cluster B
   kubectl apply -f pvc.yaml
@@ -55,12 +55,14 @@
 
   - **Step 11**: Grab the `uid` of the `PersistentVolumeClaim` $\text{pvc}$. This is needed when applying the $\text{pvc-4846ea7c-489b-4aaa-ba9b-0e7b4e44b6d5}$ to the cluster.
   ```bash
+  # cluster B
   kubectl get pvc pvc -o jsonpath='{.metadata.uid}'
   ```
   > - Suppose the result for the above command is $\text{d2eabdf9-e70f-4c15-8327-0862ef514cb1}$.
 
   - **Step 12**: Now we can apply the `PersistentVolume` $\text{pvc-4846ea7c-489b-4aaa-ba9b-0e7b4e44b6d5}$. We will additionally set the `claimRef` to the `uid` found in the previous step.
   ```bash
+  # cluster B
   kubectl apply -f pv.yaml
   kubectl patch pv pvc-4846ea7c-489b-4aaa-ba9b-0e7b4e44b6d5 -p '{"spec":{"claimRef":{"uid":"d2eabdf9-e70f-4c15-8327-0862ef514cb1"}}}'
   ```
