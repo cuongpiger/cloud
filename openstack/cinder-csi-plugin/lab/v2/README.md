@@ -6,3 +6,4 @@
 - [**2. Clone**](./docs/clone.md)
 - [**3. Ephemeral**](./docs/ephemeral.md)
 - [**4. Resize**](./docs/resize.md)
+- [**5. Snapshot**](./docs/snapshot.md)
