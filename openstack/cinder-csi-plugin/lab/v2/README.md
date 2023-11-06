@@ -7,3 +7,4 @@
 - [**3. Ephemeral**](./docs/ephemeral.md)
 - [**4. Resize**](./docs/resize.md)
 - [**5. Snapshot**](./docs/snapshot.md)
+- [**6. Migrate PVC**](./docs/migrate_pvc.md)
