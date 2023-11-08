@@ -60,7 +60,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: csi-pvc-clone
+  name: csi-pvc-clone-2
 spec:
   dataSource:
     name: source-pvc
@@ -71,7 +71,7 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  storageClassName: csi-cinderplugin-sc-10000
+  storageClassName: csi-cinderplugin-sc-5000
 ---
 
 # Define the Pod that using the cloned PVC
