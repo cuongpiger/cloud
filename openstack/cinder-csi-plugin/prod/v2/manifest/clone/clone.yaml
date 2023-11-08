@@ -2,10 +2,21 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: csi-cinderplugin-sc
-provisioner: cinder.csi.openstack.org
+  name: csi-cinderplugin-sc-5000
 parameters:
-  type: 7816bad1-7f5b-4400-b2fd-b6334dc32d4b
+  type: 5000iops_PUBC06-NVME-01
+provisioner: cinder.csi.openstack.org
+allowVolumeExpansion: true
+---
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-cinderplugin-sc-10000
+parameters:
+  type: 10000iops_PUBC06-NVME-01
+provisioner: cinder.csi.openstack.org
+allowVolumeExpansion: true
 ---
 
 # Define the source PVC
@@ -14,7 +25,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: source-pvc
 spec:
-  storageClassName: csi-cinderplugin-sc
+  storageClassName: csi-cinderplugin-sc-5000
   accessModes:
     - ReadWriteOnce
   resources:
@@ -37,7 +48,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: csi-cinderplugin-sc
+  storageClassName: csi-cinderplugin-sc-10000
 ---
 
 # Define the Pod that using the cloned PVC

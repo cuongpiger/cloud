@@ -2,16 +2,28 @@
 
 # 2. Clone
 - This manifest will create a `StorageClass`, 2 `PersistentVolumeClaim`, 2 `PersistentVolume` and 1 `Pod`.
+- To get the `StorageClass`'s type **[5]** and **[7]**, visit [here](./../docs/block.md#11-apply-the-manifest).
 - File [clone.yaml](../manifest/clone/clone.yaml).
   ```yaml
   # Define the StorageClass
   apiVersion: storage.k8s.io/v1
   kind: StorageClass
   metadata:
-    name: csi-cinderplugin-sc  # [1] The StorageClass name, CAN be changed
-  provisioner: cinder.csi.openstack.org
+    name: csi-cinderplugin-sc-5000  # [1] The StorageClass name, CAN be changed
   parameters:
-    type: <PUT_VOLUME_TYPE_UUID_OR_NAME>  # Change it to your volume type UUID or name
+    type: 5000iops_PUBC06-NVME-01  # [5] The IOPS type, CAN be changed
+  provisioner: cinder.csi.openstack.org
+  allowVolumeExpansion: true
+  ---
+
+  apiVersion: storage.k8s.io/v1
+  kind: StorageClass
+  metadata:
+    name: csi-cinderplugin-sc-10000  # [6] The StorageClass name, CAN be changed
+  parameters:
+    type: 10000iops_PUBC06-NVME-01  # [7] The IOPS type, CAN be changed
+  provisioner: cinder.csi.openstack.org
+  allowVolumeExpansion: true
   ---
 
   # Define the source PVC
@@ -20,7 +32,7 @@
   metadata:
     name: source-pvc  # [2] The source PVC name, CAN be changed
   spec:
-    storageClassName: csi-cinderplugin-sc  # MUST be same value with [1]
+    storageClassName: csi-cinderplugin-sc-5000  # MUST be same value with [1]
     accessModes:
       - ReadWriteOnce  # Currently, MUST be ReadWriteOnce
     resources:
@@ -43,7 +55,7 @@
     resources:
       requests:
         storage: 1Gi
-    storageClassName: csi-cinderplugin-sc  # MUST be same value with [1]
+    storageClassName: csi-cinderplugin-sc-10000  # MUST be same value with [1] or [6]
   ---
 
   # Define the Pod that using the cloned PVC
