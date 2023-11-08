@@ -2,7 +2,7 @@
 
 # 4. Resize
 - Apply the below manifest to create a PVC, a Pod and a StorageClass.
-- To get the `StorageClass`'s type, visit [here](./../docs/block.md#11-apply-the-manifest).
+- To get the `StorageClass`'s type **[4]**, visit [here](./../docs/block.md#11-apply-the-manifest).
 - File [resize.yaml](./../manifest/resize/resize.yaml)
   ```yaml
   apiVersion: storage.k8s.io/v1
@@ -10,7 +10,7 @@
   metadata:
     name: csi-sc-cinderplugin  # [1] The name of the StorageClass, CAN be changed
   parameters:
-    type: 5000iops_PUBC06-NVME-01  # The IOPS type of the volume, CAN be changed
+    type: 5000iops_PUBC06-NVME-01  # [4] The IOPS type of the volume, CAN be changed
   provisioner: cinder.csi.openstack.org
   allowVolumeExpansion: true  # enable volume expansion
 
