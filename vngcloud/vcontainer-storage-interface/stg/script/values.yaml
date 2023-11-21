@@ -1,0 +1,21 @@
+csi:
+  plugin:
+    image:
+      repository: docker.io/manhcuong8499/vcontainer-storage-interface
+      tag: latest
+      pullPolicy: Always
+
+logVerbosityLevel: 5
+
+
+vcontainerConfig:
+  create: true
+  filename: vcontainer-config.conf
+  name: vcontainer-config-secret
+  identityURL: "https://hcm-3.api.vngcloud.tech/iam/accounts-api/v2"
+  computeURL: "https://hcm-3.api.vngcloud.tech/new-vserver-gateway/v2"
+  portalURL: "https://hcm-3.api.vngcloud.tech/new-vserver-gateway/v1"
+  blockstorageURL: "https://hcm-3.api.vngcloud.tech/new-vserver-gateway/v2"
+  caFile: "/etc/kubernetes/ca-bundle.crt"
+  clientID: "<PUT_YOUR_CLIENT_ID>"
+  clientSecret: "<PUT_YOUR_CLIENT_SECRET>"
