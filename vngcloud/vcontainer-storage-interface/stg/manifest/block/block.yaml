@@ -16,7 +16,7 @@ spec:
   - ReadWriteOnce  # MUST set this value, currently only support RWO
   resources:
     requests:
-      storage: 20Gi  # [3] The PVC size, CAN be changed
+      storage: 20Gi   # [3] The PVC size, CAN be changed, this value MUST be in the valid range of the proper volume type
   storageClassName: my-storage-class  # MUST be same value with [1], not set this value will use default StorageClass
 
 ---

@@ -24,7 +24,7 @@
     - ReadWriteOnce  # MUST set this value, currently only support RWO
     resources:
       requests:
-        storage: 20Gi  # [3] The PVC size, CAN be changed, this value must be in the valid range of the proper volume type
+        storage: 20Gi  # [3] The PVC size, CAN be changed, this value MUST be in the valid range of the proper volume type
     storageClassName: my-storage-class  # MUST be same value with [1], not set this value will use default StorageClass
 
   ---
@@ -99,4 +99,3 @@
   ![](./../img/10.png)
 - And then it will be deleted after a few seconds.
   ![](./../img/11.png)
-  
