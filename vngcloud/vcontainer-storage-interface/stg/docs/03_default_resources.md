@@ -2,6 +2,7 @@
 
 # 3. Default resources
 - After installing the `vcontainer-storage-interface`, there are 2 `StorageClass` that are installed by default.
+- The `PROVISIONER` value **MUST** be `csi.vngcloud.vn`.
   ```bash
   kubectl get sc -owide
   ```

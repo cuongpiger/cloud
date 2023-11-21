@@ -1,23 +1,23 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: sc-ssd-iops-800
-provisioner: csi.vngcloud.vn
+  name: my-storage-class  # [1] The StorageClass name, CAN be changed
+provisioner: csi.vngcloud.vn  # The CSI driver name
 parameters:
-  type: vtype-af0a974c-2bf4-44b2-bb79-ee7f5fb1d7e7  # SSD IOPS 800
+  type: vtype-69d77715-b8c4-43e0-ad15-3dc01e2a90e1  # Change it to your volume type UUID or name
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: csi-pvc-vngcloud
+  name: my-pvc  # [2] The PVC name, CAN be changed
 spec:
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteOnce  # MUST set this value, currently only support RWO
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: sc-ssd-iops-800
+      storage: 20Gi  # [3] The PVC size, CAN be changed
+  storageClassName: my-storage-class  # MUST be same value with [1], not set this value will use default StorageClass
 
 ---
 apiVersion: v1
@@ -27,17 +27,16 @@ metadata:
 spec:
   containers:
   - image: nginx
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     name: nginx
     ports:
     - containerPort: 80
       protocol: TCP
     volumeMounts:
-      - mountPath: /var/lib/www/html
-        name: csi-data-vngcloud
+      - mountPath: /var/lib/www/html  # The mount path in container, CAN be changed
+        name: my-volume-name  # MUST be same value with [4]
   volumes:
-  - name: csi-data-vngcloud
+  - name: my-volume-name  # [4] The volume mount name, CAN be changed
     persistentVolumeClaim:
-      claimName: csi-pvc-vngcloud
+      claimName: my-pvc  # MUST be same value with [2]
       readOnly: false
-      
