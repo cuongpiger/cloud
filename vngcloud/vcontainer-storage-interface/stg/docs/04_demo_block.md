@@ -86,3 +86,17 @@
     ```
     > ![](./../img/08.png)
   
+- Verify from portal.
+  ![](./../img/09.png)
+## 3.2. Deleting
+- To delete `PersistentVolume`, you **MUST** delete the resource that use it first, in this case is the `Pod` `nginx`, and then delete the `PersistentVolumeClaim` `my-pvc`. Else, the entire process will be failed, because VNG-CLOUD CSI driver will not allow to delete the volume that is `IN-USE` status.
+  ```bash
+  kubectl delete pod nginx
+  kubectl delete pvc my-pvc
+  ```
+
+- Right after the pod `nginx` is deleted, the volume will be in `DETACHING` status in the portal.
+  ![](./../img/10.png)
+- And then it will be deleted after a few seconds.
+  ![](./../img/11.png)
+  
