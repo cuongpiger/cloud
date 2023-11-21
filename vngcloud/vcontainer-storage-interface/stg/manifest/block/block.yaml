@@ -1,7 +1,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: csi-vngcloud-sc
+  name: sc-ssd-iops-800
 provisioner: csi.vngcloud.vn
 parameters:
   type: vtype-af0a974c-2bf4-44b2-bb79-ee7f5fb1d7e7  # SSD IOPS 800
@@ -17,7 +17,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: csi-vngcloud-sc
+  storageClassName: sc-ssd-iops-800
 
 ---
 apiVersion: v1
