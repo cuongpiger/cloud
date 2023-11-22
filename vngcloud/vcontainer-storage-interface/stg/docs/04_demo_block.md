@@ -1,7 +1,7 @@
 ###### [↩ Back to `README`](./../README.md)
 
-# 3. Demo block storage
-## 3.1. Creating
+# 4. Demo block storage
+## 4.1. Creating
 - The below manifest will create one `StorageClass` `my-storage-class`, one `PersistentVolumeClaim` `my-pvc` and one `Pod` `nginx`.
 - The volume type _(tag `[5]` in the below manifest)_ can be found here [https://hcm-03.console.vngcloud.tech/vserver/block-store/volume-type](https://hcm-03.console.vngcloud.tech/vserver/block-store/volume-type), for example: `vtype-69d77715-b8c4-43e0-ad15-3dc01e2a90e1`.
 - The manifest [`block.yaml`](./../manifest/block/block.yaml)
@@ -88,7 +88,7 @@
   
 - Verify from portal.
   ![](./../img/09.png)
-## 3.2. Deleting
+## 4.2. Deleting
 - To delete `PersistentVolume`, you **MUST** delete the resource that use it first, in this case is the `Pod` `nginx`, and then delete the `PersistentVolumeClaim` `my-pvc`. Else, the entire process will be failed, because VNG-CLOUD CSI driver will not allow to delete the volume that is `IN-USE` status.
   ```bash
   kubectl delete pod nginx

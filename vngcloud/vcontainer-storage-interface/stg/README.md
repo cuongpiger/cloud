@@ -1,4 +1,4 @@
-**⛔ NOTE**: This is a ***DEV/STAING*** document, it is NOT for production use.
+**⛔ NOTE**: This is a ***DEV/STAGING*** document, it is NOT for production use.
 
 
 ###### 🌈 Table of content
@@ -6,3 +6,4 @@
 - [**2. Install `vcontainer-storage-interface` plugin**](./docs/02_install_vcontainer_storage_interface_plugin.md)
 - [**3. Default resources**](./docs/03_default_resources.md)
 - [**4. Demo block storage**](./docs/04_demo_block.md)
+- [**5. Demo resizing**](./docs/05_demo_resizing.md)
