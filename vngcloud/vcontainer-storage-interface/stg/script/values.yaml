@@ -1,7 +1,7 @@
 csi:
   plugin:
     image:
-      repository: docker.io/manhcuong8499/vcontainer-storage-interface
+      repository: quay.io/cuongdm8499/vcontainer-storage-interface
       tag: latest
       pullPolicy: Always
 

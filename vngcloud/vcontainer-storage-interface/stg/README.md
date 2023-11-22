@@ -7,3 +7,4 @@
 - [**3. Default resources**](./docs/03_default_resources.md)
 - [**4. Demo block storage**](./docs/04_demo_block.md)
 - [**5. Demo resizing**](./docs/05_demo_resizing.md)
+- [**6. Demo availability**](./docs/06_test_ha.md)
