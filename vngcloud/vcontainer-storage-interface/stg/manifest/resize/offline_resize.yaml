@@ -1,0 +1,21 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: my-expansion-storage-class-2  # [1] The StorageClass name, CAN be changed
+provisioner: csi.vngcloud.vn  # The CSI driver name
+parameters:
+  type: vtype-69d77715-b8c4-43e0-ad15-3dc01e2a90e1  # Change it to your volume type UUID or name
+allowVolumeExpansion: true  # MUST set this value to turn on volume expansion feature
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-expansion-pvc-2
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: my-expansion-storage-class-2

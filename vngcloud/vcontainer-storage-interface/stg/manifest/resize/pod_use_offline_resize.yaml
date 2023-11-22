@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-2
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: IfNotPresent
+    name: nginx-2
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    volumeMounts:
+      - mountPath: /var/lib/www/html
+        name: my-volume-name-2
+  volumes:
+  - name: my-volume-name-2
+    persistentVolumeClaim:
+      claimName: my-expansion-pvc-2
+      readOnly: false
