@@ -1,7 +1,18 @@
 ###### [↩ Back to `README`](./../README.md)
 
 # 2. Install `vcontainer-storage-interface` plugin
-## 2.1. Prepare dependencies
+## 2.1. Create your service account
+- Go to [https://hcm-03.console.vngcloud.tech/iam/service-accounts](https://hcm-03.console.vngcloud.tech/iam/service-accounts) to create your service account.
+  > ![](./../img/31.png)
+  > ![](./../img/32.png)
+
+- Copy the **CLIENT_ID** and **CLIENT_SECRET** of your service account.
+  > ![](./../img/33.png)
+  > ![](./../img/34.png)
+
+- The pair of **CLIENT_ID** and **CLIENT_SECRET** will be used to configure the `vcontainer-storage-interface` plugin.
+
+## 2.2. Prepare dependencies
 - Prepare the [`values.yaml`](./script/values.yaml) file with the below content:
   ```yaml
   csi:
@@ -16,13 +27,8 @@
 
   vcontainerConfig:
     create: true
-    filename: vcontainer-config.conf
-    name: vcontainer-config-secret
-    identityURL: "https://hcm-3.api.vngcloud.tech/iam/accounts-api/v2"
-    computeURL: "https://hcm-3.api.vngcloud.tech/new-vserver-gateway/v2"
-    portalURL: "https://hcm-3.api.vngcloud.tech/new-vserver-gateway/v1"
-    blockstorageURL: "https://hcm-3.api.vngcloud.tech/new-vserver-gateway/v2"
-    caFile: "/etc/kubernetes/ca-bundle.crt"
+    identityURL: "https://hcm-3.api.vngcloud.tech/iam/accounts-api"
+    vserverURL: "https://hcm-3.api.vngcloud.tech/new-vserver-gateway"
     clientID: "<PUT_YOUR_CLIENT_ID>"
     clientSecret: "<PUT_YOUR_CLIENT_SECRET>"
   ```
@@ -68,7 +74,7 @@
   chmod +x main.sh
   ```
 
-## 2.2. Install plugin
+## 2.3. Install plugin
 - Install the `vcontainer-storage-interface`:
   ```bash
   ./main.sh rehelm
