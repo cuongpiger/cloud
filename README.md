@@ -16,3 +16,8 @@
 |#|Command|Description|Note|
 |-|-|-|-|
 |1|`cat /etc/apt/sources.list`|Show the list of repositories. You can add more linux repositories here.|![](./img/linux/01.png)|
+
+# Kubernetes
+|#|Command|Description|Note|
+|-|-|-|-|
+|1|`kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'`|Retrieves and displays events from all namespaces in a Kubernetes cluster, sorting them based on their creation timestamp in ascending order|![](./img/k8s/01.png)|
