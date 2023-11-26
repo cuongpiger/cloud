@@ -8,3 +8,4 @@
 - [**4. Resize**](./docs/resize.md)
 - [**5. Snapshot**](./docs/snapshot.md)
 - [**6. Migrate PVC to new Kubernetes clusters**](./docs/migrate_pvc.md)
+- [**7. NFS server with `cinder-csi-plugin`**](./docs/nfs-with-cinder-csi-plugin.md)
