@@ -75,7 +75,7 @@
           app: nfs-server  # [6] The app label, CAN be changed
       spec:
         nodeSelector:
-          kubernetes.io/hostname: <PUT_THE_HOSTNAME_OF_THE_PROPER_NODE>  # This field MUST be set if the replicas greater than 1
+          kubernetes.io/hostname: <PUT_THE_HOSTNAME_OF_THE_PROPER_NODE>  # This field MUST be set if the replicas [9] greater than 1
         containers:
         - name: nfs-server
           image: registry.vngcloud.vn/public/volume-nfs:0.8
