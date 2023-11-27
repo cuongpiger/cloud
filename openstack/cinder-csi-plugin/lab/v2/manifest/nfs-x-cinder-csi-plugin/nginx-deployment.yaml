@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: "10.254.214.170"
+    server: "10.254.122.209"
     path: "/pvc"
 ---
 

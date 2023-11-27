@@ -65,7 +65,7 @@
   metadata:
     name: nfs-server  # [7] The Deployment name, CAN be changed
   spec:
-    replicas: 1
+    replicas: 2  # [9] The number of replicas, this field is contrainted by the nodeSelector field below
     selector:
       matchLabels:
         app: nfs-server  # MUST be same value with [6]
@@ -74,6 +74,8 @@
         labels:
           app: nfs-server  # [6] The app label, CAN be changed
       spec:
+        nodeSelector:
+          kubernetes.io/hostname: <PUT_THE_HOSTNAME_OF_THE_PROPER_NODE>  # This field MUST be set of the replicas greater than 1
         containers:
         - name: nfs-server
           image: registry.vngcloud.vn/public/volume-nfs:0.8
