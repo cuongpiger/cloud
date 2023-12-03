@@ -22,3 +22,4 @@
 |#|Command|Description|Note|
 |-|-|-|-|
 |1|`kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'`|Retrieves and displays events from all namespaces in a Kubernetes cluster, sorting them based on their creation timestamp in ascending order|![](./img/k8s/01.png)|
+|2|`kubectl config view`|Get current configuration.||
