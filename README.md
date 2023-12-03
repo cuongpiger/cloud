@@ -4,6 +4,7 @@
 |#|Command|Description|Note|
 |-|-|-|-|
 |1|`docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro manhcuong8499/runlike:v1.0.0 <CONTAINER_ID>`|Get the `docker run` command from the `CONTAINER_ID`||
+|2|`docker restart $(docker ps -q)`|Restart all containers||
 
 
 # Git
