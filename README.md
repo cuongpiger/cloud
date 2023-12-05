@@ -26,3 +26,4 @@
 |1|`kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'`|Retrieves and displays events from all namespaces in a Kubernetes cluster, sorting them based on their creation timestamp in ascending order|![](./img/k8s/01.png)|
 |2|`kubectl config view`|Get current configuration.|![](./img/k8s/02.png)|
 |3|`kubectl config set-context <CONTEXT_NAME> --namespace=<YOUR_NAMESPACE>`|Set default namespace for current context.|![](./img/k8s/03.png)|
+|4|`kubectl exec -it <POD_NAME> -c <CONTAINER_NAME> -- bash`|Get into a container in a pod.||
