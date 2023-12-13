@@ -15,11 +15,12 @@
 |3|`eval $(ssh-agent -s) && ssh-add ~/.ssh/<YOUR_PRIVATE_KEY>`|Add exist keys||
 
 # Linux
-|#|Command|Description|Note|
-|-|-|-|-|
-|1|`cat /etc/apt/sources.list`|Show the list of repositories. You can add more linux repositories here.|![](./img/linux/01.png)|
-|2|`ssh-keygen -f "$HOME/.ssh/known_hosts" -R "<IPv4_ADDRESS>"`|Remove known hosts||
-|3|`curl ifconfig.me`|Get the public IP use to retrieve internet||
+|#|Command|Description|Note|Tag|
+|-|-|-|-|-|
+|1|`cat /etc/apt/sources.list`|Show the list of repositories. You can add more linux repositories here.|![](./img/linux/01.png)||
+|2|`ssh-keygen -f "$HOME/.ssh/known_hosts" -R "<IPv4_ADDRESS>"`|Remove known hosts|||
+|3|`curl ifconfig.me`|Get the public IP use to retrieve internet|||
+|4|`openssl x509 -noout -enddate -in $CRT_PATH`|View the expiration date of a certificate in a CRT file.||`openssl`, `crt`|
 
 # Kubernetes
 |#|Command|Description|Note|
