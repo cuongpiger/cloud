@@ -13,6 +13,7 @@
 |1|`git remote set-url origin https://<user_name>:<password/token>@github.com/cuongpiger/example.git`|Set up remote access to the repo||
 |2|`git push -u https://<user_name>:<password_or_token>@github.com/username/repo_name.git <branch>`|Using authentication to push code||
 |3|`eval $(ssh-agent -s) && ssh-add ~/.ssh/<YOUR_PRIVATE_KEY>`|Add exist keys||
+|4|`git config --global credential.helper store`|Pull image without asking account/password||
 
 # Linux
 |#|Command|Description|Note|Tag|
