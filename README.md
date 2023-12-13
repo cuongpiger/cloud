@@ -29,3 +29,8 @@
 |2|`kubectl config view`|Get current configuration.|![](./img/k8s/02.png)|
 |3|`kubectl config set-context <CONTEXT_NAME> --namespace=<YOUR_NAMESPACE>`|Set default namespace for current context.|![](./img/k8s/03.png)|
 |4|`kubectl exec -it <POD_NAME> -c <CONTAINER_NAME> -- bash`|Get into a container in a pod.||
+
+# Tools
+|#|Command|Description|Note|Tag|
+|-|-|-|-|-|
+|1|`rm -rf $HOME/.config/JetBrains/<IDE_DIR>/.lock`|Fix bugs: `Cannot connect to already running IDE instance. Exception: Process <PROCESS_ID> is still running`|||
