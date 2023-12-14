@@ -1,0 +1,22 @@
+curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v1.6.0/clusterctl-linux-amd64 -o clusterctl
+
+
+install -o root -g root -m 0755 clusterctl /usr/local/bin/clusterctl
+
+
+clusterctl version
+
+
+export CLUSTER_TOPOLOGY=true
+export KUBECONFIG=k8s/config
+
+
+clusterctl init --infrastructure openstack
+
+clusterctl generate cluster --infrastructure openstack --list-variables capi-quickstart
+
+clusterctl generate cluster capi-quickstart --flavor without-lb --kubernetes-version v1.24.2 --control-plane-machine-count=1 --worker-machine-count=1 > capi-quickstart.yaml
+
+wget https://raw.githubusercontent.com/kubernetes-sigs/cluster-api-provider-openstack/master/templates/env.rc -O /tmp/env.rc
+
+source /tmp/env.rc test.yaml openstack
