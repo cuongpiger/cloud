@@ -18,3 +18,4 @@
 |16|[k8s/templates](https://github.com/cuongpiger/cloud/tree/k8s/templates)|Popular Kubernetes templates to test and demonstrate.|`k8s`, `templates`|
 |17|[docker/dockerfiles](https://github.com/cuongpiger/cloud/tree/docker/dockerfiles)|My own Dockerfiles.|`docker`, `dockerfiles`|
 |18|[aws/commands](https://github.com/cuongpiger/cloud/tree/aws/commands)|My own AWS commands that I often use.|`aws`, `commands`|
+|19|[cluster-api/openstack](https://github.com/cuongpiger/cloud/tree/cluster-api/openstack)|Cluster-API with OpenStack provider|`cluster-api`, `openstack`|
