@@ -2,4 +2,6 @@
 
 <hr>
 
-
+|#|Name|Description|Note|Tag|
+|---|---|---|---|---|
+|1|[rabbitmq](./rabbitmq/README.md)|Demo RabbitMQ with Docker and Python||`rabbitmq` `docker-compose` `python`|
