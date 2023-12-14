@@ -29,3 +29,9 @@
   >  ✔ Network rabbitmq_default  Removed                                                                                                                                                                                                                                           0.4s 
   > Completed
   > ```
+
+- Run `make test` to test the RabbitMQ server:
+  ![test](./img/03.png)
+
+- Using the dashboard to test publish messages.
+  ![test](./img/04.png)
