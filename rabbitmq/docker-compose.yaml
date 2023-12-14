@@ -1,0 +1,10 @@
+version: "3"
+services:
+  rabbit-server:
+    image: quay.io/cuongdm8499/rabbitmq:3-management
+    hostname: rmq
+    container_name: rabbit-server
+    ports:
+      - "8080:15672"
+      - "5672:5672"
+      
