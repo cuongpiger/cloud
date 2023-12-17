@@ -14,6 +14,7 @@
 |2|`git push -u https://<user_name>:<password_or_token>@github.com/username/repo_name.git <branch>`|Using authentication to push code||
 |3|`eval $(ssh-agent -s) && ssh-add ~/.ssh/<YOUR_PRIVATE_KEY>`|Add exist keys||
 |4|`git config --global credential.helper store`|Pull image without asking account/password||
+|5|`git checkout -b branch_name $COMMIT_HASH`|Checkout a new branch from the `$COMMIT_HASH`||
 
 # Linux
 |#|Command|Description|Note|Tag|
