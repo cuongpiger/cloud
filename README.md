@@ -1,12 +1,12 @@
 ###### [_↩ Back to `main` branch_](https://github.com/cuongpiger/cloud)
 
 # Docker
-|#|Command|Description|Note|
-|-|-|-|-|
-|1|`docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro manhcuong8499/runlike:v1.0.0 <CONTAINER_ID>`|Get the `docker run` command from the `CONTAINER_ID`||
-|2|`docker restart $(docker ps -q)`|Restart all containers||
-|3|`podman system reset --force`|Restart the `podman` system||
-|4|`podman search --list-tags $IMAGE_NAME --limit 1000`|List all tags of image `$IMAGE_NAME`||
+|#|Command|Description|Note|Tag|
+|-|-|-|-|-|
+|1|`docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro manhcuong8499/runlike:v1.0.0 <CONTAINER_ID>`|Get the `docker run` command from the `CONTAINER_ID`|||
+|2|`docker restart $(docker ps -q)`|Restart all containers|||
+|3|`podman system reset --force`|Restart the `podman` system||`podman`|
+|4|`podman search --list-tags $IMAGE_NAME --limit 1000`|List all tags of image `$IMAGE_NAME`||`podman`|
 
 # Git
 |#|Command|Description|Note|
