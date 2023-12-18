@@ -25,7 +25,7 @@
 |3|`curl ifconfig.me`|Get the public IP use to retrieve internet|||
 |4|`openssl x509 -noout -enddate -in $CRT_PATH`|View the expiration date of a certificate in a CRT file.|![](./img/linux/02.png)|`openssl`, `crt`|
 
-# Kubernetes
+# ☸ Kubernetes
 |#|Command|Description|Note|
 |-|-|-|-|
 |1|`kubectl get events --all-namespaces  --sort-by='.metadata.creationTimestamp'`|Retrieves and displays events from all namespaces in a Kubernetes cluster, sorting them based on their creation timestamp in ascending order|![](./img/k8s/01.png)|
