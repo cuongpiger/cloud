@@ -17,7 +17,7 @@
 |4|`git config --global credential.helper store`|Pull image without asking account/password||
 |5|`git checkout -b branch_name $COMMIT_HASH`|Checkout a new branch from the `$COMMIT_HASH`||
 
-# Linux
+# 🐧 Linux
 |#|Command|Description|Note|Tag|
 |-|-|-|-|-|
 |1|`cat /etc/apt/sources.list`|Show the list of repositories. You can add more linux repositories here.|![](./img/linux/01.png)||
