@@ -1,0 +1,43 @@
+####################################################################################################
+# Author: Cuong. Duong Manh <cuongdm8499@gmail.com>
+# Description: 
+#   TODO
+####################################################################################################
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: echoserver
+  name: echoserver
+  namespace: default
+spec:
+  containers:
+  - image: quay.io/cuongdm8499/echoserver:1.10
+    imagePullPolicy: IfNotPresent
+    name: echoserver
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: loadbalanced-service
+spec:
+  selector:
+    run: echoserver
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
