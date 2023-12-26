@@ -34,7 +34,7 @@ apiVersion: v1
 metadata:
   name: loadbalanced-service
   annotations:
-    loadbalancer.openstack.org/network-id: external
+    loadbalancer.openstack.org/network-id: 4688a041-4945-44e8-8d2e-f95de42d50b1
 spec:
   selector:
     run: echoserver
