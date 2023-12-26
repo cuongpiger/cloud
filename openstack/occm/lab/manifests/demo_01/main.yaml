@@ -33,6 +33,8 @@ kind: Service
 apiVersion: v1
 metadata:
   name: loadbalanced-service
+  annotations:
+    loadbalancer.openstack.org/network-id: external
 spec:
   selector:
     run: echoserver
