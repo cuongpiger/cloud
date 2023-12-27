@@ -1,7 +1,7 @@
 build:
-	./main.sh build
+	bash ./main.sh build
 
 push:
-	./main.sh push
+	bash ./main.sh push
 
 .PHONY: build push
