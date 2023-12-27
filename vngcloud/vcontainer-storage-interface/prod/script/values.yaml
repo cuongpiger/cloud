@@ -12,5 +12,5 @@ vcontainerConfig:
   create: true
   identityURL: "https://iamapis.vngcloud.vn/accounts-api"
   vserverURL: "https://hcm-3.api.vngcloud.vn/vserver/vserver-gateway"
-  clientID: "<PUT_YOUR_CLIENT_ID>"
-  clientSecret: "<PUT_YOUR_CLIENT_SECRET>"
+  clientID: "29dc8588-428d-4c8a-8ef9-b94a4ba880a6"
+  clientSecret: "b952f18d-79d9-4d56-90ab-f19e581c0435"
