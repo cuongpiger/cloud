@@ -32,6 +32,7 @@
 |2|`kubectl config view`|Get current configuration.|![](./img/k8s/02.png)|
 |3|`kubectl config set-context <CONTEXT_NAME> --namespace=<YOUR_NAMESPACE>`|Set default namespace for current context.|![](./img/k8s/03.png)|
 |4|`kubectl exec -it <POD_NAME> -c <CONTAINER_NAME> -- bash`|Get into a container in a pod.||
+|5|`chmod o-r ~/.kube/config && chmod g-r ~/.kube/config`|Remove warning in Helm: `WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /root/.kube/config`|- Create the `config` file in the directory `~/.kube/` instead of using `KUBECONFIG` variable.|
 
 # Tools
 |#|Command|Description|Note|Tag|
