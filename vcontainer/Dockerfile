@@ -4,7 +4,7 @@ LABEL name="cdm-vcontainer" \
       maintainers="Cuong. Duong Manh" \
       email="cuongdm8499@gmail.com"
       
-RUN apt update && apt install -y traceroute telnet dnsutils curl wget vim && \
+RUN apt update && apt install -y traceroute tmux telnet dnsutils curl wget vim && \
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
     install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
     wget https://get.helm.sh/helm-v3.9.3-linux-amd64.tar.gz && tar xvf helm-v3.9.3-linux-amd64.tar.gz && \
