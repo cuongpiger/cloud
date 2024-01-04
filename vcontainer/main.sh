@@ -2,7 +2,7 @@
 
 REGISTRY_URL=quay.io/cuongdm8499
 IMAGE_NAME=cdm-vcontainer
-IMAGE_TAG=v0.0.5
+IMAGE_TAG=v0.0.6
 
 build() {
   echo "Building..."
