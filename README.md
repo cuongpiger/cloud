@@ -7,6 +7,11 @@
 |2|`docker restart $(docker ps -q)`|Restart all containers|||
 |3|`podman system reset --force`|Restart the `podman` system||`podman`|
 |4|`podman search --list-tags $IMAGE_NAME --limit 1000`|List all tags of image `$IMAGE_NAME`|`$IMAGE_NAME` is the name of image without specific tag, eg: `quay.io/cuongdm8499/fedora`|`podman`|
+|5|`docker/podman systemd df`|Gives a quick overview of the disk usage. It summarizes the space occupied by containers, images, and other components. This command is handy for figuring out what's taking up disk space in your Docker environment.||
+|6|`docker container prune -f`|Remove all stopped containers||
+|7|`docker save -o $OUTPUT_TAR_FILE $IMAGE_NAME`|Save an image to a tar file|For example: `docker save -o nginx.tar nginx`||
+|8|`docker load -i $INPUT_TAR_FILE`|Load an image from a tar file|For example: `docker load -i nginx.tar`||
+|9|`docker network ls`|List all networks|||
 
 # Git
 |#|Command|Description|Note|
