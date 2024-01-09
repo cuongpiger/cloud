@@ -10,8 +10,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: internal-http-apache2-deployment
-  annotations:
-    service.beta.kubernetes.io/vngcloud-internal-load-balancer: "true"
 spec:
   replicas: 2
   selector:
@@ -32,6 +30,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: internal-http-apache2-service
+  annotations:
+    service.beta.kubernetes.io/vngcloud-internal-load-balancer: "true"
 spec:
   selector:
     app: apache2
