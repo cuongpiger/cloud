@@ -9,34 +9,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: http-nginx-deployment
+  name: internal-http-apache2-deployment
   annotations:
     service.beta.kubernetes.io/vngcloud-internal-load-balancer: "true"
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: nginx
+      app: apache2
   template:
     metadata:
       labels:
-        app: nginx
+        app: apache2
     spec:
       containers:
-      - name: nginx
-        image: nginx
-        ports:
-        - containerPort: 80
+        - name: apache2
+          image: httpd
+          ports:
+            - containerPort: 80
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: http-nginx-service
+  name: internal-http-apache2-service
 spec:
   selector:
-    app: nginx
+    app: apache2
   type: LoadBalancer
   ports:
-  - name: http
-    port: 80
-    targetPort: 80
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 80

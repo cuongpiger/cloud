@@ -9,7 +9,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: http-nginx-deployment
+  name: external-http-nginx-deployment
 spec:
   replicas: 2
   selector:
@@ -29,7 +29,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: http-nginx-service
+  name: external-http-nginx-service
 spec:
   selector:
     app: nginx
