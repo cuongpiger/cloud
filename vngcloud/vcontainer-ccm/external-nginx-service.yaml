@@ -1,0 +1,40 @@
+####################################################################################################
+# Author: Cuong. Duong Manh <cuongdm8499@gmail.com>
+# Description:
+#   - Create an Nginx deployment with 2 replicas, expose it as a service with type LoadBalancer using
+#     the vcontainer-ccm plugin
+#   - The service will be exposed on port 80 on the EXTERNAL L4 load balancer
+####################################################################################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: http-nginx-service
+spec:
+  selector:
+    app: nginx
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
