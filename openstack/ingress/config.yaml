@@ -1,0 +1,18 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: octavia-ingress-controller-config
+  namespace: kube-system
+data:
+  config: |
+    cluster-name: lab-v1-28-5-heo.com
+    openstack:
+      auth-url: http://xxx.xxx.xxx.xxx:5000/v3
+      username: admin
+      domain-name: Default
+      password: xxxxxxxxxxxxxxxx
+      project-id: xxxxxxxxxxxxxx
+      region: RegionOne
+    octavia:
+      subnet-id: 348eedee-7429-xxxxxxxxx-1478ffb1416f
+      floating-network-id: 4688a041-xxxxxxxxx-8d2e-f95de42d50b1
