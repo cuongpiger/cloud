@@ -1,7 +1,7 @@
 ####################################################################################################
 # Author: Cuong. Duong Manh <cuongdm8499@gmail.com>
 # Description:
-#   - Create an Nginx deployment with 2 replicas, expose it as a service with type LoadBalancer using
+#   - Create an Apache2 deployment with 2 replicas, expose it as a service with type LoadBalancer using
 #     the vcontainer-ccm plugin
 #   - The service will be exposed on port 80 on the INTERNAL L4 load balancer
 ####################################################################################################
