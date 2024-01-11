@@ -40,6 +40,7 @@ After applying the manifest, we will have a deployment and a service as below:
 
 - Now when you access the previous public IP address, you will be pending forever
   ![](./img/external/07.png)
+  ![](./img/external/10.png)
 
 - Test from the portal, the loadbalancer must be disappeared
   ![](./img/external/08.png)
