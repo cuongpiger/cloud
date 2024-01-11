@@ -60,3 +60,9 @@ kubectl delete -f internal-httpd-service.yaml
 ```
 ![](./img/internal/09.png)
 ![](./img/internal/10.png)
+
+- Check inside the k8s
+```bash
+kubectl get pods,svc
+```
+![](./img/internal/11.png)
