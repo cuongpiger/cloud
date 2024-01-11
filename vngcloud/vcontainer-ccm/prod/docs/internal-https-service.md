@@ -53,3 +53,10 @@ curl http://10.21.0.9:8080
 
 - Check the backend pool
 ![](./img/internal/08.png)
+
+## 2.1. test delete the above service
+```bash
+kubectl delete -f internal-httpd-service.yaml
+```
+![](./img/internal/09.png)
+![](./img/internal/10.png)
