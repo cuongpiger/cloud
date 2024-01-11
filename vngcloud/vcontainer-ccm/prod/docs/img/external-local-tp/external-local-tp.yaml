@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/name: load-balancer-example
   name: hello-world
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: load-balancer-example
@@ -19,3 +19,20 @@ spec:
         name: hello-world
         ports:
         - containerPort: 8080
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: external-hello-world
+  annotations:
+    vks.vngcloud.vn/load-balancer-name: external-hello-world
+spec:
+  selector:
+    app: hello-world
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
