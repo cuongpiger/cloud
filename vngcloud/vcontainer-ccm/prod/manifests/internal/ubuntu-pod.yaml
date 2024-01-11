@@ -1,0 +1,16 @@
+####################################################################################################
+# Author: Cuong. Duong Manh
+# Description:
+#    - Create an Ubuntu pod with sleep infinity to test the vcontainer-ccm plugin
+####################################################################################################
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-pod
+spec:
+  hostNetwork: true
+  containers:
+  - name: ubuntu-container
+    image: ubuntu:latest
+    command: ["sleep", "infinity"]
