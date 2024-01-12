@@ -1,3 +1,10 @@
+####################################################################################################
+# Author: Cuong. Duong Manh <cuongdm8499@gmailcom>
+# Description:
+#   - Create an application deployment with 2 replicas, expose it as a service with type LoadBalancer
+#     using vcontainer-ccm
+####################################################################################################
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,12 +21,13 @@ spec:
     spec:
       containers:
       - name: udp-server
-        image: jpoon/udp-server
+        image: vcr.vngcloud.vn/60108-cuongdm3/udp-server
         imagePullPolicy: Always
         ports:
         - containerPort: 10001
           protocol: UDP
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -36,3 +44,4 @@ spec:
     protocol: UDP
   selector:
     name: udp-server
+
