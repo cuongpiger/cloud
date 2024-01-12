@@ -1,4 +1,5 @@
-# 1. Scenario
+# Test case 1
+## 1.1 Scenario
 - File [external-nginx-service.yaml](./../manifests/external/external-nginx-service.yaml)
 - This testcase creates an `Nginx` deployment, and then create an **EXTERNAL** loadbalancer service to expose the deployment.
 
@@ -7,7 +8,7 @@
 kubectl apply -f external-nginx-service.yaml
 ```
 
-# 2. Test
+## 1.2 Test
 After applying the manifest, we will have a deployment and a service as below:
 - Get Nginx deployment with 2 replicas
   ```bash
@@ -30,7 +31,7 @@ After applying the manifest, we will have a deployment and a service as below:
 - Yeahhhhhhhhhhh, it worked
   ![](./img/external/05.png)
 
-## 2.1. test delete the above service
+## 1.3 test delete the above service
 - Delete the service
   ```bash
   kubectl delete -f external-nginx-service.yaml
@@ -50,3 +51,41 @@ After applying the manifest, we will have a deployment and a service as below:
 kubectl get pods,svc
 ```
 ![](./img/external/09.png)
+
+# Test case 2
+
+- This test case will deploy an traefic deployment with multiple listeners and pools in the same loadbalancer.
+- Using large flavor of loadbalancer in the manifest
+- Name the loadbalancer in the manifest
+- Apply the manifest [traefik.yaml](./../manifests/external-local-tp/traefik.yaml)
+  ```bash
+  kubectl apply -f traefik.yaml
+  ```
+  ![](./img/external-local-tp/01.png)
+
+  ```bash
+  kubectl get svc,pods
+  ```
+  ![](./img/external-local-tp/02.png)
+
+- From the portal
+  ![](./img/external-local-tp/03.png)
+
+- Waiting until the load balancer is `ACTIVE` on the VNG CLOUD portal, this loadbalancer **MUST** include 2 listeners and 2 pools
+  ![](./img/external-local-tp/04.png)
+  ![](./img/external-local-tp/05.png)
+
+- Access Traefik dashboard
+  ![](./img/external-local-tp/06.png)
+
+- Inside the k8s, service is assign with the above public ip address
+  ![](./img/external-local-tp/07.png)
+
+
+- Now delete the entire resources
+  ```bash
+  kubectl delete -f traefik.yaml
+  ```
+  ![](./img/external-local-tp/08.png)
+
+- Go to the portal to confirm the this loadbalancer is deleted

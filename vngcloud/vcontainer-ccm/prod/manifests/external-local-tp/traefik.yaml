@@ -97,7 +97,7 @@ kind: Service
 metadata:
   name: traefik-service
   annotations:
-    vks.vngcloud.vn/load-balancer-name: "traefik-service"
+    vks.vngcloud.vn/load-balancer-name: "my-traefik-service"
     vks.vngcloud.vn/package-id: "lbp-ddbf9313-3f4c-471b-afd5-f6a3305159fc"
 
 spec:
