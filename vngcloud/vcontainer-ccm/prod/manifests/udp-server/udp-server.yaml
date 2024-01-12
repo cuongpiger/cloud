@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udp-server-deployment
+spec:
+  selector:
+    matchLabels:
+      name: udp-server
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        name: udp-server
+    spec:
+      containers:
+      - name: udp-server
+        image: jpoon/udp-server
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 10001
+          protocol: UDP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: udp-server-service
+  annotations:
+    vks.vngcloud.vn/pool-algorithm: "source-ip"
+  labels:
+    app: udp-server
+spec:
+  type: LoadBalancer
+  sessionAffinity: ClientIP
+  ports:
+  - port: 10001
+    protocol: UDP
+  selector:
+    name: udp-server
