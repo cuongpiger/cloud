@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vks-helloworld-two
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vks-helloworld-two
+  template:
+    metadata:
+      labels:
+        app: vks-helloworld-two
+    spec:
+      containers:
+      - name: vks-helloworld-two
+        image: vcr.vngcloud.vn/60108-cuongdm3/aks-helloworld:v1
+        ports:
+        - containerPort: 80
+        env:
+        - name: TITLE
+          value: "VKS Ingress Demo"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vks-helloworld-two  
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+    app: vks-helloworld-two

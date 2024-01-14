@@ -1,0 +1,14 @@
+image:
+  repository: vcr.vngcloud.vn/60108-cuongdm3/vcontainer-ccm
+  tag: "v0.0.0"
+  pullPolicy: Always
+
+logVerbosityLevel: 5
+
+cloudConfig:
+  global:
+    clientID: "7ae234ed-xxxxxxxxx-8455-40888c554ac9"
+    clientSecret: "5648cd7b-xxxxxxxxx-b0ef-c70633d88ccb"
+
+cluster:
+  name: "cluster-5c74c0a0-xxxxxxxxx-abd3-980d106fe5a9"
