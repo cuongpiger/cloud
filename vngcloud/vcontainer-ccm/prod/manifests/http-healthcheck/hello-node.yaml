@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: brightbox/rails-hello-world
+          image: vcr.vngcloud.vn/60108-cuongdm3/rails-hello-world
           ports:
             - name: web
               containerPort: 3000
@@ -25,6 +25,10 @@ kind: Service
 apiVersion: v1
 metadata:
   name: hello-world
+  annotations:
+    vks.vngcloud.vn/monitor-http-path: "/"
+    vks.vngcloud.vn/monitor-http-method: "get"
+    vks.vngcloud.vn/monitor-protocol: "http"
 spec:
   type: LoadBalancer
   selector:
