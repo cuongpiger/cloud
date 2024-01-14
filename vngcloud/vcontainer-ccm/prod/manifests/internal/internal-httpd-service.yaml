@@ -31,7 +31,7 @@ kind: Service
 metadata:
   name: internal-http-apache2-service
   annotations:
-    service.beta.kubernetes.io/vngcloud-internal-load-balancer: "true"  # MUST set like this to create an internal loadbalancer
+    vks.vngcloud.vn/internal-load-balancer: "true"  # MUST set like this to create an internal loadbalancer
 spec:
   selector:
     app: apache2
