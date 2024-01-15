@@ -44,3 +44,4 @@ spec:
 ```bash
 kubectl apply -f reuse-lb.yaml
 ```
+![](./img/reuse-lb/01.png)
