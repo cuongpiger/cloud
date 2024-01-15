@@ -1,0 +1,43 @@
+####################################################################################################
+# Author: Cuong. Duong Manh <cuongdm8499@gmail.com>
+# Description:
+#   - Create an Apache2 deployment with 2 replicas, expose it as a service with type LoadBalancer using
+#     the vcontainer-ccm plugin
+#   - The service will be exposed on port 80 on the INTERNAL L4 load balancer
+####################################################################################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-apache2-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apache2
+  template:
+    metadata:
+      labels:
+        app: apache2
+    spec:
+      containers:
+        - name: apache2
+          image: httpd
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-apache2-service
+  annotations:
+    vks.vngcloud.vn/load-balancer-id: "lb-eafff7f3-021d-454b-930c-52406f3f2a5f"
+spec:
+  selector:
+    app: apache2
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8000
+      targetPort: 80
