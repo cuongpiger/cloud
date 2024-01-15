@@ -44,4 +44,6 @@ spec:
 ```bash
 kubectl apply -f reuse-lb.yaml
 ```
+
+- Access from the browse at the address: `http://<IP_ADDRESS>:8000`
 ![](./img/reuse-lb/01.png)
