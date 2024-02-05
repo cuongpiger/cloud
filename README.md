@@ -40,6 +40,7 @@
 |5|`chmod o-r ~/.kube/config && chmod g-r ~/.kube/config`|Remove warning in Helm: `WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /root/.kube/config`|- Create the `config` file in the directory `~/.kube/` instead of using `KUBECONFIG` variable.|
 
 # Tools
-|#|Command|Description|Note|Tag|
+|#|Command/Instruction|Description|Note|Tag|
 |-|-|-|-|-|
 |1|`rm -rf $HOME/.config/JetBrains/<IDE_DIR>/.lock`|Fix bugs: `Cannot connect to already running IDE instance. Exception: Process <PROCESS_ID> is still running`|||
+|2|[solution](./linux/02.md)|**Fix bugs**: `E: Could not get lock /var/lib/dpkg/lock-frontend`||`bugs`|
