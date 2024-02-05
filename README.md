@@ -30,6 +30,7 @@
 |3|`curl ifconfig.me`|Get the public IP use to retrieve internet|||
 |4|`openssl x509 -noout -enddate -in $CRT_PATH`|View the expiration date of a certificate in a CRT file.|![](./img/linux/02.png)|`openssl`, `crt`|
 |5|[solution](./linux/02.md)|**Fix bugs**: `E: Could not get lock /var/lib/dpkg/lock-frontend`||`bugs`|
+|6|`sudo apt update && apt-cache madison $PACKAGE_NAME \| tac`|List all versions of a package in Ubuntu.|To list all the version of `kubeadm` package, I **CAN** assign `kubeadm` to the `$PACKAGE_NAME` variable.||
 
 
 # ☸ Kubernetes
