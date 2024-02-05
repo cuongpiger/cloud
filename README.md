@@ -23,12 +23,14 @@
 |5|`git checkout -b branch_name $COMMIT_HASH`|Checkout a new branch from the `$COMMIT_HASH`||
 
 # 🐧 Linux
-|#|Command|Description|Note|Tag|
+|#|Command/Instruction|Description|Note|Tag|
 |-|-|-|-|-|
 |1|`cat /etc/apt/sources.list`|Show the list of repositories. You can add more linux repositories here.|![](./img/linux/01.png)||
 |2|`ssh-keygen -f "$HOME/.ssh/known_hosts" -R "<IPv4_ADDRESS>"`|Remove known hosts|||
 |3|`curl ifconfig.me`|Get the public IP use to retrieve internet|||
 |4|`openssl x509 -noout -enddate -in $CRT_PATH`|View the expiration date of a certificate in a CRT file.|![](./img/linux/02.png)|`openssl`, `crt`|
+|5|[solution](./linux/02.md)|**Fix bugs**: `E: Could not get lock /var/lib/dpkg/lock-frontend`||`bugs`|
+
 
 # ☸ Kubernetes
 |#|Command|Description|Note|
@@ -43,4 +45,3 @@
 |#|Command/Instruction|Description|Note|Tag|
 |-|-|-|-|-|
 |1|`rm -rf $HOME/.config/JetBrains/<IDE_DIR>/.lock`|Fix bugs: `Cannot connect to already running IDE instance. Exception: Process <PROCESS_ID> is still running`|||
-|2|[solution](./linux/02.md)|**Fix bugs**: `E: Could not get lock /var/lib/dpkg/lock-frontend`||`bugs`|
