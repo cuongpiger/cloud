@@ -46,4 +46,7 @@
 |#|Command/Instruction|Description|Note|Tag|
 |-|-|-|-|-|
 |1|`rm -rf $HOME/.config/JetBrains/<IDE_DIR>/.lock`|Fix bugs: `Cannot connect to already running IDE instance. Exception: Process <PROCESS_ID> is still running`|||
-|2|`:setw synchronize-panes on/off`|Enable/Disable the synchronization of panes in Tmux||`tmux`|
+# Tmux
+|#|Command/Instruction|Description|Note|Tag|
+|-|-|-|-|-|
+|1|`:setw synchronize-panes on/off`|Enable/Disable the synchronization of panes in Tmux||`broadcast`|
