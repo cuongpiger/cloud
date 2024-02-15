@@ -19,3 +19,4 @@
 |17|[docker/dockerfiles](https://github.com/cuongpiger/cloud/tree/docker/dockerfiles)|My own Dockerfiles.|`docker`, `dockerfiles`|
 |18|[aws/commands](https://github.com/cuongpiger/cloud/tree/aws/commands)|My own AWS commands that I often use.|`aws`, `commands`|
 |19|[cluster-api/openstack](https://github.com/cuongpiger/cloud/tree/cluster-api/openstack)|Cluster-API with OpenStack provider|`cluster-api`, `openstack`|
+|20|[cloud-dict](https://github.com/cuongpiger/cloud/tree/cloud-dict)|The collection of terms and concepts in Cloud Computing.|`cloud`, `dict`|
