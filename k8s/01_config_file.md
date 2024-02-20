@@ -14,6 +14,8 @@
     - Finally, kubelet configuration parameters can also be passed directly via command-line flags when starting the kubelet process. This is commonly done when kubelet is started by systemd unit files or other initialization scripts.
 
 -To find the specific location and method used for configuring kubelet in your environment, you may need to inspect the systemd unit file(s) used to start kubelet, check the Kubernetes configuration directory (`/etc/kubernetes/`), or refer to the documentation or installation instructions provided by your Kubernetes distribution or installation method.
+- Other configuration files can be:
+  ![](./../img/k8s/04.png)
 
 # `kube-apiserver`
 - Located at `/etc/kubernetes/manifests/kube-apiserver.yaml`
