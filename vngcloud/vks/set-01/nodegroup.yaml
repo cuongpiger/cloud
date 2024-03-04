@@ -1,0 +1,77 @@
+apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+kind: KubeadmConfigTemplate
+metadata:
+  name: cuongdm3-nodegroup-12                                                      # (1) MUST follow to this format <[value from (1)@control-plane.yaml]-[free to fill]>
+  namespace: default                                                          # MUST be same with (2)@control-plane.yaml
+spec:
+  template:
+    spec:
+      files: []
+      joinConfiguration:
+        nodeRegistration:
+          kubeletExtraArgs:
+            cloud-provider: external
+            provider-id: vngcloud:///'{{ instance_id }}'
+            node-labels: "cluster=vks-cluster"                                 # Define the list of LABELS that user want to assign to this nodegroyp [optional]
+          taints:                                                              # Define the list of TAINTS that user want to assign to this nodegroup [optional]
+            - effect: "NoSchedule"
+              key: "cluster"
+              value: "true"
+          name: '{{ local_hostname }}'
+---
+
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: VngCloudMachineTemplate
+metadata:
+  name: cuongdm3-nodegroup-12                                                          # MUST be same with (1)
+  namespace: default                                                              # MUST be same with (2)@control-plane.yaml
+spec:
+  template:
+    spec:
+      cloudName: vngcloud
+      flavor: flav-578e2030-154e-45db-ac5a-72c7c7f70e47
+      imageID: img-a98db89e-ef87-44fd-9567-f1877cbd4cd2                                                           # The flavor name, CAN be relace by the flavor name result from the command `openstack flavor list`
+      subnetID: sub-403b36d2-39fc-47c4-b40b-8df0ecb71045
+      identityRef:
+        kind: Secret
+        name: vks-cluster-cloud-config-secret
+      rootDiskTypeID: vtype-7a7a8610-34f5-11ee-be56-0242ac120002                                             # Specify the image of Kubernetes v1.27.0 for the entire minions of this nodegroup, CAN be get from the command `openstack image list | grep ubuntu-2204`
+      rootDiskSize: 100
+---
+
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: cuongdm3-nodegroup-12                                                          # MUST be same with (1)
+  namespace: default
+  annotations:
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "3"              # This annotation will be used in auto-scaling feature, this tells the MAXIMUM node can be scaled for this nodegroup
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "0"              # This annotation will be used in auto-scaling feature, this tells the MINIMUM node can be scaled for this nodegroup
+spec:
+  clusterName: cuongdm3                                                        # MUST be same with (1)@control-plane.yaml
+  replicas: 1                                                                     # The number initialized minions of this nodegroup
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      cluster: cuongdm3                                                        # MUST be same with (1)@control-plane.yaml
+  template:
+    metadata:
+      labels:
+        cluster: cuongdm3                                                      # MUST be same with (1)@control-plane.yaml
+    spec:
+      bootstrap:
+        configRef:
+          apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+          kind: KubeadmConfigTemplate
+          name: cuongdm3-nodegroup-12                                                  # MUST be same with (1)
+      clusterName: cuongdm3                                                    # MUST be same with (1)@control-plane.yaml
+      failureDomain: nova
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+        kind: VngCloudMachineTemplate
+        name: cuongdm3-nodegroup-12                                                    # MUST be same with (1)
+      version: v1.27.0

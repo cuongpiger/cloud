@@ -13,7 +13,7 @@ metadata:
 spec:
   cloudName: vngcloud                               # The configuration name in the clouds.yaml file
   network:
-    id: net-ef3a97fc-xxxx-xxxx-xxxx-9cdbcc1dd80b    # The network UUID
+    id: net-ef3a97fc-3d82-4356-b1d8-9cdbcc1dd80b    # The network UUID
   identityRef:
     kind: Secret
     name: vks-cluster-cloud-config-secret           # The secret name

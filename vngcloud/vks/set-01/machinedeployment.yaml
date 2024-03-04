@@ -1,7 +1,7 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
-  name: cuongdm3-nodegroup-0                                                          # MUST be same with (1)
+  name: cuongdm3-nodegroup-3                                                          # MUST be same with (1)
   namespace: default
   annotations:
     cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "3"              # This annotation will be used in auto-scaling feature, this tells the MAXIMUM node can be scaled for this nodegroup
@@ -26,11 +26,11 @@ spec:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: KubeadmConfigTemplate
-          name: cuongdm3-nodegroup-0                                                  # MUST be same with (1)
+          name: cuongdm3-nodegroup-4                                                  # MUST be same with (1)
       clusterName: cuongdm3                                                    # MUST be same with (1)@control-plane.yaml
       failureDomain: nova
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
         kind: VngCloudMachineTemplate
-        name: cuongdm3-nodegroup-0                                                    # MUST be same with (1)
+        name: cuongdm3-nodegroup-4                                                    # MUST be same with (1)
       version: v1.27.0
