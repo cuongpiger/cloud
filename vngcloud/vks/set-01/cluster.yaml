@@ -1,0 +1,25 @@
+####################################################################################################
+# Author: Cuong. Duong Manh <cuongdm3@vng.com.vn>
+# Description: The middle layer to interact between the control plane and the infrastructure
+# File: cluster.yaml
+####################################################################################################
+
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: cuongdm3                                             # (1) The workload cluster name
+  namespace: default                                         # (2) The project ID from the portal, MUST be same on the whole resources of workload cluster
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - 192.168.0.0/16
+    serviceDomain: cluster.local
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1alpha1
+    kind: VngCloudControlPlane
+    name: cuongdm3-control-plane                             # (3) MUST follow this format <[value of (1)]-control-plane>
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: VngCloudCluster
+    name: cuongdm3

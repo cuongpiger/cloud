@@ -1,0 +1,19 @@
+####################################################################################################
+# Author: Cuong. Duong Manh <cuongdm3@vng.com.vn
+# Description: Deploy a VngCloud Kubernetes Service (VKS) cluster, this component will interact with
+#   the VngCloud API to create the cluster.
+# File: vngcloudcluster.yaml
+####################################################################################################
+
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: VngCloudCluster
+metadata:
+  name: cuongdm3                                    # The cluster name
+  namespace: default                                # The project UUID
+spec:
+  cloudName: vngcloud                               # The configuration name in the clouds.yaml file
+  network:
+    id: net-ef3a97fc-xxxx-xxxx-xxxx-9cdbcc1dd80b    # The network UUID
+  identityRef:
+    kind: Secret
+    name: vks-cluster-cloud-config-secret           # The secret name

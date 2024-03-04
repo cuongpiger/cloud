@@ -1,0 +1,36 @@
+####################################################################################################
+# Author: Cuong. Duong Manh <cuongdm3@vng.com.vn>
+# Description: Deploy a control plane for a VngCloud Kubernetes Service (VKS) cluster.
+# File: vngcloudcontrolplane.yaml
+####################################################################################################
+
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha1
+kind: VngCloudControlPlane
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: vks-cluster
+  name: cuongdm3-control-plane
+  namespace: default
+spec:
+  apiServer:
+    extraArgs:
+      - --cloud-provider=external
+  controllerManager:
+    extraArgs:
+      - --cloud-provider=external
+  dataStoreName: default
+  addons:
+    coreDNS: { }
+    kubeProxy: { }
+    konnectivity: { }
+  kubelet:
+    cgroupfs: systemd
+    preferredAddressTypes:
+    - ExternalIP
+    - InternalIP
+    - Hostname
+  network:
+    serviceType: LoadBalancer
+  registry: vcr.vngcloud.vn/81-vks-public
+  replicas: 3
+  version: 1.27.0
