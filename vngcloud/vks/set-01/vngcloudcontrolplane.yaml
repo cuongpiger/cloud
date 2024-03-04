@@ -8,7 +8,7 @@ apiVersion: controlplane.cluster.x-k8s.io/v1alpha1
 kind: VngCloudControlPlane
 metadata:
   labels:
-    cluster.x-k8s.io/cluster-name: vks-cluster
+    cluster.x-k8s.io/cluster-name: cuongdm3
   name: cuongdm3-control-plane
   namespace: default
 spec:

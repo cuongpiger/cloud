@@ -1,0 +1,23 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: VngCloudMachineTemplate
+metadata:
+  name: cuongdm3-nodegroup-0                                                          # MUST be same with (1)
+  namespace: default                                                              # MUST be same with (2)@control-plane.yaml
+spec:
+  template:
+    spec:
+      ports:
+        - network:
+            id: 0f5b5e31-be28-4350-b9c2-1a8e0acdb021                              # MUST replace this value following the VPC UUID of the control-plane
+          fixedIPs:
+            - subnet:
+                id: 230aa7a1-7ce7-4525-93f9-0a444a0527a0                          # MUST replace this value following the Subnet UUID of the control-plane, this subnet MUST belongs to the above VPC
+      cloudName: vngcloud
+      flavor: flav-578e2030-154e-45db-ac5a-72c7c7f70e47
+      image:
+        id: img-a98db89e-ef87-44fd-9567-f1877cbd4cd2                                                           # The flavor name, CAN be relace by the flavor name result from the command `openstack flavor list`
+      identityRef:
+        kind: Secret
+        name: vks-cluster-cloud-config
+      rootDiskTypeID: vtype-7a7a8610-34f5-11ee-be56-0242ac120002                                             # Specify the image of Kubernetes v1.27.0 for the entire minions of this nodegroup, CAN be get from the command `openstack image list | grep ubuntu-2204`
+      rootDiskSize: 100  
