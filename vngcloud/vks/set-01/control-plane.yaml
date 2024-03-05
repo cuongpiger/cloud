@@ -1,0 +1,65 @@
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha1
+kind: VngCloudControlPlane
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: cuongdm4
+  name: cuongdm4-control-plane
+  namespace: default
+spec:
+  apiServer:
+    extraArgs:
+      - --cloud-provider=external
+  controllerManager:
+    extraArgs:
+      - --cloud-provider=external
+  dataStoreName: default
+  addons:
+    coreDNS: { }
+    kubeProxy: { }
+    konnectivity: { }
+  kubelet:
+    cgroupfs: systemd
+    preferredAddressTypes:
+    - ExternalIP
+    - InternalIP
+    - Hostname
+  network:
+    serviceType: LoadBalancer
+  registry: vcr.vngcloud.vn/81-vks-public
+  replicas: 3
+  version: 1.27.0
+---
+
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: VngCloudCluster
+metadata:
+  name: cuongdm4                                    # The cluster name
+  namespace: default                                # The project UUID
+spec:
+  cloudName: vngcloud                               # The configuration name in the clouds.yaml file
+  network:
+    id: net-ef3a97fc-3d82-4356-b1d8-9cdbcc1dd80b    # The network UUID
+  identityRef:
+    kind: Secret
+    name: vks-cluster-cloud-config-secret           # The secret name
+---
+
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: cuongdm4                                             # (1) The workload cluster name
+  namespace: default                                         # (2) The project ID from the portal, MUST be same on the whole resources of workload cluster
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - 192.168.0.0/16
+    serviceDomain: cluster.local
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1alpha1
+    kind: VngCloudControlPlane
+    name: cuongdm4-control-plane                             # (3) MUST follow this format <[value of (1)]-control-plane>
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: VngCloudCluster
+    name: cuongdm4

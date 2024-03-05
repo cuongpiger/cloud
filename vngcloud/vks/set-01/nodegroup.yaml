@@ -1,7 +1,7 @@
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfigTemplate
 metadata:
-  name: cuongdm3-nodegroup-12                                                      # (1) MUST follow to this format <[value from (1)@control-plane.yaml]-[free to fill]>
+  name: cuongdm3-nodegroup-13                                                      # (1) MUST follow to this format <[value from (1)@control-plane.yaml]-[free to fill]>
   namespace: default                                                          # MUST be same with (2)@control-plane.yaml
 spec:
   template:
@@ -23,7 +23,7 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: VngCloudMachineTemplate
 metadata:
-  name: cuongdm3-nodegroup-12                                                          # MUST be same with (1)
+  name: cuongdm3-nodegroup-13                                                          # MUST be same with (1)
   namespace: default                                                              # MUST be same with (2)@control-plane.yaml
 spec:
   template:
@@ -42,13 +42,13 @@ spec:
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
-  name: cuongdm3-nodegroup-12                                                          # MUST be same with (1)
+  name: cuongdm3-nodegroup-13                                                          # MUST be same with (1)
   namespace: default
   annotations:
     cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "3"              # This annotation will be used in auto-scaling feature, this tells the MAXIMUM node can be scaled for this nodegroup
     cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "0"              # This annotation will be used in auto-scaling feature, this tells the MINIMUM node can be scaled for this nodegroup
 spec:
-  clusterName: cuongdm3                                                        # MUST be same with (1)@control-plane.yaml
+  clusterName: cuongdm4                                                        # MUST be same with (1)@control-plane.yaml
   replicas: 1                                                                     # The number initialized minions of this nodegroup
   strategy:
     rollingUpdate:
@@ -57,21 +57,21 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      cluster: cuongdm3                                                        # MUST be same with (1)@control-plane.yaml
+      cluster: cuongdm4                                                        # MUST be same with (1)@control-plane.yaml
   template:
     metadata:
       labels:
-        cluster: cuongdm3                                                      # MUST be same with (1)@control-plane.yaml
+        cluster: cuongdm4                                                      # MUST be same with (1)@control-plane.yaml
     spec:
       bootstrap:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: KubeadmConfigTemplate
-          name: cuongdm3-nodegroup-12                                                  # MUST be same with (1)
-      clusterName: cuongdm3                                                    # MUST be same with (1)@control-plane.yaml
+          name: cuongdm3-nodegroup-13                                                  # MUST be same with (1)
+      clusterName: cuongdm4                                                    # MUST be same with (1)@control-plane.yaml
       failureDomain: nova
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
         kind: VngCloudMachineTemplate
-        name: cuongdm3-nodegroup-12                                                    # MUST be same with (1)
+        name: cuongdm3-nodegroup-13                                                    # MUST be same with (1)
       version: v1.27.0
